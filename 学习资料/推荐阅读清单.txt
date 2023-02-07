@@ -3,3 +3,5 @@ Kafka技术内幕：图文详解Kafka源码设计与实现  https://www.kdocs.cn
 操作系统精髓与设计原理 第六版  https://kdocs.cn/l/cc49FKQ2zz3N
 鸟哥的linux私房菜_基础学习篇（第三版）https://kdocs.cn/l/conHVe04mWxs
 鸟哥的Linux私房菜服务器架设篇(第三版)   https://kdocs.cn/l/cv67Uc7x0je5
+图解HTTP 彩色版  https://kdocs.cn/l/crKN08f84QUY
+图解TCP_IP_第5版 https://kdocs.cn/l/ct9Noq0rLmVF
