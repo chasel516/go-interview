@@ -5,3 +5,5 @@ MySQL数据库开发的三十六条军规(石展)完整 https://kdocs.cn/l/cqawl
 Redis开发与运维(完整版)  https://kdocs.cn/l/cnQE9zlRCLSY
 图解操作系统  https://kdocs.cn/l/calYmb1lmTw3
 图解网络-v2.0 https://kdocs.cn/l/ch7WfRUh1CCX
+鸟哥的linux私房菜_基础学习篇（第三版）https://kdocs.cn/l/conHVe04mWxs
+Golang101    https://kdocs.cn/l/ckFqhLPupfnA
