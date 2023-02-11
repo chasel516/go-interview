@@ -7,4 +7,10 @@ Redis开发与运维(完整版)  https://kdocs.cn/l/cnQE9zlRCLSY
 图解网络-v2.0 https://kdocs.cn/l/ch7WfRUh1CCX
 鸟哥的linux私房菜_基础学习篇（第三版）https://kdocs.cn/l/conHVe04mWxs
 Golang101    https://kdocs.cn/l/ckFqhLPupfnA
+Golang面试题120天 https://kdocs.cn/l/cf7Qozb1G880
 超全算法笔试-面试宝典 https://kdocs.cn/l/cnXTxJ6SE4vJ
+Go程序员面试 算法宝典 https://kdocs.cn/l/cpWhEWB4ksVA
+贪心算法专题精讲v2.0 https://kdocs.cn/l/cvIfKb76uVFx
+回溯算法精讲v2.0 https://kdocs.cn/l/cirnZStzOewZ
+二叉树专题精讲v2.0 https://kdocs.cn/l/cb6fje6l8Uxg
+动态规划专题精讲v2.0 https://kdocs.cn/l/ciaAZEysQjoD
