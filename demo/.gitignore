@@ -1,0 +1,7 @@
+*.exe
+docs/_build/
+.idea
+*.exe~
+*.pyc
+*.log
+.vscode/
