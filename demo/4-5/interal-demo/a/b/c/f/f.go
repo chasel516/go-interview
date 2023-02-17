@@ -1,4 +1,4 @@
-package c
+package f
 
 import (
 	"fmt"
@@ -7,7 +7,7 @@ import (
 )
 
 func f() {
-	//internal父级目录下的包可以访问internal目录内部的包
+	//internal同级目录下的包可以访问internal目录内部的包
 	fmt.Println(d.D)
 	fmt.Println(e.E)
 }

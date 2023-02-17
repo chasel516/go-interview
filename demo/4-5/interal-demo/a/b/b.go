@@ -1,13 +1,13 @@
-package c
+package b
 
 import (
 	"fmt"
+	//internal父级目录的父目录下的包不可以访问internal目录内部的包
 	"internal-demo/a/b/c/internal/d"
 	"internal-demo/a/b/c/internal/d/e"
 )
 
 func f() {
-	//internal父级目录下的包可以访问internal目录内部的包
 	fmt.Println(d.D)
 	fmt.Println(e.E)
 }
