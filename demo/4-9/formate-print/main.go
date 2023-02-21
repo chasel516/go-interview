@@ -13,6 +13,19 @@ func (s *S) String() string {
 	return fmt.Sprintf("${Id:%v,Name:%v}", s.Id, *s.Name)
 }
 
+//不能直接在String()方法中格式化输出s本身,否则会抛出堆栈溢出的异常
+//runtime: goroutine stack exceeds 1000000000-byte limit
+//runtime: sp=0xc020160458 stack=[0xc020160000, 0xc040160000]
+//fatal error: stack overflow
+//func (s *S) String() string {
+//	return fmt.Sprintf("%+v", s)
+//}
+
+//func (s *S) String() string {
+//	bytes, _ := json.Marshal(s)
+//	return string(bytes)
+//}
+
 type M map[string]*S
 
 func main() {
