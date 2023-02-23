@@ -1,3 +1,3 @@
 module gitee.com/phper95/pkg1
 
-go 1.16
+go 1.20
