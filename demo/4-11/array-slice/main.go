@@ -84,6 +84,20 @@ func main() {
 	//array1和array2指向了不同的地址
 	fmt.Printf("array1 ptr:%p;array2 ptr:%p\n", &array1, &array2)
 
+	//1.通过make申请
+	var s6 = make([]int, 100)
+
+	//2.初始化第100个元素
+	var s7 = []int{99: 0}
+
+	//3.先创建一个容量为100的数组取其地址后再截取全部元素作为切片
+	var s8 = (&[100]int{})[:]
+
+	//4.通过new创建一个容量为100的数组，再取全部元素
+	var s9 = new([100]int)[:]
+	// 100 100 100 100
+	println(len(s6), len(s7), len(s8), len(s9)) //100 100 100 100
+
 	//数组的字面量有下面几种表示方式：
 	a1 := [4]string{"a", "b", "c", "d"}
 	fmt.Println("a1:", a1)
