@@ -17,4 +17,5 @@ func main() {
 	*/
 	fmt.Println(pkg2.Pkg2)
 	fmt.Println(pkg3.Pkg3)
+	//fmt.Println("main.init:", config.GetConfig())
 }
