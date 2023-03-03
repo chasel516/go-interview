@@ -25,7 +25,7 @@ func (ts1 TestStruct1) Test1() {
 }
 
 func (ts1 TestStruct1) test2() {
-
+	fmt.Println(testConst2)
 }
 
 func (ts2 testStruct2) Test21() {
