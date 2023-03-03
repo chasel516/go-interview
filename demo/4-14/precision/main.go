@@ -4,22 +4,13 @@ import (
 	"fmt"
 	"math"
 	"reflect"
+	"strconv"
 )
 
 func main() {
-	var a int = 1.0
-	fmt.Println(reflect.TypeOf(a))
-
-	var b int = 'x'
-	fmt.Println(b, reflect.TypeOf(b))
-
-	c := 1.0
-	fmt.Println(reflect.TypeOf(c))
-
-	var x float64 = 0.3
-	var y float64 = 0.6
-	fmt.Println(x + y)
-
+	fmt.Println(strconv.IntSize)
+	fmt.Println(math.MaxInt16) //32767
+	fmt.Println(math.MinInt16) //-32768
 	//如果使用常量，这种情况就不会发生精度损失。
 	const c1 = 0.3
 	const c2 = 0.6
@@ -36,6 +27,9 @@ func main() {
 	fmt.Println(math.Float32frombits(1 << 31))
 
 	//浮点数不满足结合率
+
+	var x = 0.3
+	var y = 0.6
 	var z float64 = 0.1
 	fmt.Println("(x+y)+z:", (x+y)+z, "x+(y+z):", x+(y+z))
 

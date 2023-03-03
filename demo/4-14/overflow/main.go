@@ -4,18 +4,32 @@ import (
 	"fmt"
 	"log"
 	"math"
+	"reflect"
 )
 
 func main() {
+	var a int = 1.0
+	fmt.Println(reflect.TypeOf(a))
 
-	var x1 uint64 = math.MaxUint64 - 1
-	var y1 uint64 = 2
-	//内存数量不足，导致产生无符号整数反转现象
+	b := 1.0
+	fmt.Println(reflect.TypeOf(b))
+
+	var c int = 'x'
+	fmt.Println(c, reflect.TypeOf(c))
+
+	var x = 0.3
+	var y = 0.6
+	fmt.Println(x + y)
+
+	var x1 uint64 = math.MaxUint64
+	var y1 uint64 = 1
+
+	//整型溢出，导致产生无符号整数反转现象
 	addUint(x1, y1)
 
 	//有符号整数运算时出现溢出
-	var x2 int32 = math.MaxInt32 - 1
-	var y2 int32 = 2
+	var x2 int32 = math.MaxInt32
+	var y2 int32 = 1
 	addInt(x2, y2)
 
 	var x3 int32 = math.MaxInt32
@@ -39,8 +53,15 @@ func main() {
 }
 
 func addUint(x, y uint64) {
+	/**
+	 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111
+	 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0001
+	10000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000
+	*/
+
 	sum := x + y
 	fmt.Println("addUint:", sum)
+	fmt.Printf("addUint %b \n", sum)
 }
 
 func safeAddUint(x, y uint64) {
