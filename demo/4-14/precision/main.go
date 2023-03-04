@@ -1,7 +1,5 @@
 package main
 
-import "fmt"
-
 func main() {
 	//fmt.Println(strconv.IntSize)
 	//fmt.Println(math.MaxInt16) //32767
@@ -34,11 +32,11 @@ func main() {
 	//fmt.Printf("%.2f\n", 9.8250)
 	//fmt.Printf("%.2f\n", 9.8251)
 
-	fmt.Printf("%f\n", float32(1)/float32(3)) //0.333333
-	fmt.Printf("%f\n", float32(1/3))          //0.000000
+	//fmt.Printf("%f\n", float32(1)/float32(3)) //0.333333
+	//fmt.Printf("%f\n", float32(1/3))          //0.000000
 
-	var f1 float32 = -1.123456789
-	f2 := -1.123456789
-	fmt.Println("f1:", f1, "f2:", f2) //f1: -1.1234568 f2: -1.123456789
+	//var f1 float32 = -1.123456789
+	//f2 := -1.123456789
+	//fmt.Println("f1:", f1, "f2:", f2) //f1: -1.1234568 f2: -1.123456789
 
 }
