@@ -43,6 +43,7 @@ func GetWorkPathByExec() {
 }
 
 func GetWorkPathByEnv() {
-	os.Getenv("GOPATH")
-	os.Getenv("APPPATH")
+	fmt.Println(os.Getenv("GOPATH"))
+	fmt.Println(os.Getenv("APPPATH"))
+	fmt.Println(os.Getenv("HOME"))
 }
