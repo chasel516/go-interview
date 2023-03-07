@@ -35,3 +35,12 @@ func (ts2 testStruct2) Test21() {
 func (ts2 testStruct2) test21() {
 	fmt.Println(testConst2)
 }
+
+func f() {
+	fmt.Println(testConst2, tesVer2)
+	t := testStruct2{
+		Field1: "we",
+		field2: "lee",
+	}
+	t.test21()
+}
