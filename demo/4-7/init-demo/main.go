@@ -2,7 +2,6 @@ package main
 
 import (
 	. "fmt"
-	"init-demo/pkg"
 	"init-demo/pkg1"
 	"init-demo/pkg2"
 )
@@ -40,7 +39,7 @@ func main() {
 
 
 	*/
-	println(pkg.Pkg)
+	//println(pkg.Pkg)
 	println(pkg1.Pkg1)
 	println(pkg2.Pkg2)
 
