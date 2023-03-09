@@ -29,27 +29,40 @@ func (s *S) String() string {
 type M map[string]*S
 
 func main() {
-	name1 := "name1"
-	name2 := "name2"
-	s1 := S{
-		Name: &name1,
-		Id:   1,
-	}
+	fmt.Printf("%b \n", 1000.123456789)
+	fmt.Printf("%f \n", 1000.1)
+	fmt.Printf("%f\n", float64(1000)) //1000.000000
+	fmt.Printf("%.2f \n", 1000.123456789)
+	fmt.Printf("%e\n", 1000.1234567898)   //1.000123e+03
+	fmt.Printf("%.5e\n", 1000.1234567898) //1.00012e+03
+	fmt.Printf("%.E\n", 1000.1234567898)  //1E+03
+	fmt.Printf("%.5E\n", 1000.1234567898) //1.00012E+03
+	fmt.Printf("%.5E\n", float64(1000))   //1.00000E+03
+	fmt.Printf("%F \n", 1000.123456789)
+	fmt.Printf("%g \n", 1000.123456789)
+	fmt.Printf("%G \n", 1000.123456789)
 
-	s2 := &S{
-		Name: &name2,
-		Id:   2,
-	}
-	m := make(map[string]*S)
-	m["m1"] = &s1
-	m["m2"] = s2
+	//name1 := "name1"
+	//name2 := "name2"
+	//s1 := S{
+	//	Name: &name1,
+	//	Id:   1,
+	//}
+	//
+	//s2 := &S{
+	//	Name: &name2,
+	//	Id:   2,
+	//}
+	//m := make(map[string]*S)
+	//m["m1"] = &s1
+	//m["m2"] = s2
 
 	//S2声明的时候使用了地址，所以会调用String方法
-	fmt.Printf("s1 : %v ; s2 : %v ; m: %v \n", s1, s2, m)
-	fmt.Printf("s1 : %+v ;s2 : %v ; m: %+v \n", s1, s2, m)
-	fmt.Printf("s1 : %#v ;s2 : %v ; m: %#v \n", s1, s2, m)
+	//fmt.Printf("s1 : %v ; s2 : %v ; m: %v \n", s1, s2, m)
+	//fmt.Printf("s1 : %+v ;s2 : %v ; m: %+v \n", s1, s2, m)
+	//fmt.Printf("s1 : %#v ;s2 : %v ; m: %#v \n", s1, s2, m)
 
 	//输出百分数且保留2位小数 (%在)
-	fmt.Printf("%.2f%% \n", 99.99)
+	//fmt.Printf("%.2f%% \n", 99.99)
 
 }
