@@ -1,68 +1,35 @@
 package main
 
-import (
-	"fmt"
-)
-
-type S struct {
-	Name *string
-	Id   int
-}
-
-func (s *S) String() string {
-	return fmt.Sprintf("${Id:%v,Name:%v}", s.Id, *s.Name)
-}
-
-//不能直接在String()方法中格式化输出s本身,否则会抛出堆栈溢出的异常
-//runtime: goroutine stack exceeds 1000000000-byte limit
-//runtime: sp=0xc020160458 stack=[0xc020160000, 0xc040160000]
-//fatal error: stack overflow
-//func (s *S) String() string {
-//	return fmt.Sprintf("%+v", s)
-//}
-
-//func (s *S) String() string {
-//	bytes, _ := json.Marshal(s)
-//	return string(bytes)
-//}
-
-type M map[string]*S
+import "fmt"
 
 func main() {
-	fmt.Printf("%b \n", 1000.123456789)
-	fmt.Printf("%f \n", 1000.1)
-	fmt.Printf("%f\n", float64(1000)) //1000.000000
-	fmt.Printf("%.2f \n", 1000.123456789)
-	fmt.Printf("%e\n", 1000.1234567898)   //1.000123e+03
-	fmt.Printf("%.5e\n", 1000.1234567898) //1.00012e+03
-	fmt.Printf("%.E\n", 1000.1234567898)  //1E+03
-	fmt.Printf("%.5E\n", 1000.1234567898) //1.00012E+03
-	fmt.Printf("%.5E\n", float64(1000))   //1.00000E+03
-	fmt.Printf("%F \n", 1000.123456789)
-	fmt.Printf("%g \n", 1000.123456789)
-	fmt.Printf("%G \n", 1000.123456789)
+	//布尔类型
+	//ok := true
+	//fmt.Printf("%s,%t \n", ok, ok)
 
-	//name1 := "name1"
-	//name2 := "name2"
-	//s1 := S{
-	//	Name: &name1,
-	//	Id:   1,
-	//}
-	//
-	//s2 := &S{
-	//	Name: &name2,
-	//	Id:   2,
-	//}
-	//m := make(map[string]*S)
-	//m["m1"] = &s1
-	//m["m2"] = s2
+	//整数类型
+	fmt.Printf("%T, %d \n", 123456789, 123456789)   //int, 123456789
+	fmt.Printf("%T, %5d \n", 123456789, 123456789)  //int, 123456789
+	fmt.Printf("%T, %05d \n", 123456789, 123456789) //int, 123456789
+	fmt.Printf("%T, %b \n", 123456789, 123456789)   //int, 111010110111100110100010101
+	fmt.Printf("%T, %o \n", 123456789, 123456789)   //int, 726746425
+	fmt.Printf("%T, %c \n", 66, 66)                 //int, B
+	fmt.Printf("%T, %q \n", 66, 66)                 //int, 'B'
+	fmt.Printf("%T, %x \n", 123456789, 123456789)
+	fmt.Printf("%T, %X \n", 123456789, 123456789)
+	fmt.Printf("%T, %U \n", '中', '中')
 
-	//S2声明的时候使用了地址，所以会调用String方法
-	//fmt.Printf("s1 : %v ; s2 : %v ; m: %v \n", s1, s2, m)
-	//fmt.Printf("s1 : %+v ;s2 : %v ; m: %+v \n", s1, s2, m)
-	//fmt.Printf("s1 : %#v ;s2 : %v ; m: %#v \n", s1, s2, m)
-
-	//输出百分数且保留2位小数 (%在)
-	//fmt.Printf("%.2f%% \n", 99.99)
-
+	//浮点型
+	//fmt.Printf("%b \n", 1000.123456789) //8797178959608267p-43
+	//fmt.Printf("%f \n", 1000.1)
+	//fmt.Printf("%f\n", float64(1000)) //1000.000000
+	//fmt.Printf("%.2f \n", 1000.123456789)
+	//fmt.Printf("%e\n", 1000.1234567898)   //1.000123e+03
+	//fmt.Printf("%.5e\n", 1000.1234567898) //1.00012e+03
+	//fmt.Printf("%.E\n", 1000.1234567898)  //1E+03
+	//fmt.Printf("%.5E\n", 1000.1234567898) //1.00012E+03
+	//fmt.Printf("%.5E\n", float64(1000))   //1.00000E+03
+	//fmt.Printf("%F \n", 1000.123456789)
+	//fmt.Printf("%g \n", 1000.123456789)
+	//fmt.Printf("%G \n", 1000.123456789)
 }
