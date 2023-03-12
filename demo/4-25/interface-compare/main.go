@@ -46,12 +46,12 @@ func main() {
 	//println("b=", b, "d=", d) //b= (0xe116c0,0xc000043f68) d= (0xe11740,0xc000043f64)
 	//println("b==d?", b == d)  //b==d? false
 
-	var e error
-	var emptyI interface{}                  // 空接口类型
-	println("e = nil:", e == nil)           //e = nil: true
-	println("emptyI = nil:", emptyI == nil) //emptyI = nil: true
-	println("e :", e, "emptyI", emptyI)     //e : (0x0,0x0) emptyI (0x0,0x0)
-	println("e==emptyI", e == emptyI)       //e==emptyI true
+	//var e error
+	//var emptyI interface{}                  // 空接口类型
+	//println("e = nil:", e == nil)           //e = nil: true
+	//println("emptyI = nil:", emptyI == nil) //emptyI = nil: true
+	//println("e :", e, "emptyI", emptyI)     //e : (0x0,0x0) emptyI (0x0,0x0)
+	//println("e==emptyI", e == emptyI)       //e==emptyI true
 }
 
 func read() error {
