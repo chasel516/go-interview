@@ -1,21 +1,22 @@
 package main
 
-import (
-	"bufio"
-	"fmt"
-	"os"
-)
+//var (
+//	appName string
+//	version string
+//)
 
 func main() {
 	//布尔类型
 	//ok := true
-	//fmt.Printf("%s,%t \n", ok, ok)
+	//fmt.Printf("%T,%t \n", ok, ok)
 
 	//var r rune = 65
-	//整数类型
+	////整数类型
 	//fmt.Printf("%T, %d \n", 123456789, 123456789)   //int, 123456789
 	//fmt.Printf("%T, %5d \n", 123456789, 123456789)  //int, 123456789
+	//fmt.Printf("%T, %5d \n", 12, 12)                //int,    12
 	//fmt.Printf("%T, %05d \n", 123456789, 123456789) //int, 123456789
+	//fmt.Printf("%T, %05d \n", 12, 12)               //int, 00012
 	//fmt.Printf("%T, %b \n", 123456789, 123456789)   //int, 111010110111100110100010101
 	//fmt.Printf("%T, %o \n", 123456789, 123456789)   //int, 726746425
 	//fmt.Printf("%T, %c \n", 66, 66)                 //int, B
@@ -24,25 +25,27 @@ func main() {
 	//fmt.Printf("%T, %X \n", 123456789, 123456789)   //int, 75BCD15
 	//fmt.Printf("%T, %U \n", '中', '中')               //int32, U+4E2D //字符的字面量是rune类型
 	//fmt.Printf("%T, %v ,%s \n", r, r, string(r))    //int32, 65 ,A
-	//fmt.Printf("%T, %c \n", r, r) //int32 ,A
+	//fmt.Printf("%T, %c \n", r, r)                   //int32 ,A
 
-	//
-	//var s = "AB"
+	//var s = "面试"
 	//fmt.Println(s[0])
 	//for i, item := range s {
 	//	//0 : A
 	//	//1 : B
-	//	fmt.Println(i, ":", string(item))
+	//	fmt.Println(i, ":", item)
+	//	fmt.Printf("i:%c\n", item)
 	//}
 
 	//浮点型
 	//fmt.Printf("%b \n", 1000.123456789)   //8797178959608267p-43
-	//fmt.Printf("%f \n", 1000.123456789)   //1000.000000
+	//fmt.Printf("%f \n", 1000.123456789)   //1000.123457
 	//fmt.Printf("%f\n", 1000.0)            //1000.000000
 	//fmt.Printf("%.2f \n", 1000.123456789) //1000.12
+	//fmt.Printf("%.2f \n", 1000.125)       //1000.12
+	//fmt.Printf("%.2f \n", 1000.126)       //1000.13
 	//fmt.Printf("%e\n", 1000.1234567898)   //1.000123e+03
 	//fmt.Printf("%.5e\n", 1000.1234567898) //1.00012e+03
-	//fmt.Printf("%.E\n", 1000.1234567898)  //1E+03
+	//fmt.Printf("%E\n", 1000.1234567898)   //1E+03
 	//fmt.Printf("%.5E\n", 1000.1234567898) //1.00012E+03
 	//fmt.Printf("%F \n", 1000.123456789)   //1000.123457
 	//fmt.Printf("%g \n", 1000.123456789)   //1000.123456789
@@ -108,10 +111,12 @@ func main() {
 	//fmt.Scanln(&version)
 	//fmt.Printf("fmt.Scan appName:%s version:%d \n", appName, version)
 
-	reader := bufio.NewReader(os.Stdin) // 从标准输入生成读对象
-	fmt.Println("请输入：")
-	text, _ := reader.ReadString('\n') // 读到换行
+	//reader := bufio.NewReader(os.Stdin) // 从标准输入生成读对象
+	//fmt.Println("请输入：")
+	//text, _ := reader.ReadString('\n') // 读到换行
 	//text, _ := reader.ReadString(' ') // 读到换行
-	fmt.Println(text)
+	//fmt.Println(text)
 
+	//go run -ldflags "-X 'main.appName=test' -X 'main.version=1'" main.go
+	//fmt.Printf("appName:%s version:%s \n", appName, version)
 }
