@@ -1,9 +1,11 @@
 package main
 
-//var (
-//	appName string
-//	version string
-//)
+import "fmt"
+
+var (
+	appName string
+	version string
+)
 
 func main() {
 	//布尔类型
@@ -89,34 +91,26 @@ func main() {
 	//fmt.Printf("fmt.Scan appName:%s version:%d \n", appName, version)
 
 	//Scanf
-	//var (
-	//	appName string
-	//	version int
-	//)
-	//fmt.Println("请输入name=")
-	//fmt.Scanf("name=%s", &appName)
-	//fmt.Println("请输入ver=")
-	//fmt.Scanf("ver=%d", &version)
-	//fmt.Printf("fmt.Scan appName:%s version:%d \n", appName, version)
+	//_, err := fmt.Scanf("name=%s ver=%s", &appName, &version)
+	//if err != nil {
+	//	fmt.Println(err)
+	//}
+	//fmt.Printf("fmt.Scanf appName:%s version:%s \n", appName, version)
 
 	//Scanln
-	//var (
-
-	//	appName string
-	//	version int
-	//)
 	//fmt.Println("请输入name")
 	//fmt.Scanln(&appName)
 	//fmt.Println("请输入version")
 	//fmt.Scanln(&version)
-	//fmt.Printf("fmt.Scan appName:%s version:%d \n", appName, version)
+	//fmt.Printf("fmt.Scan appName:%s version:%s \n", appName, version)
 
 	//reader := bufio.NewReader(os.Stdin) // 从标准输入生成读对象
 	//fmt.Println("请输入：")
 	//text, _ := reader.ReadString('\n') // 读到换行
-	//text, _ := reader.ReadString(' ') // 读到换行
+	////text, _ := reader.ReadString(' ') // 读到换行
 	//fmt.Println(text)
 
 	//go run -ldflags "-X 'main.appName=test' -X 'main.version=1'" main.go
-	//fmt.Printf("appName:%s version:%s \n", appName, version)
+	//go build -ldflags "-X 'main.appName=test' -X 'main.version=1'" main.go
+	fmt.Printf("appName:%s version:%s \n", appName, version)
 }
