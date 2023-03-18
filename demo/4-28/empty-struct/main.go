@@ -3,9 +3,13 @@ package main
 import (
 	"empty-struct/set"
 	"fmt"
+	"unsafe"
 )
 
 func main() {
+	st := struct{}{} //unsafe.Sizeof.st: 0
+	fmt.Println("unsafe.Sizeof.st:", unsafe.Sizeof(st))
+
 	set1 := map[int]struct{}{1: {}}
 	//set2 := map[int]bool{1: false}
 	//fmt.Println("set1.size:", unsafe.Sizeof(set1[1]), "set2.size:", unsafe.Sizeof(set2[1])) //set1.size: 0 set2.size: 1

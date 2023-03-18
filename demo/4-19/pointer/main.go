@@ -13,6 +13,17 @@ func main() {
 	x = &tmp
 	fmt.Println("x=", x, *x, "y=", y, *y)
 
+	//var a int
+	//ptr := &a
+	//pptr := &ptr
+	//ppptr := &pptr
+	//
+	//fmt.Println("a的地址:", &a)
+	//fmt.Println("ptr存的地址:", ptr)
+	//fmt.Println("pptr存的地址：", pptr)
+	//fmt.Println("ppptr存的地址：", ppptr)
+	//fmt.Println("ppptr存的地址的指向的指向：", **ppptr)
+
 	//a := new([3]int)
 	//fmt.Println(a)
 	//b := 3
@@ -55,6 +66,7 @@ func main() {
 	//fmt.Println(x1 == x6) //不能比较
 	//fmt.Println(x2 == x6) //不能比较
 
+	//fmt.Println("unsafe.Pointer:", unsafe.Pointer(x2) == unsafe.Pointer(x3)) //可以比较
 }
 
 func f1(x int) {
