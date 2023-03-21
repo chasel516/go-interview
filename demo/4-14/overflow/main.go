@@ -15,7 +15,7 @@ func main() {
 	//
 	//var c int = 'x'
 	//fmt.Println(c, reflect.TypeOf(c))
-	//
+
 	//var x = 0.3
 	//var y = 0.6
 	//fmt.Println(x + y)
@@ -34,10 +34,10 @@ func main() {
 	//y3 := 1
 	//fmt.Println("math.MinInt64", math.MinInt64, " x3-y3:", x3-y3)
 
-	//对于常量值，不允许溢出，在编辑阶段就会被阻止
+	//对于常量值，不允许溢出，在运行时阶段就会被阻止
 	//fmt.Println(math.MinInt64 - 1)
 
-	//数值类型转换时需要考虑溢出问题
+	////数值类型转换时需要考虑溢出问题
 	//var x4 int32 = math.MaxInt32
 	//y4 := int16(x4)
 	//fmt.Println("y4:", y4)
@@ -54,7 +54,8 @@ func main() {
 	//}
 
 	//移位操作的位数不够
-	shift(65535, 16)
+	//shift(65535, 16)
+	safeShift(65535, 16)
 
 	//浮点型溢出
 	//x := math.MaxFloat64
@@ -71,7 +72,7 @@ func addUint(x, y uint64) {
 	/**
 	 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111
 	 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0001
-	10000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000
+	00000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000
 	*/
 
 	sum := x + y
@@ -105,6 +106,7 @@ func safeAddInt(x, y int64) {
 }
 
 func shift(x uint16, bits uint8) {
+	fmt.Println("MaxUint16:", math.MaxUint16)
 	fmt.Println("x:", x, "1 << bits:", 1<<bits, " uint16(1<<bits):", uint16(1<<bits))
 	if x > (1 << bits) {
 		fmt.Println("shift ok")

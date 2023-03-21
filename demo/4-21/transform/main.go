@@ -35,6 +35,10 @@ func intFromInterface(selector interface{}) (value int, err error) {
 		value = int(v)
 	case uint:
 		value = int(selector.(uint))
+		if value > maxInt {
+			err = errors.New("convert overflow")
+			return
+		}
 	case uint8:
 		value = int(selector.(uint8))
 	case uint16:

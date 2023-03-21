@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 func main() {
 
 	//错误写法
@@ -50,21 +52,21 @@ func main() {
 	//for key, _ := range slice {
 	//	m[key] = &slice[key]
 	//}
-	////0 -> 0
-	////1 -> 1
-	////2 -> 2
-	////3 -> 3
+	//////0 -> 0
+	//////1 -> 1
+	//////2 -> 2
+	//////3 -> 3
 	//for k, v := range m {
 	//	fmt.Println(k, "->", *v)
 	//}
 
-	//var ap *[3]int
+	var ap *[3]int
 
 	////会导致panic
-	//for i, p := range ap {
-	//	fmt.Println(i, p)
-	//}
-	//
+	for i, p := range ap {
+		fmt.Println(i, p)
+	}
+
 	////舍弃for range的第二个值
 	////不会导致panic
 	//for i, _ := range ap {

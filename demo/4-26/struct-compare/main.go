@@ -1,5 +1,10 @@
 package main
 
+import (
+	"fmt"
+	"unsafe"
+)
+
 type Person1 struct {
 	Name string
 	age  int
@@ -19,10 +24,10 @@ type Person4 struct {
 }
 
 func main() {
-	//p1 := Person1{Name: "test"}
-	//p2 := Person2{Name: "test"}
-	//p3 := Person3{Name: "test"}
-	//fmt.Println("p1.size:", unsafe.Sizeof(p1), "p2.size:", unsafe.Sizeof(p2), "p3.size:", unsafe.Sizeof(p3)) //p1.size: 24 p2.size: 16 p3.size: 16
+	p1 := Person1{Name: "test"}
+	p2 := Person2{Name: "test"}
+	p3 := Person3{Name: "test"}
+	fmt.Println("p1.size:", unsafe.Sizeof(p1), "p2.size:", unsafe.Sizeof(p2), "p3.size:", unsafe.Sizeof(p3)) //p1.size: 24 p2.size: 16 p3.size: 16
 
 	//m := map[Person2]int{}
 	//m1 := map[Person3]int{} //编译错误
@@ -35,15 +40,15 @@ func main() {
 
 	//p4 := Person4{Name: "test"}
 	//fmt.Println("p1==p4?", p1 == p4)
-	//p5 := struct {
-	//	Name string
-	//	age  int
-	//}{}
+	p5 := struct {
+		Name string
+		age  int
+	}{}
 
-	//p6 := struct {
-	//	Name string
-	//	age  int
-	//}{}
-	//p5 = p6
-	//fmt.Println("p5==p6?", p5 == p6)
+	p6 := struct {
+		Name string
+		age  int
+	}{}
+	p5 = p6
+	fmt.Println("p5==p6?", p5 == p6)
 }

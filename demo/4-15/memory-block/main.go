@@ -1,6 +1,7 @@
 package main
 
 func main() {
+	//debug.SetMaxStack(1 << 16)
 	var x int
 	println(&x)
 	getArrValue(1)

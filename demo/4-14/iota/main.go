@@ -1,11 +1,10 @@
 package main
 
-import (
-	"fmt"
-)
+import "fmt"
 
 const (
 	C1 = "msg"
+	Cr = "msg"
 	C2 = iota
 	C3 = iota
 )
@@ -40,8 +39,8 @@ const (
 )
 
 func main() {
-	fmt.Printf("C1:%s, C2:%d, C3:%d, C4:%d, C5:%d \n", C1, C2, C3, C4, C5)
-	fmt.Printf("A:%d, B:%d, C:%d, D:%d, E:%d, F:%d \n", A, B, C, D, E, F)
-	fmt.Printf("Su:%d, Mo:%d, Tu:%d, We:%d, Th:%d, Fr:%d, Sa:%d \n", Su, Mo, Tu, We, Th, Fr, Sa)
+	//fmt.Printf("C1:%s, C2:%d, C3:%d, C4:%d, C5:%d \n", C1, C2, C3, C4, C5)
+	//fmt.Printf("A:%d, B:%d, C:%d, D:%d, E:%d, F:%d \n", A, B, C, D, E, F)
+	//fmt.Printf("Su:%d, Mo:%d, Tu:%d, We:%d, Th:%d, Fr:%d, Sa:%d \n", Su, Mo, Tu, We, Th, Fr, Sa)
 	fmt.Printf("KB:%d, MB:%d, GB:%d, TB:%d, PB:%d \n", KB, MB, GB, TB, PB)
 }

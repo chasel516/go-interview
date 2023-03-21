@@ -25,7 +25,7 @@ func main() {
 
 	type Int int
 	type IntPtr *int
-	type AliasIntPtr = *IntPtr
+	type AliasIntPtr *IntPtr
 
 	type s1 struct {
 		// 可以被内嵌的类型

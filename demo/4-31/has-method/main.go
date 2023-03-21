@@ -9,7 +9,7 @@ type person struct {
 	Name string
 }
 
-func (p *person) Say(str string) string {
+func (p person) Say(str string) string {
 	return p.Name + str
 }
 
