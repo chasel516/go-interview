@@ -1,4 +1,4 @@
-package main
+package _runtime
 
 func main() {
 	doSomething1()

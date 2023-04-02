@@ -1,4 +1,4 @@
-package main
+package _runtime
 
 import (
 	"fmt"
@@ -15,6 +15,7 @@ func main() {
 	println("call main")
 	fn()
 	println("exit main")
+	c := make(chan bool)
 
 	//f()
 }
