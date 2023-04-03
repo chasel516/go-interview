@@ -1,23 +1,26 @@
-package _runtime
+package main
 
 import (
 	"fmt"
 )
 
 func main() {
-	defer func() {
-		if err := recover(); err != nil {
-			fmt.Println("捕获了一个panic：", err)
-			fmt.Println("防止了程序崩溃")
-		}
-	}()
-
-	println("call main")
-	fn()
-	println("exit main")
-	c := make(chan bool)
+	//defer func() {
+	//	if err := recover(); err != nil {
+	//		fmt.Println("捕获了一个panic：", err)
+	//		fmt.Println("防止了程序崩溃")
+	//	}
+	//}()
+	//
+	//println("call main")
+	//fn()
+	//println("exit main")
+	//c := make(chan bool)
 
 	//f()
+	//paincInCovered()
+	//panicInDefer()
+	CoveredByCurrentGorutine()
 }
 
 func fn() {
@@ -46,4 +49,47 @@ func f() {
 	}()
 	panic("未知错误") // 演示目的产生的一个panic
 
+}
+
+func paincInCovered() {
+	defer func() {
+		if err := recover(); err != nil {
+			// main panic is override by defer2 panic
+			fmt.Println(err)
+		} else {
+			fmt.Println("defer1 recover nil")
+		}
+	}()
+
+	defer func() {
+		panic("defer2 panic")
+	}()
+
+	panic("main panic")
+}
+
+func panicInDefer() {
+
+	defer func() {
+		fmt.Println("defer1")
+		panic("defer1 panic")
+	}()
+
+	defer func() {
+		fmt.Println("defer2")
+		panic("defer2 panic")
+	}()
+
+	panic("main panic")
+
+}
+
+func CoveredByCurrentGorutine() {
+	defer func() {
+		if err := recover(); err != nil {
+			// main panic is override by defer2 panic
+			fmt.Println(err)
+		}
+	}()
+	f()
 }
