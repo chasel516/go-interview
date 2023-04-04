@@ -2,26 +2,18 @@ package main
 
 import (
 	"fmt"
+	"time"
 )
 
 func main() {
-	//channelIsNil()
+	channelIsNil()
 	//f1()
-	f2()
+	//f2()
 	//f3()
 	//f4()
 	//f5()
 	//f6()
-	//f7()
-
-	var c chan int
-	var c2 chan<- int
-	var c3 <-chan int
-	c2 = c
-	c3 = c
-	c = c2  //编译不通过
-	c2 = c3 //编译不通过
-	fmt.Println(c2, c3)
+	f7()
 
 }
 func channelIsNil() {
@@ -34,20 +26,26 @@ func channelIsNil() {
 }
 
 func f1() {
-	var c chan int
+	ch := make(chan int)
+	close(ch)
 	go func() {
-		c <- 1
+		<-ch
 	}()
-	fmt.Println(<-c)
+	ch <- 1
 }
 
 func f2() {
-	var c chan int
-	for {
-		select {
-		case c <- 1:
-			fmt.Println("send nil channel")
+	ch := make(chan int)
+	go func() {
+		for i := 0; i < 5; i++ {
+			ch <- i
+			time.Sleep(time.Second)
 		}
+		close(ch)
+	}()
+
+	for x := range ch {
+		fmt.Println(x)
 	}
 }
 
