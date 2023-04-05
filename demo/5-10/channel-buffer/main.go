@@ -6,6 +6,14 @@ import (
 )
 
 func main() {
+	//var c chan int
+	//var c2 chan<- int
+	//var c3 <-chan int
+	//c2 = c
+	//c3 = c
+	//c = c2  //编译不通过
+	//c2 = c3 //编译不通过
+	//fmt.Println(c2, c3)
 	//f1()
 	//f2()
 	//f3()
@@ -17,7 +25,7 @@ func main() {
 	//f8()
 	//f9()
 	//f10()
-	f11()
+	//f11()
 	//f12()
 	//f13()
 	//f14()
@@ -52,7 +60,7 @@ func f3() {
 
 }
 
-//分别在不同协程中读写
+// 分别在不同协程中读写
 func f4() {
 	ch := make(chan int)
 	go func() {
@@ -65,7 +73,7 @@ func f4() {
 	time.Sleep(time.Second)
 }
 
-//新协程中读写
+// 新协程中读写
 func f4_1() {
 	ch := make(chan int)
 	go func() {
@@ -152,7 +160,7 @@ func f12() {
 	ch <- 2
 }
 
-//只接收没有发送导致死锁
+// 只接收没有发送导致死锁
 func f12_1() {
 	ch := make(chan int, 1)
 	fmt.Println(<-ch)
@@ -165,7 +173,7 @@ func f13() {
 	ch <- 1
 }
 
-//两个goroutine中有缓冲的channel相互等待而产生死锁
+// 两个goroutine中有缓冲的channel相互等待而产生死锁
 func f14() {
 	ch := make(chan int, 2)
 	ch1 := make(chan int, 2)
