@@ -1,6 +1,14 @@
 package main
 
 func main() {
+
+	//switch false {
+	//case false:
+	//	fmt.Println(1)
+	//case false:
+	//	fmt.Println(2)
+	//}
+
 	//switch n := rand.Intn(10); n {
 	//case 1, 2, 3:
 	//	fmt.Println(1, 2, 3)
@@ -32,7 +40,7 @@ func main() {
 	//default:
 	//	fmt.Println("n =", n)
 	//}
-	//
+
 	//rand.Seed(time.Now().UnixNano()) // Go 1.20之前需要
 	//switch n := rand.Intn(100) % 5; n {
 	//case 0, 1, 2, 3, 4:
