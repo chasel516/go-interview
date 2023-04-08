@@ -8,48 +8,25 @@ func (n number) print()     { fmt.Println(n) }
 func (n *number) ptrprint() { fmt.Println(*n) }
 
 func main() {
-	//f1()
+	fmt.Println(f(2))
 	//fmt.Println(f2(2))
 	//f3()
 	//f4()
 	//f5()
 	//f6()
 	//fn()
-	f()
+	//f()
 }
 
-func f() {
-	var n number
-
-	defer n.print()
-	defer n.ptrprint()
-	defer func() { n.print() }()
-	defer func() { n.ptrprint() }()
-
-	n = 123
-}
-
-func f1() {
-	x := 0
-
-	defer fmt.Println(x)                    // 作为外部变量传递
-	defer func(j int) { fmt.Println(j) }(x) // 作为参数传递
-	defer func() { fmt.Println(x) }()       // 作为闭包（closure）进行引用
-
-	x = 123
-
-}
-
-func f2(x int) (r int) {
+func f(x int) (r int) {
 	defer func() {
 		r += x // 修改返回值
 	}()
-
 	return x + x // <=> r = x + x; return
 }
 
 // defer中变量的估值时刻
-func f3() {
+func f1() {
 	x := 0
 	defer fmt.Println(x)
 	x = 1
@@ -57,7 +34,7 @@ func f3() {
 }
 
 // defer中实参的估值时刻
-func f4() {
+func f2() {
 	x := 0
 	defer func(paramx int) {
 		fmt.Println(paramx)
@@ -67,7 +44,7 @@ func f4() {
 }
 
 // defer中闭包的估值时刻
-func f5() {
+func f3() {
 	x := 0
 	defer func() {
 		fmt.Println(x)
@@ -76,7 +53,21 @@ func f5() {
 	fmt.Println("done")
 }
 
-func f6() {
+//func f(x int) (r int) {
+//	defer func(param int) {
+//		r += param // 修改返回值
+//	}(x) // 修改返回值
+//	return x + x // <=> r = x + x; return
+//}
+
+//func f(x int) (r int) {
+//	defer func(param int) {
+//		r = param + x // 修改返回值
+//	}(r) // 修改返回值
+//	return x + x // <=> r = x + x; return
+//}
+
+func f4() {
 	func() {
 		for x := 0; x < 3; x++ {
 			defer fmt.Println("x:", x)
@@ -92,20 +83,31 @@ func f6() {
 	}()
 }
 
-func fn() int {
+func f5() int {
 	defer func(x int) {
 		fmt.Println("defer:", x)
-	}(fn1())
-	fmt.Println("fn")
-	return fn2()
+	}(f6())
+	fmt.Println("f5")
+	return f7()
 }
 
-func fn1() int {
-	fmt.Println("fn1")
+func f6() int {
+	fmt.Println("f6")
 	return 1
 }
 
-func fn2() int {
-	fmt.Println("fn2")
+func f7() int {
+	fmt.Println("f7")
 	return 2
+}
+
+func f8() {
+	var n number
+
+	defer n.print()
+	defer n.ptrprint()
+	defer func() { n.print() }()
+	defer func() { n.ptrprint() }()
+
+	n = 123
 }
