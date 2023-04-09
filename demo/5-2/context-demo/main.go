@@ -25,9 +25,9 @@ func slowOperation(ctx context.Context) (string, error) {
 // 模拟一个 HTTP 服务器的处理函数，使用 context 来控制超时
 func handler(w http.ResponseWriter, r *http.Request) {
 	requestID := uuid.New().String()
-	ctr := context.Background()
+	fmt.Println("gen request_id ", requestID)
 	//传递request_id
-	ctr = context.WithValue(r.Context(), "request_id", requestID)
+	ctr := context.WithValue(r.Context(), "request_id", requestID)
 
 	// 从请求中获取 context，并设置一个 1 秒钟的超时时间
 	ctx, cancel := context.WithTimeout(ctr, 1*time.Second)

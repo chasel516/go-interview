@@ -9,13 +9,14 @@ func (n *number) ptrprint() { fmt.Println(*n) }
 
 func main() {
 	fmt.Println(f(2))
-	//fmt.Println(f2(2))
+	//f1()
+	//f2()
 	//f3()
 	//f4()
 	//f5()
 	//f6()
-	//fn()
-	//f()
+	//f7()
+	//f8()
 }
 
 func f(x int) (r int) {
