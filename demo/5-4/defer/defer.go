@@ -23,7 +23,13 @@ type _defer struct {
 	openDefer bool
 
 	//_defer语句所在栈帧的栈指针（stack pointer）
-	//在函数调用时，每个函数都会创建一个新的栈帧，用于保存函数的局部变量、参数和返回值等信息。而_defer语句也被保存在这个栈帧中，因此需要记录栈指针以便在函数返回时找到_defer语句。当一个_defer语句被执行时，它会被添加到_defer链表中，并记录当前栈帧的栈指针。在函数返回时，Go语言会遍历_defer链表，并执行其中的_defer语句。而在执行_defer语句时，需要使用保存在_defer结构体中的栈指针来访问_defer语句所在栈帧中的局部变量和参数等信息。需要注意的是，由于_defer语句是在函数返回之前执行的，因此在执行_defer语句时，函数的栈帧可能已经被销毁了。因此，_sp字段的值不能直接使用，需要通过一些额外的处理来确保_defer语句能够正确地访问栈帧中的信息。
+	//在函数调用时，每个函数都会创建一个新的栈帧，用于保存函数的局部变量、参数和返回值等信息。
+	//而_defer语句也被保存在这个栈帧中，因此需要记录栈指针以便在函数返回时找到_defer语句。
+	//当一个_defer语句被执行时，它会被添加到_defer链表中，并记录当前栈帧的栈指针。
+	//在函数返回时，Go语言会遍历_defer链表，并执行其中的_defer语句。而在执行_defer语句时，
+	//需要使用保存在_defer结构体中的栈指针来访问_defer语句所在栈帧中的局部变量和参数等信息。
+	//需要注意的是，由于_defer语句是在函数返回之前执行的，因此在执行_defer语句时，函数的栈帧可能已经被销毁了。
+	//因此，_sp字段的值不能直接使用，需要通过一些额外的处理来确保_defer语句能够正确地访问栈帧中的信息。
 	sp uintptr
 
 	//_defer语句的程序计数器（program counter）
@@ -38,7 +44,7 @@ type _defer struct {
 	// defer 传入的函数地址，也就是延后执行的函数
 	fn *funcval
 
-	//efer 的 panic 结构体
+	//defer 的 panic 结构体
 	_panic *_panic
 
 	//用于将多个defer链接起来，形成一个defer栈
@@ -50,4 +56,25 @@ type _defer struct {
 	//需要注意的是，由于 _defer 结构体是在运行时动态创建的，因此 defer 栈的大小是不固定的。
 	//在编写程序时，应该避免在单个函数中使用大量的 defer 语句，以免导致 defer 栈溢出。
 	link *_defer
+}
+
+
+
+func deferproc(siz int32, fn *funcval) { // arguments of fn follow fn
+	gp := getg() //获取goroutine结构
+	if gp.m.curg != gp {
+		// go code on the system stack can't defer
+		throw("defer on system stack")
+	}
+	...
+	d := newdefer(siz) //新建一个defer结构
+	if d._panic != nil {
+		throw("deferproc: d.panic != nil after newdefer")
+	}
+	d.link = gp._defer // 新建defer的link指针指向g的defer
+	gp._defer = d      // 新建defer放到g的defer位置，完成插入链表表头操作
+	d.fn = fn
+	d.pc = callerpc
+	d.sp = sp
+	...
 }

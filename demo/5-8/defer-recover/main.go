@@ -11,16 +11,15 @@ func main() {
 	//		fmt.Println("防止了程序崩溃")
 	//	}
 	//}()
-	//
-	//println("call main")
-	//fn()
-	//println("exit main")
-	//c := make(chan bool)
+
+	println("call main")
+	fn()
+	println("exit main")
 
 	//f()
 	//paincInCovered()
 	//panicInDefer()
-	CoveredByCurrentGorutine()
+	//CoveredByCurrentGorutine()
 }
 
 func fn() {
@@ -30,7 +29,13 @@ func fn() {
 }
 func fn1() {
 	println("call fn1")
+	defer func() {
+		fmt.Println("defer before panic in fn1")
+	}()
 	panic("panic in fn1")
+	defer func() {
+		fmt.Println("defer after panic in fn1")
+	}()
 	fn2()
 	println("exit fn1")
 }

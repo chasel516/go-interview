@@ -2,13 +2,8 @@ package main
 
 import "fmt"
 
-type number int
-
-func (n number) print()     { fmt.Println(n) }
-func (n *number) ptrprint() { fmt.Println(*n) }
-
 func main() {
-	fmt.Println(f(2))
+	//fmt.Println(f(2))
 	//f1()
 	//f2()
 	//f3()
@@ -16,7 +11,22 @@ func main() {
 	//f5()
 	//f6()
 	//f7()
-	//f8()
+	f8()
+}
+
+type number int
+
+func (n number) print()     { fmt.Println(n) }
+func (n *number) ptrprint() { fmt.Println(*n) }
+func f8() {
+	var n number
+
+	defer n.print()
+	defer n.ptrprint()
+	defer func() { n.print() }()
+	defer func() { n.ptrprint() }()
+
+	n = 123
 }
 
 func f(x int) (r int) {
@@ -100,15 +110,4 @@ func f6() int {
 func f7() int {
 	fmt.Println("f7")
 	return 2
-}
-
-func f8() {
-	var n number
-
-	defer n.print()
-	defer n.ptrprint()
-	defer func() { n.print() }()
-	defer func() { n.ptrprint() }()
-
-	n = 123
 }
