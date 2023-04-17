@@ -12,6 +12,7 @@ func main() {
 	//c2 = c
 	//c3 = c
 	//c = c2  //编译不通过
+	//c = c3  //编译不通过
 	//c2 = c3 //编译不通过
 	//fmt.Println(c2, c3)
 	//f1()
@@ -27,8 +28,9 @@ func main() {
 	//f10()
 	//f11()
 	//f12()
+	//f12_1()
 	//f13()
-	//f14()
+	f14()
 }
 
 func f1() {
@@ -43,7 +45,9 @@ func f1() {
 func f2() {
 	ch := make(chan int)
 	go func() {
+		fmt.Println("开始写入ch")
 		ch <- 1
+		fmt.Println("写入ch完成") //没有机会执行
 	}()
 
 	time.Sleep(time.Second * 3)
@@ -54,7 +58,9 @@ func f2() {
 func f3() {
 	ch := make(chan int)
 	go func() {
+		fmt.Println("开始读取ch")
 		<-ch
+		fmt.Println("读取ch完成") //没有机会执行
 	}()
 	time.Sleep(time.Second * 3)
 
@@ -133,9 +139,7 @@ func f9() {
 
 func f10() {
 	var ch chan int
-	for i := 0; i < 3; i++ {
-		go test()
-	}
+	go test()
 	fmt.Println("永久阻塞")
 	<-ch
 	//ch <- 1
@@ -166,7 +170,7 @@ func f12_1() {
 	fmt.Println(<-ch)
 }
 
-// // 缓冲区为空，接收方阻塞而无法开启新的发送方而导致死锁
+// 缓冲区为空，接收方阻塞而无法开启新的发送方而导致死锁
 func f13() {
 	ch := make(chan int, 1)
 	<-ch

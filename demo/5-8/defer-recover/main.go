@@ -11,15 +11,15 @@ func main() {
 	//		fmt.Println("防止了程序崩溃")
 	//	}
 	//}()
-
-	println("call main")
-	fn()
-	println("exit main")
+	//
+	//println("call main")
+	//fn()
+	//println("exit main")
 
 	//f()
 	//paincInCovered()
 	//panicInDefer()
-	//CoveredByCurrentGorutine()
+	CoveredByCurrentGorutine()
 }
 
 func fn() {
@@ -47,7 +47,7 @@ func fn2() {
 func f() {
 	go func() {
 		defer func() {
-			if err := recover(); err == nil {
+			if err := recover(); err != nil {
 				fmt.Println("recover", err)
 			}
 		}()
@@ -92,7 +92,6 @@ func panicInDefer() {
 func CoveredByCurrentGorutine() {
 	defer func() {
 		if err := recover(); err != nil {
-			// main panic is override by defer2 panic
 			fmt.Println(err)
 		}
 	}()

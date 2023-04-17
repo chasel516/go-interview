@@ -9,7 +9,7 @@ func main() {
 	//channelIsNil()
 	//f1()
 	//f2()
-	//f3()
+	f3()
 
 }
 func channelIsNil() {

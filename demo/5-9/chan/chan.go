@@ -111,7 +111,7 @@ type sudog struct {
 	//在普通的 goroutine 执行过程中，waitlink 字段是没有被使用的。
 	waitlink *sudog // g.waiting list or semaRoot
 
-	//待队列的尾部指针,waittail 字段指向等待队列的尾部 sudog 结构体。
+	//等待队列的尾部指针,waittail 字段指向等待队列的尾部 sudog 结构体。
 	//当被等待的 goroutine 执行完成时，它会从等待队列中移除对应的 sudog 结构体，并将 sudog 结构体中的 waitlink 字段设置为 nil，
 	//从而将其从等待队列中移除。同时，waittail 字段也会被更新为等待队列的新尾部。
 	//需要注意的是，waittail 字段只有在 sudog 结构体被加入到等待队列中时才会被使用。
