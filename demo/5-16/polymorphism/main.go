@@ -24,6 +24,7 @@ func Quack(d Duck) {
 func main() {
 	ducks := []Duck{YellowDuck{}, NormalDuck{}}
 	for _, duck := range ducks {
-		duck.Quack()
+		//duck.Quack()
+		Quack(duck)
 	}
 }

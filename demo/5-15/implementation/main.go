@@ -38,6 +38,7 @@ func main() {
 	i = p
 	fmt.Println(i)
 	p.Talk()
+	p.Walk()
 	t := &Teacher{}
 	Talk(p)
 	Talk(t)

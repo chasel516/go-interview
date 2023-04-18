@@ -32,6 +32,14 @@ func (t *Teacher) Speck() {
 	fmt.Println("teacher Speck")
 }
 
+func (t *Teacher) Run() {
+	fmt.Println("teacher Eat")
+}
+
+func (t *Teacher) Eat() {
+	fmt.Println("teacher Eat")
+}
+
 func main() {
 	t := Teacher{}
 	t.Run()
