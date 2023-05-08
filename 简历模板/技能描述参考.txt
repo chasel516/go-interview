@@ -1,0 +1,33 @@
+技能描述控制在10~15个
+
+了解->熟悉->熟练掌握->精通合理分配 （熟悉和熟练掌握大部分技能，了解0到2个，精通0到2个）
+
+
+【docker】熟悉docker容器的日常操作，如基本命令、dockerfile、网络、存储等，可以配合jenkins做CI/CD.
+【kubernetes】可以从0到1独立搭建k8s集群。包括但不限于：架构设计、资源采购、网段划分、服务注册发现、             Dockerfile镜像制作、权限管理、持久化、YAML文件编写、服务暴露、配置文件变更、健康检查、资源限制、CDN加速、 WAF对接、域名及证书、上线发布、监控、日志采集等一系列生态。
+【容器化改造】  将传统业务如SpringBoot、Tomcat、前端等进行容器化改造，改造涉及NodeJS、Python、Java、Golang 等主流开发语言，重点解决并实现了容器化改造过程中三种前后端分离的方法并克服掉改造过程中所有技术难点。
+【脚本语言】  熟悉Shell及Python,并可将其运用在企业自动化运维之中.
+【版本工具】  熟悉Git、SVN、Gitlab、bitBucket等代码管理工具的使用.
+【CICD】精通企业级CI/CD(持续集成/持续部署/持续发布),熟悉项目自动构建、发布、回滚等流程及原理.可以应用            Jenkins、Gitlab、Maven、Nexus、SonarQube、playbook、Pipeline、Docker、k8s等工具链在实际项目中，实际中完 成过k8s-jenkins-slave架构的落地过程.
+【自动化工具】  熟悉ansible、saltstack自动化运维工具使用.
+【运维开发】  熟悉Django框架，可以独立研发出CMDB、公有云管理、代码上线、ansible可视化等模块.
+【日志】  熟悉日志分析系统新架构(Filebeat-- >[Kafka或Redis缓存]-- > LogStash或ES -- > Kibana) ，实际中完成对k8s日志监 控(ElasticSearch+Fluentd+Kibana)
+【自动化工具】  熟悉ansible、saltstack自动化运维工具使用.
+【运维开发】  熟悉Django框架，可以独立研发出CMDB、公有云管理、代码上线、ansible可视化等模块.
+【日志】  熟悉日志分析系统新架构(Filebeat-- >[Kafka或Redis缓存]-- > LogStash或ES -- > Kibana) ，实际中完成对k8s日志监 控(ElasticSearch+Fluentd+Kibana)
+
+【关系型】  熟悉MySQL数据库操作、参数优化，了解主从架构、读写分离、高可用、集群等方案.
+【非关系型】  熟悉非关系型数据库Redis哨兵、持久化、集群方案，MongoDB副本集和分片的部署及使用.
+
+【I型】  熟悉Esxi使用，包括高可用方案、对接存储、Vcenter管理等.
+【II型】  熟悉KVM、Vagrant、Virtualenv、VirtualBox、Vmware Workstation的使用.
+
+【CDH】了解大数据生态圈，并可以利用CDH搭建大数据平台.
+
+【网络层】  实现办公和开发网络隔离，OpenVPN使用
+【系统层】  实现堡垒机、权限管理、服务端口、监听地址、白名单
+【应用层】  实现安全组、软件选型、服务管理、安全产品、脚本安全
+
+【服务】  熟悉常用服务如k8s、Nginx、Redis、Apache、MySQL、Kafka、Ftp、Zookeeper、Tomcat、Jumpserver、 O penLDAP、EFK、等的安装、配置及优化，熟悉LVS、Haproxy、Nginx、keepalive负载均衡及高可用方案.
+【统一管理】  精通LDAP双主架构，可以集成Jumpserver、Jenkins、Yapi、Jira、OpenVPN、Nexus、SonarQube、 Harbor等，并可以对之前账户进行无感知迁移，使之变成LDAP账户并保留之前用户权限、空间、文章等.
+【流程化】  SQL审核、上线、开通资源等遵循一定流程和制度.
