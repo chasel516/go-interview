@@ -1,0 +1,18 @@
+<!--加载header.html，同时渲染当前模板变量到header.html-->
+{{template "header.html" .}}
+<p>深度查询句点符".",能输出渲染到模板的全部变量</p>
+data {{ . }}
+
+<p>遍历map</p>
+{{range $key,$value := .dataM}}
+<p>{{$key}} : {{$value}} </p>
+{{end}}
+
+<p>遍历切片</p>
+{{range $index,$value := .dateS}}
+<p>{{$index}} : {{$value}} </p>
+{{end}}
+
+
+
+{{template "footer.html"}}
