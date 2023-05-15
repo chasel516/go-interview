@@ -1,5 +1,7 @@
+<!--给模板文件定义一个全局唯一的名字，防止不同文件夹下存在同名模板-->
+{{ define "index/index.html" }}
 <!--加载header.html，同时渲染当前模板变量到header.html-->
-{{template "header.html" .}}
+{{template "base/header.html" .}}
 <p>深度查询句点符".",能输出渲染到模板的全部变量</p>
 data {{ . }}
 
@@ -15,4 +17,6 @@ data {{ . }}
 
 
 
-{{template "footer.html"}}
+{{template "base/footer.html"}}
+
+{{end}}
