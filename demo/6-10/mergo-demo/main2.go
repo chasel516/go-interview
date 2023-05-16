@@ -1,42 +1,42 @@
 package main
 
 import (
-	"fmt"
 	"github.com/imdario/mergo"
-	"reflect"
-	"time"
+	"log"
 )
 
-type timeTransformer struct {
+func init() {
+	//日志显示行号和文件名
+	log.SetFlags(log.LstdFlags | log.Lshortfile)
 }
-
-// 自定义转换器
-func (t timeTransformer) Transformer(typ reflect.Type) func(dst, src reflect.Value) error {
-	if typ == reflect.TypeOf(time.Time{}) {
-		return func(dst, src reflect.Value) error {
-			if dst.CanSet() {
-				isZero := dst.MethodByName("IsZero")
-				result := isZero.Call([]reflect.Value{})
-				if result[0].Bool() {
-					dst.Set(src)
-				}
-			}
-			return nil
-		}
-	}
-	return nil
-}
-
-type Snapshot struct {
-	Time time.Time
-	// ...
-}
-
 func main() {
-	src := Snapshot{time.Now()}
-	dest := Snapshot{}
-	mergo.Merge(&dest, src, mergo.WithTransformers(timeTransformer{}))
-	fmt.Println(dest)
-	// Will print
-	// { 2018-01-12 01:15:00 +0000 UTC m=+0.000000001 }
+	// define two maps
+	map1 := map[string]interface{}{
+		"name":  "John Doe",
+		"email": "tester@example.com",
+	}
+	map2 := map[string]interface{}{
+		"phone": "123-456-7890",
+		"email": "",
+	}
+
+	// merge maps
+	err := mergo.Merge(&map1, map2)
+	if err != nil {
+		log.Println(err)
+	}
+
+	// print merged map
+	log.Println(map1)
+
+	err = mergo.Merge(&map2, map1)
+	if err != nil {
+		log.Println(err)
+	}
+	// print merged map
+	log.Println(map2)
+
+	//map合并总结：
+	//默认值字段不会被覆盖
+
 }
