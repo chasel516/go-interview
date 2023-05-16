@@ -55,7 +55,7 @@ func main() {
 	}
 	log.Println("m1: %v", m1)
 
-	// 构造一个map
+	// 构造一个map（注意：结构体和map中的字段名需要一一对应）
 	m2 := map[string]interface{}{
 		"name": "tester2",
 		"Age":  30,
@@ -127,4 +127,25 @@ func main() {
 	//比如上面将u2复制到u1时，u2的字段是u1的子集(u1的字段名对应的字段类型与u2一致，且字段数不能比u2少)，所以能够复制，但不能将u2复制到u1
 	//2.当目标结构体的字段为默认值时，将会被原结构体的字段覆盖，若原结构体无此字段，则合并后目标结构体也会删除此字段。但当目标结构体字段值不为默认值时，其字段和值不会被原结构体字段覆盖
 	//3.在合并两个结构体时，我们应该使用两个相同类型的结构体值
+
+	//可以通过mergo提供的一些默认配置来控制这些规则：
+	//比如：
+
+	u3 := User{
+		Name:  "test",
+		Sex:   true,
+		hobby: "test",
+		Hobby: "test",
+	}
+	u4 := User{
+		Name:  "",
+		Sex:   false,
+		hobby: "",
+		Hobby: "",
+	}
+
+	//mergo.Merge(&u3, u4)
+	//允许覆盖默认值（空值）
+	mergo.Merge(&u3, u4, mergo.WithOverwriteWithEmptyValue)
+	log.Println("u3", u3)
 }
