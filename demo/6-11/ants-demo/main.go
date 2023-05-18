@@ -3,10 +3,16 @@ package main
 import (
 	"github.com/panjf2000/ants/v2"
 	"log"
+	"runtime"
 	"sync/atomic"
 	"time"
 )
 
+func init() {
+	Ticker(func() {
+		log.Print("current go routine num: ", runtime.NumGoroutine())
+	}, 2*time.Minute)
+}
 func main() {
 	// 创建一个Ants池，最多允许5个goroutine同时执行
 	p, _ := ants.NewPool(5)
@@ -40,4 +46,16 @@ func main() {
 		time.Sleep(100 * time.Millisecond)
 	}
 
+}
+
+// 监控系统当前的协程数量：
+// 启动一个定时器
+func Ticker(f func(), d time.Duration) {
+	ticker := time.NewTicker(d)
+	for {
+		select {
+		case <-ticker.C:
+			go f()
+		}
+	}
 }

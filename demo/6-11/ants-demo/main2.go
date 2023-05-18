@@ -1,6 +1,12 @@
 package main
 
-import "gitee.com/phper95/pkg/routine"
+import "github.com/phper95/pkg/routine"
+
+const PollNameDefault = "default"
+
 func main() {
-routine.
+	routine.InitPoolWithName(PollNameDefault, 1, 1, 0)
+	for i := 0; i < 100; i++ {
+		routine.
+	}
 }
