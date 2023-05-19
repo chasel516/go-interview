@@ -9,8 +9,8 @@ github.com/panjf2000/ants/v2 v2.7.4 h1:mJqMDtMckZltyL458pq81IGNfiDhEgzX5s/lhjwPW
 github.com/panjf2000/ants/v2 v2.7.4/go.mod h1:KIBmYG9QQX5U2qzFP/yQJaq/nSb6rahS9iEHkrCMgM8=
 github.com/phper95/pkg/errors v0.0.0-20230517145757-27be2fc31eea h1:ROnq8EPR/KeFeMB6iEM8OEcmKnG51VZej48zag3LSDY=
 github.com/phper95/pkg/errors v0.0.0-20230517145757-27be2fc31eea/go.mod h1:hah2P23pzSoyiMmXOcKcEs2XWPq1DFXHAuacWiDN1DE=
-github.com/phper95/pkg/routine v0.0.0-20230519000315-327130a12567 h1:JDzHnMy33bquzP+B+F6q40c3ZzFCbldCcUkXHvAGn0s=
-github.com/phper95/pkg/routine v0.0.0-20230519000315-327130a12567/go.mod h1:q+XjhlvO+MdrPAG5X7wq053Rq+xKgxgdq6kCywVXlBA=
+github.com/phper95/pkg/routine v0.0.0-20230519002707-a2fcb4461ff9 h1:6FYWJ+2w/cYqFOXEmwLRlcc3y0ZmbCHrcqvk4R1PIzY=
+github.com/phper95/pkg/routine v0.0.0-20230519002707-a2fcb4461ff9/go.mod h1:q+XjhlvO+MdrPAG5X7wq053Rq+xKgxgdq6kCywVXlBA=
 github.com/pkg/errors v0.8.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
 github.com/pkg/errors v0.9.1 h1:FEBLx1zS214owpjy7qsBeixbURkuhQAwrK5UwLGTwt4=
 github.com/pkg/errors v0.9.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
