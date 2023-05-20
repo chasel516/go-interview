@@ -3,12 +3,12 @@ package main
 import (
 	"github.com/phper95/pkg/db"
 	"log"
-	"time"
 )
 
 func init() {
 	//日志显示行号和文件名
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
+	initMysql()
 }
 
 func initMysql() {
@@ -25,7 +25,7 @@ func initMysql() {
 
 }
 
-//type User struct {
+//type entity.User struct {
 //	gorm.Model
 //	Name     string
 //	Age      int `gorm:"type:tinyint(3);unsigned"`
@@ -33,30 +33,16 @@ func initMysql() {
 //	Email    string `gorm:"type:varchar(100);unique"`
 //}
 
-// 字段属性设置
-type User struct {
-	ID uint //bigint(20) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY
-	//ID       uint64
-	//UserID uint `gorm:"primarykey;AUTO_INCREMENT"` //自定义主键
-	//Name   string
-	Name string `gorm:"type:varchar(255);NOT NULL;DEFAULT:''"`
-	//Name     *string
-	Age      int `gorm:"type:tinyint(3);unsigned"`
-	Birthday *time.Time
-	Email    string `gorm:"type:varchar(100);unique"`
-}
-
 //	type Tabler interface {
 //		TableName() string
 //	}
 //
 // // TableName 会将 User 的表名重写为 `user_table1`
 //
-//	func (User) TableName() string {
+//	func (entity.User) TableName() string {
 //		return "user_table1"
 //	}
 func main() {
-	initMysql()
 
 	//ormDB := db.GetMysqlClient(db.DefaultClient).DB
 
@@ -65,18 +51,18 @@ func main() {
 	//log.Printf("Stats : %+v", sqlDB.Stats())
 
 	//建表
-	//if err := ormDB.AutoMigrate(&User{}); err != nil {
+	//if err := ormDB.AutoMigrate(&entity.User{}); err != nil {
 	//	log.Print("AutoMigrate user error", err)
 	//}
 
 	//自定义表名的另一种方式
-	//if err := ormDB.Table("user_table2").AutoMigrate(&User{}); err != nil {
+	//if err := ormDB.Table("user_table2").AutoMigrate(&entity.User{}); err != nil {
 	//	log.Print("AutoMigrate user error", zap.Error(err))
 	//}
 
 	//name := ""
 	//写入数据
-	//user := User{
+	//user := entity.User{
 	//	Name: name,
 	//	//Name:     &name,
 	//	Age:      0,
@@ -93,13 +79,13 @@ func main() {
 	//}
 
 	// 批量创建
-	//var users = []User{{Name: "user1", Email: "u1"}, {Name: "user2", Email: "u2"}, {Name: "user3", Email: "u3"}}
+	//var users = []entity.User{{Name: "user1", Email: "u1"}, {Name: "user2", Email: "u2"}, {Name: "user3", Email: "u3"}}
 	//if err := ormDB.Create(&users).Error; err != nil {
 	//	log.Print("insert error", zap.Any("user", user))
 	//}
 
 	//查询时会忽略空值，o值，false和null值
-	//users := make([]User, 0)
+	//users := make([]entity.User, 0)
 	//ormDB.Where(&user).Find(&users)
 	//log.Printf("%+v", users)
 
@@ -112,11 +98,11 @@ func main() {
 	//	ID   uint
 	//	Name string
 	//}
-	//ormDB.Model(&User{}).Limit(5).Find(&APIUser{}).Scan(&users)
+	//ormDB.Model(&entity. {}).Limit(5).Find(&APIUser{}).Scan(&users)
 	//
 	//执行原生sql
 	//查询
-	//var userRes User
+	//var userRes entity.User
 	//err := ormDB.Raw("select * from user where id = ?", 1).Scan(&userRes).Error
 	//if err != nil {
 	//	fmt.Println(err)
