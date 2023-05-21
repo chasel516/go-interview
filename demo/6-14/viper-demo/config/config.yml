@@ -1,0 +1,13 @@
+app:
+  env: dev
+  http_port: 80
+
+mysql:
+  dbname: shop
+  user: test
+  password: test
+  host: 127.0.0.1:3306
+  max_open_conn: 1000
+  max_idle_conn: 100
+  conn_max_life_second: 30
+  table_prefix: test_
