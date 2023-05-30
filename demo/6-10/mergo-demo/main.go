@@ -53,7 +53,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	log.Println("m1: %v", m1)
+	log.Printf("m1: %+v", m1)
 
 	// 构造一个map（注意：结构体和map中的字段名需要一一对应）
 	m2 := map[string]interface{}{
@@ -72,13 +72,14 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	log.Println("p2: %v", p2)
+	log.Printf("p2: %+v", p2)
 
 	//合并结构体
 	u1 := User{
 		Name:  "tester3",
 		Sex:   false,
-		hobby: "swimming",
+		hobby: "",
+		Hobby: "swimming",
 	}
 
 	//合并结构体,将u1中的字段复制到p1
@@ -87,11 +88,17 @@ func main() {
 	if err != nil {
 		log.Println(err)
 	}
-	log.Println("p1", p1)
+	log.Printf("p1:%+v", p1)
 
-	u2 := User2{
+	//u2 := User2{
+	//	Name:  "tester4",
+	//	hobby: "ping-pong",
+	//}
+	u2 := User{
 		Name:  "tester4",
+		Sex:   true,
 		hobby: "ping-pong",
+		Hobby: "ping-pong",
 	}
 
 	//合并结构体,将u2中的字段复制到u1
@@ -101,7 +108,7 @@ func main() {
 		log.Println(err)
 	}
 	//u1中的已有字段Name值未被覆盖
-	log.Println("u1", u1)
+	log.Printf("u1:%+v", u1)
 
 	//将u1的Name值赋值为默认值
 	u1.Name = ""
@@ -112,7 +119,7 @@ func main() {
 	//u1中的已有字段Name值被覆盖
 	//由于u1中的name为默认值，在merge后将会以u2覆盖当前值
 	//由于u2中没有Name字段，所以合并后u1的Name字段会丢失
-	log.Println("u1", u1)
+	log.Printf("u1:%+v", u1)
 
 	//合并结构体,将u1中的字段复制到u2
 	//失败（src and dst must be of same type）
@@ -120,13 +127,13 @@ func main() {
 	if err != nil {
 		log.Println(err)
 	}
-	log.Println("u2", u2)
+	log.Printf("u2:%+v", u2)
 
 	//结构体合并总结：
-	//1. 原结构体字段必须是目标结构体字段的子集,且都为可导出字段(首字母大写)，否则合并会失败，最终得到的依然是第一个参数的值，我们将第一个参数成为目标结构体，第二个参数称为原结构体
-	//比如上面将u2复制到u1时，u2的字段是u1的子集(u1的字段名对应的字段类型与u2一致，且字段数不能比u2少)，所以能够复制，但不能将u2复制到u1
-	//2.当目标结构体的字段为默认值时，将会被原结构体的字段覆盖，若原结构体无此字段，则合并后目标结构体也会删除此字段。但当目标结构体字段值不为默认值时，其字段和值不会被原结构体字段覆盖
-	//3.在合并两个结构体时，我们应该使用两个相同类型的结构体值
+	//注：我们将第一个参数成为目标结构体，第二个参数称为原结构体
+	//1. 原结构和目标结构体必须是同一个结构体类型的实例
+	//2.当目标结构体的字段为默认值时，将会被原结构体的字段覆盖，但当目标结构体字段值不为默认值时，其字段和值不会被原结构体字段覆盖
+	//3.若目标结构体字段时小写开头的非导出字段，则在合并的过程中目标结构体中此字段的值也不会被合并
 
 	//可以通过mergo提供的一些默认配置来控制这些规则：
 	//比如：
@@ -147,5 +154,5 @@ func main() {
 	//mergo.Merge(&u3, u4)
 	//允许覆盖默认值（空值）
 	mergo.Merge(&u3, u4, mergo.WithOverwriteWithEmptyValue)
-	log.Println("u3", u3)
+	log.Printf("u3:%+v", u3)
 }

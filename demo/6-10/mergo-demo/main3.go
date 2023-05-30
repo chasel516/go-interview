@@ -72,7 +72,7 @@ func main() {
 	mergo.Merge(&dest, src)
 	//我们可以通过自定义合并规则来控制合并结果
 	//mergo.Merge(&dest, src, mergo.WithTransformers(timeTransformer{}))
-	//mergo.Merge(&dest, src, mergo.WithTransformers(timeAddOneDayTransformer{}))
+	mergo.Merge(&dest, src, mergo.WithTransformers(timeAddOneDayTransformer{}))
 	log.Println(src)
 	log.Println(dest)
 

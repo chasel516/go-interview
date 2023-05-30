@@ -13,7 +13,7 @@ func main() {
 	//注意，在使用gin加载模板时，debug模式与release模式有很大的区别
 	//debug模式下每个请求都会重新加载模板文件，所以在debug模式下修改模板文件强刷页面后可以看到页面内容会实时变更
 	//而release模式下只加载一次模板文件，所以在高并发场景下这两个模式的性能表现会有很大差距。
-	gin.SetMode(gin.ReleaseMode)
+	//gin.SetMode(gin.ReleaseMode)
 	router := gin.Default()
 	//设置静态资源文件访问路径
 	//第一个参数是映射后http访问时相对于站点域名域名或ip的路径

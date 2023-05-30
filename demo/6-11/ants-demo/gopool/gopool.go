@@ -34,8 +34,9 @@ func NewPool(concurrencyNum, queue, workers int) *Pool {
 		work:        make(chan func(), queue),
 	}
 	for i := 0; i < workers; i++ {
+		//若concurrency已满会阻塞
 		p.concurrency <- struct{}{}
-		go p.worker(func() {})
+		go p.run(func() {})
 	}
 
 	return p
@@ -60,13 +61,13 @@ func (p *Pool) submit(task func(), timeout <-chan time.Time) error {
 	case p.work <- task:
 		return nil
 	case p.concurrency <- struct{}{}:
-		go p.worker(task)
+		go p.run(task)
 		return nil
 	}
 }
 
 // 执行当前的任务和任务队列中的任务
-func (p *Pool) worker(task func()) {
+func (p *Pool) run(task func()) {
 	defer func() {
 		if err := recover(); err != nil {
 			//捕获异常，并打印错误堆栈

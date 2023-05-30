@@ -71,7 +71,7 @@ func main() {
 	//这个规则看上去简单，在实际使用过程中却很容易踩坑
 	//下面这个任务是每天凌晨2点执行吗？
 	job.name = "id4"
-	_, err = c.AddJob("* * 2 * * *", cron.NewChain(cron.Recover(cron.DefaultLogger)).Then(job))
+	_, err = c.AddJob("* * 6 * * *", cron.NewChain(cron.Recover(cron.DefaultLogger)).Then(job))
 	if err != nil {
 		log.Println("id4", err)
 	}
