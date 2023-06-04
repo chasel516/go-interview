@@ -80,6 +80,7 @@ func nativeGo() {
 // 通过匿名函数启动
 func nativeGoFunc() {
 	for i := 0; i < 10; i++ {
+		//x := i
 		//由于打印语句在匿名函数内，匿名函数执行时打印语句才会被执行，此时i才会被估值，但随着迭代的进行，i的值大概率已经是迭代结束后的值
 		go func() {
 			log.Println(i)
