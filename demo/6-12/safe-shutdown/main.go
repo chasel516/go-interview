@@ -37,6 +37,11 @@ func main() {
 	//优雅关闭，原生版
 	signals := make(chan os.Signal, 0)
 	//监听退出信号
+	//SIGHUP 1  终端控制进程结束(终端连接断开)
+	//SIGINT 2 用户发送INTR字符(Ctrl+C)触发
+	//SIGTERM 15 结束程序(可以被捕获、阻塞或忽略)
+	//SIGQUIT 3 用户发送QUIT字符(Ctrl+/)触发
+	//SIGKILL 9 | 无条件结束程序(不能被捕获、阻塞或忽略)
 	signal.Notify(signals, syscall.SIGHUP, syscall.SIGINT, syscall.SIGTERM, syscall.SIGQUIT)
 	s := <-signals
 	log.Println(" receive system signal:", s)

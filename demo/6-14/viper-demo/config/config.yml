@@ -1,5 +1,5 @@
 app:
-  env: dev
+  env: prod
   http_port: 80
 
 mysql:

@@ -12,5 +12,6 @@ func init() {
 }
 func main() {
 	log.Printf("%+v", config.Cfg)
+	select {}
 
 }

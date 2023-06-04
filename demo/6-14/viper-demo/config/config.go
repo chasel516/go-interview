@@ -5,6 +5,7 @@ import (
 	"github.com/fsnotify/fsnotify"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
+	"log"
 	"time"
 )
 
@@ -16,11 +17,11 @@ type Config struct {
 }
 
 type App struct {
-	//Env string `yaml:"env"`          //yaml标签可以解析
-	Env string `mapstructure: "env"` //不带下划线的配置项，不受:后面空格的影响
-	//HttpPort int    `mapstructure:"http_port"`
+	Env string `yaml:"env"` //yaml标签可以解析
+	//Env string `mapstructure: "env"` //不带下划线的配置项，不受:后面空格的影响
+	HttpPort int `mapstructure:"http_port"`
 	//HttpPort int `mapstructure: "http_port"` //:后有空格不能解析
-	HttpPort int `yaml:"http_port"` //yaml标签不能解析
+	//HttpPort int `yaml:"http_port"` //yaml标签不能解析
 
 }
 
@@ -61,7 +62,7 @@ func LoadConfig() {
 		fmt.Println("Config file changed:", e.Name)
 		if err := viper.Unmarshal(&Cfg); err != nil {
 			logrus.Error(err)
-			panic(err)
 		}
+		log.Printf("%+v", Cfg)
 	})
 }
