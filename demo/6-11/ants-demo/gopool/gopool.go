@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"runtime/debug"
+	"sync/atomic"
 	"time"
 )
 
@@ -19,6 +20,7 @@ var ErrScheduleTimeout = fmt.Errorf("schedule error: timed out")
 type Pool struct {
 	concurrency chan struct{}
 	work        chan func()
+	running     int32
 }
 
 // 根据给定的大小创建一个协程池，并立即启动给定数量的协程
@@ -59,6 +61,7 @@ func (p *Pool) submit(task func(), timeout <-chan time.Time) error {
 	case <-timeout:
 		return ErrScheduleTimeout
 	case p.work <- task:
+		p.addRunning(1)
 		return nil
 	case p.concurrency <- struct{}{}:
 		go p.run(task)
@@ -69,6 +72,7 @@ func (p *Pool) submit(task func(), timeout <-chan time.Time) error {
 // 执行当前的任务和任务队列中的任务
 func (p *Pool) run(task func()) {
 	defer func() {
+		p.addRunning(-1)
 		if err := recover(); err != nil {
 			//捕获异常，并打印错误堆栈
 			log.Println("task panic", err, string(debug.Stack()))
@@ -80,5 +84,13 @@ func (p *Pool) run(task func()) {
 
 	for task := range p.work {
 		task()
+		p.addRunning(-1)
 	}
+}
+func (p *Pool) addRunning(delta int) {
+	atomic.AddInt32(&p.running, int32(delta))
+}
+
+func (p *Pool) Running() int {
+	return int(atomic.LoadInt32(&p.running))
 }
