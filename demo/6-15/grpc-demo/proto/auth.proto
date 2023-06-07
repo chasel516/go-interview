@@ -1,16 +1,22 @@
 syntax = "proto3";
 package auth;
-option go_package = ".;grpc-demo";
+
+//. 表示生成的go文件的存放地址,这里使用相对路径，可通过命令指定protoc --go_out=./auth --go-grpc_out=./auth proto\auth.proto
+//;后面的auth为生成代码的包名
+option go_package = ".;auth";
 
 service AuthService {
+  // 定义Login方法，接受LoginRequest消息， 并返回LoginResponse消息
   rpc Login(LoginRequest) returns (LoginResponse) {}
 }
 
+// 定义LoginRequest消息
 message LoginRequest {
   string username = 1;
   string password = 2;
 }
 
+//定义LoginResponse消息
 message LoginResponse {
   bool success = 1;
   string message = 2;
