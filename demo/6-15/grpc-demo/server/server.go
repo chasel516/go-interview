@@ -12,6 +12,9 @@ import (
 )
 
 type authServer struct {
+	//由于生成的代码中AuthServiceServer接口还定义了mustEmbedUnimplementedAuthServiceServer等方法，
+	//所以这里直接使用生成好的并且实现了AuthServiceServer接口的UnimplementedAuthServiceServer结构体来内嵌，
+	//这样就可以让authServer结构体成为AuthServiceServer类型
 	auth.UnimplementedAuthServiceServer
 }
 
