@@ -1,8 +1,7 @@
 package main
 
 import (
-	"go/ast"
-	"go/parser"
+	"fmt"
 	"go/scanner"
 	"go/token"
 	"io/ioutil"
@@ -38,16 +37,6 @@ func main() {
 		if tok == token.EOF {
 			break
 		}
-		log.Printf("%s\t%s\t%q\n", fset.Position(pos), tok, lit)
+		fmt.Printf("%s\t%s\t%q\n", fset.Position(pos), tok, lit)
 	}
-
-	// 创建一个解析器
-	f, err := parser.ParseFile(fset, "main.go", nil, parser.ParseComments)
-	if err != nil {
-		panic(err)
-	}
-
-	// 打印抽象语法树
-	log.Println("Abstract syntax tree:")
-	ast.Print(fset, f)
 }
