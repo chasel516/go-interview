@@ -180,7 +180,7 @@ type g struct {
 	_defer *_defer // innermost defer
 	m      *m      // current m; offset known to arm liblink
 
-	// goroutine 调度器上下文信
+	// goroutine 调度器上下文信息
 	sched gobuf
 
 	syscallsp uintptr // if status==Gsyscall, syscallsp = sched.sp to use during gc
