@@ -178,12 +178,9 @@ type p struct {
 	//因为该字段在一些分配代码路径中可能涉及到不能使用写屏障的情况。因此，需要通过显式管理长度来避免写屏障的使用。
 	//通过使用 mspancache，Golang 的运行时系统可以高效地管理和重用 mspan 对象，以提高内存分配和管理的性能。
 	mspancache struct {
-		// We need an explicit length here because this field is used
-		// in allocation codepaths where write barriers are not allowed,
-		// and eliminating the write barrier/keeping it eliminated from
-		// slice updates is tricky, moreso than just managing the length
-		// ourselves.
+		// 一个整型字段，表示当前缓存中 mspan 对象的数量。
 		len int
+		//一个长度为 128 的 mspan 指针数组，用于存储 mspan 对象。
 		buf [128]*mspan
 	}
 
@@ -228,7 +225,7 @@ type p struct {
 	timerModifiedEarliest atomic.Int64
 
 	// 用于表示在辅助分配（assistAlloc）中花费的纳秒数。辅助分配是垃圾回收期间由 P 执行的帮助分配操作。
-	gcAssistTime         int64 // Nanoseconds in assistAlloc
+	gcAssistTime int64 // Nanoseconds in assistAlloc
 
 	//用于在分数化标记工作器（fractional mark worker）中花费的纳秒数。分数化标记工作器是垃圾回收期间执行部分标记的工作器。
 	gcFractionalMarkTime int64 // Nanoseconds in fractional mark worker (atomic)
@@ -267,52 +264,70 @@ type p struct {
 	//例如垃圾回收的扫描和标记,调度器或其他系统任务相关的功能。
 	runSafePointFn uint32 // if 1, run sched.safePointFn at next safe point
 
-
-	//是一个计数器，指示当前的 P 是否正在写入任何统计信息。当不写入统计信息时，其值为偶数；当写入统计信息时，其值为奇数
+	//statsSeq是一个计数器，指示当前的 P 是否正在写入任何统计信息。
+	//其值为奇数时表示正在写入统计信息时
 	statsSeq atomic.Uint32
 
-	// Lock for timers. We normally access the timers while running
-	// on this P, but the scheduler can also do it from a different P.
-	//定时器的锁,通常在运行于该 P 上时访问定时器，但调度器也可以在不同的 P 上访问它。
+	//timersLock 是用于保护计时器（timers）的互斥锁（mutex）。
+	//互斥锁是一种同步原语，它提供了对共享资源的独占访问权。通过在对计时器进行访问之前获取互斥锁，并在访问完成后释放锁，
+	//可以确保同一时间只有一个 Goroutine 能够访问计时器，避免并发访问导致的数据竞争和不一致性。
+	//在正常情况下，运行时系统会在运行在同一 P 上的 Goroutine 中访问计时器，但调度器也可能会在不同的 P 上访问计时器。
 	timersLock mutex
 
-	// Actions to take at some time. This is used to implement the
-	// standard library's time package.
-	// Must hold timersLock to access.
+	// timers 是一个用于存储定时器的数组，表示在某个特定时间要执行的操作。该字段用于实现标准库的 time 包。
+	//访问 timers 字段时必须持有 timersLock 互斥锁,避免并发操作引起的竞态条件。
 	timers []*timer
 
-	// P 堆中的定时器数量
+	// 表示 P（Processor） 的堆（heap）中的定时器数量。
 	numTimers atomic.Uint32
 
-	// P 堆中被删除的定时器数量
+	// 表示 P（Processor） 的堆（heap）中被删除的定时器数量
 	deletedTimers atomic.Uint32
 
-	// Race context used while executing timer functions.
+	// timerRaceCtx 字段用于在执行定时器函数时记录竞争上下文。
+	//在并发环境下，多个 Goroutine 可能会同时访问和执行定时器函数，
+	//因此需要使用竞争上下文来追踪和标识定时器函数的执行情况。
 	timerRaceCtx uintptr
 
-	//累积由活动 Goroutine（即可进行堆栈扫描的 Goroutine）持有的堆栈空间的量。
-	//一旦达到 `maxStackScanSlack` 或 `-maxStackScanSlack`，就会刷新到 `gcController.maxStackScan`
-	// maxStackScanDelta accumulates the amount of stack space held by
-	// live goroutines (i.e. those eligible for stack scanning).
-	// Flushed to gcController.maxStackScan once maxStackScanSlack
-	// or -maxStackScanSlack is reached.
+	//用于累积活跃 Goroutine（即可进行堆栈扫描的 Goroutine）所占用的堆栈空间大小。
+	//在 Golang 的运行时系统中，垃圾回收器（GC）负责回收不再使用的内存。
+	//堆栈扫描是垃圾回收的一部分，它用于识别堆栈上的对象并进行标记，以确保不会回收仍然被引用的对象。
+	//maxStackScanDelta 字段用于跟踪并累积活跃 Goroutine 所占用的堆栈空间大小的变化。
+	//当堆栈空间的变化达到一定阈值（maxStackScanSlack 或 -maxStackScanSlack），
+	//maxStackScanDelta 字段的值会被刷新到 gcController.maxStackScan 字段中。
+	//通过记录 maxStackScanDelta，运行时系统可以实时跟踪堆栈空间的使用情况， 并在达到阈值时触发相应的处理逻辑。
+	//这有助于优化垃圾回收器的性能和效率，以及控制堆栈扫描的成本。
 	maxStackScanDelta int64
 
-	// gc-time statistics about current goroutines
-	// Note that this differs from maxStackScan in that this
-	// accumulates the actual stack observed to be used at GC time (hi - sp),
-	// not an instantaneous measure of the total stack size that might need
-	// to be scanned (hi - lo).
+	// scannedStackSize 和 scannedStacks 是用于记录与 GC 时间相关的有关当前 Goroutine 的统计信息的字段。
+	//scannedStackSize 字段用于累积当前 P（Processor） 扫描的 Goroutine 堆栈的大小。
+	//它表示在 GC 过程中扫描的 Goroutine 堆栈实际使用的空间大小（hi - sp）。
+	//scannedStacks 字段用于累积当前 P 扫描的 Goroutine 数量。
+	//这些字段的目的是跟踪当前 P 在 GC 过程中扫描的 Goroutine 的堆栈信息。
+	//通过收集和记录这些统计数据，运行时系统可以评估 GC 过程中 Goroutine 堆栈的使用情况，
+	//以提供对垃圾回收过程中 Goroutine 堆栈的细粒度监控和优化支持。
 	scannedStackSize uint64 // stack size of goroutines scanned by this P
 	scannedStacks    uint64 // number of goroutines scanned by this P
 
-	// preempt is set to indicate that this P should be enter the
-	// scheduler ASAP (regardless of what G is running on it).
+	// 用于指示该 P（Processor）是否应尽快进入调度器（scheduler），而不考虑当前运行在该 P 上的 Goroutine。
+	//在 Golang 的运行时系统中，调度器负责协调 Goroutine 的执行。
+	//为了实现公平的调度和避免 Goroutine 长时间占用 P，调度器会周期性地检查是否需要进行调度切换，即让其他 Goroutine 获取执行机会。
+	//preempt 字段用于标记该 P 是否应立即进入调度器。
+	//当 preempt 字段为 true 时，该 P 将优先进入调度器，即使当前正在运行的 Goroutine 尚未完成。
+	//这可以有效地实现调度器的抢占式调度，以避免某个 Goroutine 长时间占用 P，导致其他 Goroutine 饥饿。
+	//通过设置 preempt 字段，运行时系统可以实现对长时间运行的 Goroutine 的抢占，
+	//确保其他 Goroutine 有机会获取执行时间，提高整体系统的公平性和性能。
 	preempt bool
 
-	// pageTraceBuf is a buffer for writing out page allocation/free/scavenge traces.
-	//
-	// Used only if GOEXPERIMENT=pagetrace.
+	// pageTraceBuf 是一个用于记录页面分配、释放和清理追踪的缓冲区。
+	//在 Golang 的运行时系统中，可以启用 GOEXPERIMENT=pagetrace 实验特性来收集与页面管理相关的追踪信息。
+	//当启用了 pagetrace 实验特性时，运行时系统会追踪页面的分配、释放和清理操作，并将相关的追踪信息记录下来。
+	//pageTraceBuf 是一个用于缓存页面追踪信息的缓冲区。它会在需要记录页面追踪信息时被使用。
+	//当收集到足够的追踪信息后，运行时系统会将其写入输出流或日志文件中，以供进一步分析和调试。
+	//需要注意的是，pageTraceBuf 字段仅在启用了 pagetrace 实验特性时才会被使用。
+	//它是运行时系统内部的一个工具，用于收集调试和性能分析所需的页面追踪信息。
+	//通过使用 pageTraceBuf 字段，Golang 的运行时系统能够提供额外的工具和功能，以帮助开发人员诊断和优化与页面管理相关的问题。
+	//它提供了对页面分配、释放和清理的细粒度追踪，有助于理解和分析运行时系统的内存管理行为。
 	pageTraceBuf pageTraceBuf
 
 	//pad cpu.CacheLinePad //注意：该字段在当前版本已被移除
@@ -324,48 +339,3 @@ type p struct {
 	//这个改变对于解决伪共享问题有一定的意义，因为它减少了不必要的内存开销，并提高了 p 结构体的紧凑性。
 	//这使得每个 p 结构体在处理器之间的迁移和访问时更加高效，同时减少了缓存行的冲突，进一步提升了并发性能。
 }
-
-
-
-
-让我们逐个详细介绍上述 `P` 结构体中的字段：
-
-- `gcAssistTime int64`: 这是在辅助分配（assistAlloc）中花费的纳秒数。辅助分配是垃圾回收期间由 P 执行的帮助分配操作。
-
-- `gcFractionalMarkTime int64`: 这是在分数化标记工作器（fractional mark worker）中花费的纳秒数。分数化标记工作器是垃圾回收期间执行部分标记的工作器。
-
-- `limiterEvent limiterEvent`: 这是用于跟踪垃圾回收器 CPU 限制器的事件的字段。
-
-- `gcMarkWorkerMode gcMarkWorkerMode`: 这是下一个标记工作器（mark worker）运行的模式。它用于与通过 `gcController.findRunnableGCWorker` 选择的工作器 Goroutine 进行通信。在调度其他 Goroutine 时，必须将此字段设置为 `gcMarkWorkerNotWorker`。
-
-- `gcMarkWorkerStartTime int64`: 这是最近一个标记工作器开始运行的时间，以纳秒为单位。
-
-- `gcw gcWork`: 这是 P 的 GC 工作缓存。工作缓存由写屏障填充、由助理分配器（mutator assists）消耗，并在某些 GC 状态转换时释放。
-
-- `wbBuf wbBuf`: 这是 P 的 GC 写屏障缓存。
-
-- `runSafePointFn uint32`: 如果为 1，表示在下一个安全点运行 `sched.safePointFn` 函数。
-
-- `statsSeq atomic.Uint32`: 这是一个计数器，指示此 P 当前是否正在写入任何统计信息。当不写入统计信息时，其值为偶数；当写入统计信息时，其值为奇数。
-
-- `timersLock mutex`: 定时器的锁。我们通常在运行于该 P 上时访问定时器，但调度器也可以在不同的 P 上访问它。
-
-- `timers []*timer`: 存储定时器的数组。需要持有 `timersLock` 才能访问。
-
-- `numTimers atomic.Uint32`: P 堆中的定时器数量。
-
-- `deletedTimers atomic.Uint32`: P 堆中被删除的定时器数量。
-
-- `timerRaceCtx uintptr`: 执行定时器函数时使用的 Race 上下文。
-
-- `maxStackScanDelta int64`: 累积由活动 Goroutine（即可进行堆栈扫描的 Goroutine）持有的堆栈空间的量。一旦达到 `maxStackScanSlack` 或 `-maxStackScanSlack`，就会刷新到 `gcController.maxStackScan`。
-
-- `scannedStackSize uint64`: 用于记录当前 P 扫描的 Goroutine 的堆栈大小。
-
-- `scannedStacks uint64`: 用于记录当前 P 扫描的 Goroutine 数量。
-
-- `preempt bool`: 如果设置为 `true`，表示该 P 应尽快进入调度器（无论在其上运行哪个 G）。
-
-- `pageTraceBuf pageTraceBuf`: 用于写入页面分配/释放/清理跟踪的缓冲区。仅在 `GOEXPERIMENT=pagetrace` 时使用。
-
-这些字段主要用于管理和调度垃圾回收器的工作，跟踪定时器，以及收集统计信息和跟踪数据。它们是 Golang 运行时系统中与 P（处理器）相关的重要状态和数据结构，用于支持并发执行和垃圾回收的有效管理。
