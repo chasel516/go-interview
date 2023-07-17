@@ -267,12 +267,13 @@ type p struct {
 	//例如垃圾回收的扫描和标记,调度器或其他系统任务相关的功能。
 	runSafePointFn uint32 // if 1, run sched.safePointFn at next safe point
 
-	// statsSeq is a counter indicating whether this P is currently
-	// writing any stats. Its value is even when not, odd when it is.
+
+	//是一个计数器，指示当前的 P 是否正在写入任何统计信息。当不写入统计信息时，其值为偶数；当写入统计信息时，其值为奇数
 	statsSeq atomic.Uint32
 
 	// Lock for timers. We normally access the timers while running
 	// on this P, but the scheduler can also do it from a different P.
+	//定时器的锁,通常在运行于该 P 上时访问定时器，但调度器也可以在不同的 P 上访问它。
 	timersLock mutex
 
 	// Actions to take at some time. This is used to implement the
@@ -280,15 +281,17 @@ type p struct {
 	// Must hold timersLock to access.
 	timers []*timer
 
-	// Number of timers in P's heap.
+	// P 堆中的定时器数量
 	numTimers atomic.Uint32
 
-	// Number of timerDeleted timers in P's heap.
+	// P 堆中被删除的定时器数量
 	deletedTimers atomic.Uint32
 
 	// Race context used while executing timer functions.
 	timerRaceCtx uintptr
 
+	//累积由活动 Goroutine（即可进行堆栈扫描的 Goroutine）持有的堆栈空间的量。
+	//一旦达到 `maxStackScanSlack` 或 `-maxStackScanSlack`，就会刷新到 `gcController.maxStackScan`
 	// maxStackScanDelta accumulates the amount of stack space held by
 	// live goroutines (i.e. those eligible for stack scanning).
 	// Flushed to gcController.maxStackScan once maxStackScanSlack
