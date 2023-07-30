@@ -203,7 +203,7 @@ type g struct {
 	//通过收集和分析调度延迟统计信息，可以优化 Goroutine 的调度策略和资源利用，提高程序的并发性能。
 	tracking bool // whether we're tracking this G for sched latency statistics
 
-	//用于决定是否跟踪该 Goroutine.
+	//用于决定是否跟踪该 Goroutine的一个序列号.
 	//在 Golang 的运行时系统中，跟踪（tracking）是一项资源密集型的操作，会占用额外的内存和计算资源。
 	//为了优化性能，运行时系统不会对所有的 Goroutine 进行跟踪。相反，它使用 trackingSeq 字段来决定是否对该 Goroutine 进行跟踪。
 	//trackingSeq 字段用于存储一个序列号（sequence number），该序列号用于标识该 Goroutine。

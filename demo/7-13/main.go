@@ -17,7 +17,7 @@ func init() {
 			runtime.GOMAXPROCS(goMaxProcs)
 			fmt.Println("goMaxProcs:", goMaxProcs)
 		}
-	}, time.Second)
+	}, time.Second*5)
 }
 func main() {
 

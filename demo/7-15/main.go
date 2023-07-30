@@ -56,8 +56,10 @@ func testCancelAfter() {
 			}
 		}
 	}(ctx)
-	fmt.Println("Cancel begin", time.Now())
+
 	//defer cancel()
+	time.Sleep(time.Second)
+	fmt.Println("Cancel begin", time.Now())
 	cancel()
 	fmt.Println("Cancel end", time.Now())
 	wg.Wait()
