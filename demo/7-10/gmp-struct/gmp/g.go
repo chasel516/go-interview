@@ -35,7 +35,7 @@ type g struct {
 	//在进行垃圾回收期间，运行时系统需要执行一些特殊的操作，以确保垃圾回收器正常工作，并且不会意外地影响到系统调用过程。
 	//为了实现这一点，运行时系统在 g 结构体中维护了 syscallsp 字段。
 	//syscallsp 字段存储了一个地址值，表示在 GC 期间应使用的 syscallsp 值。
-	//该值通常是指向调用系统调用的堆栈帧的栈指针（stack pointer）。
+	//该值通常是指向系统调用的堆栈帧的栈指针（stack pointer）。
 	//通过保存 syscallsp 值，垃圾回收器可以在 GC 过程中正确地恢复系统调用的状态。
 	syscallsp uintptr // if status==Gsyscall, syscallsp = sched.sp to use during gc
 
@@ -73,7 +73,6 @@ type g struct {
 
 	//与调度器（scheduler）相关联的链表指针
 	//调度器可以通过遍历 G 结构体的 schedlink 链表来选择下一个要执行的 Goroutine，从而实现调度和切换的功能。
-	//需要注意的是，schedlink 字段是在运行时系统内部使用的，对于用户代码是不可见的。它是用于调度器和调度算法的内部数据结构。
 	//通过使用 schedlink 字段，Golang 的运行时系统可以有效地管理和调度 Goroutine，实现并发执行和调度的功能。
 	schedlink guintptr
 

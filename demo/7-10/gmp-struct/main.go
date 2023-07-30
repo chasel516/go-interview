@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"runtime"
-	"unsafe"
 )
 
 func main() {
@@ -11,11 +10,9 @@ func main() {
 	paramValue := 123
 
 	// 创建Goroutine并传递参数
-	go func(param unsafe.Pointer) {
-		// 类型转换获取参数的具体值
-		value := *(*int)(param)
-		fmt.Println("Received parameter:", value)
-	}(unsafe.Pointer(&paramValue))
+	go func(param int) {
+		fmt.Println("Received parameter:", param)
+	}(paramValue)
 
 	// 手动触发垃圾回收以确保Goroutine执行
 	runtime.GC()

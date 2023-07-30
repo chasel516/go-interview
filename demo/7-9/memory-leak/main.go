@@ -1,5 +1,6 @@
 package main
 
+import "C"
 import (
 	"fmt"
 	"log"
@@ -18,8 +19,8 @@ func init() {
 }
 
 func main() {
-	//mutexTest()
-	channelTest()
+	mutexTest()
+	//channelTest()
 
 	time.Sleep(10 * time.Second)
 }
@@ -105,3 +106,28 @@ func channelTest() {
 		time.Sleep(10 * time.Millisecond)
 	}
 }
+
+//// cgo_example.c
+//#include <stdlib.h>
+//#include <string.h>
+//
+//char* get_string() {
+//char* s = malloc(100);
+//strcpy(s, "hello world");
+//return s;
+//}
+//
+//// cgo_example.go
+//package main
+//
+///*
+//   #include "cgo_example.c"
+//*/
+//import "C"
+//import "fmt"
+//
+//func main() {
+//	s := C.get_string()
+//	fmt.Println(C.GoString(s))
+//	// 没有调用 C.free(s) 来释放内存
+//}

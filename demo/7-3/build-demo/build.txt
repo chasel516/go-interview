@@ -1,0 +1,103 @@
+cat /home/lee/.cache/go-build/18/1826afa860652b8b42bb7c6bdab9871c8afa93c691c1402b88c816199edddf87-d  # internal
+cat /home/lee/.cache/go-build/84/8475d305c38c5cb1e82fb02d5c6411189e441e7880b6e0cea63484fdcfa797bc-d  # internal
+cat /home/lee/.cache/go-build/6f/6f1accbcb627f58d53e68a304b27308653d4c76289fcc8731840ff0e53d9c28c-d  # internal
+cat /home/lee/.cache/go-build/d0/d0e11255e422b4072b976bebaee09805a2387fd9980b2a60502f94c882ae176d-d  # internal
+cat /home/lee/.cache/go-build/a3/a3b7bad9c5046e083775a781f00834cd9d3f88dbd8317137c68319b4d44b0fbc-d  # internal
+cat /home/lee/.cache/go-build/6b/6b3dae969833f174bc97af67c98225633675f999f5d71161fa60463dac3e93ce-d  # internal
+cat /home/lee/.cache/go-build/28/28f9031535bc78d1e820d3e6276352da6d883565b050b4dc9009ce6a007ab3a4-d  # internal
+cat /home/lee/.cache/go-build/46/469b00c6eaeb40e4c7a625612ca3b9464e593a42ce15488f4af3f89d59fb3c8e-d  # internal
+cat /home/lee/.cache/go-build/e7/e7a0b80351a37d74c655ba989c2e29f636686dcaf73314934d2dda852c4bd3e0-d  # internal
+cat /home/lee/.cache/go-build/af/afc47bbd3c6cb3a6ca7eb073ac0fcabcdfd4089aa58727e1dc983f4799aade23-d  # internal
+cat /home/lee/.cache/go-build/61/61548520be9ef9d11fd8b4bf639d5c386e84e1c347886b447af98a6e07760658-d  # internal
+cat /home/lee/.cache/go-build/4a/4a3d7fc96cb0baa5e34921ec99a1d0a7a3226eed4d84e9410475c14a0f9e63ba-d  # internal
+cat /home/lee/.cache/go-build/b4/b4b12fac7fdd5507ee32ec7c16249d77352646778510ab06d0cb55c36b18812d-d  # internal
+cat /home/lee/.cache/go-build/30/30212d543e0f5cd5ae2086e0eee2eb6a331da11d988047357a3bc3ebdd671ff4-d  # internal
+cat /home/lee/.cache/go-build/fb/fb38dfd8177203edfcfc89e839ee95fbdfe741f2f712eaa56362385a7265e7ee-d  # internal
+cat /home/lee/.cache/go-build/8d/8d0e8fb5848283c3455d3cac463aaaf26b4890e3c14955e6e296faf60f57b84f-d  # internal
+cat /home/lee/.cache/go-build/a9/a97730871c38925d3aec16e42e7d92a668f0de5ae3bf3592ffb09d53f73c1c8d-d  # internal
+cat /home/lee/.cache/go-build/4e/4ec04d3581fcb11ea2e8ae9f2353ff5edd02f3f493978351c241d115a50c375e-d  # internal
+cat /home/lee/.cache/go-build/24/24ac1993438aaa062f1976720e5ff7d6fb6fbcc8c1d90e2dc051cc714b5ec050-d  # internal
+cat /home/lee/.cache/go-build/ac/ac886245288bdd1ab09d87d495bfa3d9c3e69dc4d788084cc33b4c3c481f8477-d  # internal
+cat /home/lee/.cache/go-build/83/83b7daa9616c049089a46f6c32d663ec1db2c1a11b33d3d5d53ed246b98d9626-d  # internal
+cat /home/lee/.cache/go-build/d5/d5889da70b1a530eac62e5d24dd1798f4b0153fc3f44ff81cd1705eae614773b-d  # internal
+cat /home/lee/.cache/go-build/71/71bc9bf8c46be1e96beea8b02b86172e2b79e31b1d3f769bdad44ca8b4c35725-d  # internal
+cat /home/lee/.cache/go-build/e8/e8973cbbd3e36d14823135b2d10d3e53c474dcb54a44ec05a3976a85cd1b54c2-d  # internal
+cat /home/lee/.cache/go-build/0f/0fd47b05436bf2cf622a5246ec1d0c16d1c8abfe98901179603ee641918dbc8e-d  # internal
+cat /home/lee/.cache/go-build/ac/ac94f5b11560bf1ce184b278384d18100cf355d025843671a522da9833da4a9f-d  # internal
+cat /home/lee/.cache/go-build/4a/4a94cbfa9bb788541d838dbfd50e591e630f6482d83f77790d9a999b9059b981-d  # internal
+cat /home/lee/.cache/go-build/a1/a12b17e10076dc25beda1279d14498c4c961c2aaf0e5d859ca1108b145514249-d  # internal
+cat /home/lee/.cache/go-build/8f/8f0e28e163158210ce74dae393c6d6a74f1579fe821a50eb7ea7a538c970253b-d  # internal
+cat /home/lee/.cache/go-build/69/698bb475894a3b68ad64bb44db0a33459db9f8dbbb9888c41bbfaec2df9a45c0-d  # internal
+cat /home/lee/.cache/go-build/9f/9f546bfcc49e9623e1319a7048b7aaa0d9e19d1e4cc2d9b8936e3136675e2abc-d  # internal
+cat /home/lee/.cache/go-build/b7/b7a2b7b17ad846fc1f85739bfe5a3cc6f247d4da4f3803f898b6491e4afd9162-d  # internal
+cat /home/lee/.cache/go-build/f4/f4076f4ae0e801e113b80ae109f5b0d7ae2a0e3aab7ee28e15b442162be4e237-d  # internal
+cat /home/lee/.cache/go-build/33/3391f10780168f844edb11ff3b798698b6f20ce745db473fc16e543a863c7c6c-d  # internal
+cat /home/lee/.cache/go-build/0b/0b15575914458b3db75b9b45b0232c4e172dc654a9b426e7c3c5b87919a67e03-d  # internal
+cat /home/lee/.cache/go-build/f3/f3a7266c3afb1386b1255754ee6fa55caab01bd576a0d204840b5fd8942e2ec8-d  # internal
+cat /home/lee/.cache/go-build/d5/d5797d9ad1b7873db0064576d8619114f09ffd9dd17b601a03dae72119b9f614-d  # internal
+cat /home/lee/.cache/go-build/69/694d8c8b16e61680ac8fa76805accfde756cacdd8a2cd9f2a3ffdfc20ee496f4-d  # internal
+cat /home/lee/.cache/go-build/6f/6f4a1c5a3d820fc9f5a5ea26ab4e19f8c957e80bdfef61c6a669657c2194c5c4-d  # internal
+cat /home/lee/.cache/go-build/a8/a85060c841ff43bd6f5591bc068ec1763c1261cc4427f444f1cdaa36036c574f-d  # internal
+
+#
+# command-line-arguments
+#
+
+mkdir -p $WORK/b001/
+cat >$WORK/b001/importcfg << 'EOF' # internal
+# import config
+packagefile fmt=/home/lee/.cache/go-build/13/13b2aa2ed078e1af52c9e07b0bfeb60dbe893651873a3c6de851491e4483fdfe-d
+packagefile runtime=/home/lee/.cache/go-build/11/119735f0aa138cb3c311a5b166cd0f2832cfe3c4d271d36c9300945f623664cf-d
+EOF
+cd /mnt/g/code/go/go-interview/demo/7-3/build-demo
+/snap/go/current/pkg/tool/linux_amd64/compile -o $WORK/b001/_pkg_.a -trimpath "$WORK/b001=>" -p main -complete -buildid KhdRzT3E2hKxdLkNM00w/KhdRzT3E2hKxdLkNM00w -goversion go1.20.6 -c=4 -nolocalimports -importcfg $WORK/b001/importcfg -pack ./main.go
+/snap/go/current/pkg/tool/linux_amd64/buildid -w $WORK/b001/_pkg_.a # internal
+cat >$WORK/b001/importcfg.link << 'EOF' # internal
+packagefile command-line-arguments=$WORK/b001/_pkg_.a
+packagefile fmt=/home/lee/.cache/go-build/13/13b2aa2ed078e1af52c9e07b0bfeb60dbe893651873a3c6de851491e4483fdfe-d
+packagefile runtime=/home/lee/.cache/go-build/11/119735f0aa138cb3c311a5b166cd0f2832cfe3c4d271d36c9300945f623664cf-d
+packagefile errors=/home/lee/.cache/go-build/b6/b678c79eb8da6d6a473f8380b22597b83967c48db9862877417ddd064f694c55-d
+packagefile internal/fmtsort=/home/lee/.cache/go-build/ea/ea1f6ce73d6c7c8fd77dc934c0bf849243cfaa059ee1a092535898ed0298c44b-d
+packagefile io=/home/lee/.cache/go-build/37/37ee3a95d56e4208217eee21d2a346f0a65438d6b238eb9f2c16a08bd5f11194-d
+packagefile math=/home/lee/.cache/go-build/f9/f92e0aaa886de0acae9c4b854758e39e90403c434b7d444225f83d069bec794f-d
+packagefile os=/home/lee/.cache/go-build/d4/d4bc468d34d3a3eaacbb9a941aa69717220211f339a6affa530b87092e913c35-d
+packagefile reflect=/home/lee/.cache/go-build/8c/8c74af9a6b7e8306890dfcdc6b108c7d4fc63b2340de985ab42076ee849415ae-d
+packagefile sort=/home/lee/.cache/go-build/8a/8a4f8657d377343bd02b64fa339d73e9ff5949faf3a43353d98f5dff88769783-d
+packagefile strconv=/home/lee/.cache/go-build/b0/b065c7ddd928b7afd410d0513827c240d8ab25f266f233559fed6a176d8fcb98-d
+packagefile sync=/home/lee/.cache/go-build/24/2400470fc035d44518bb5cfb1f16998de63e6d004d337e1ce599de7f89f75dd4-d
+packagefile unicode/utf8=/home/lee/.cache/go-build/e4/e4c50a6301bb89ff10e66c8447a1b58b0a2ed75398b6cc9f350613fe4709a098-d
+packagefile internal/abi=/home/lee/.cache/go-build/ad/ad787505082ec9321c40b1af7d481aca027756fa3814561f3dbc156d9e9dfb2a-d
+packagefile internal/bytealg=/home/lee/.cache/go-build/e5/e50b35c31035dd6597f0da4574c9983b82a8e3daab4cec747c148e7bd352254b-d
+packagefile internal/coverage/rtcov=/home/lee/.cache/go-build/0f/0f7b732c9cd50201dccd7598cd2f3d5f162232cd042d62594d4526297dac5496-d
+packagefile internal/cpu=/home/lee/.cache/go-build/51/518ca676ab97a0d822e3a1be183b70870dd1b058752f23cb109b45f34b927431-d
+packagefile internal/goarch=/home/lee/.cache/go-build/55/55d836efde774357ccb5263dc77ee92341665461381ecf46c45f17fbe6517fbb-d
+packagefile internal/goexperiment=/home/lee/.cache/go-build/31/3160b15a7c56dc24f369abc767080621b0bbd088b96aa3b3c966e276511a53ee-d
+packagefile internal/goos=/home/lee/.cache/go-build/35/358380e8e8c205306a800d8ffbdc00fe8936336facee2788b49338c09890418b-d
+packagefile runtime/internal/atomic=/home/lee/.cache/go-build/17/17b3f8388c6f575213351a79688b9944b945621ea6ae22240885eb0e1bdc4743-d
+packagefile runtime/internal/math=/home/lee/.cache/go-build/01/01a47e6a2dfea4cfda19fd88f91491eefa71e21f81ac59bf056eebbc3532e539-d
+packagefile runtime/internal/sys=/home/lee/.cache/go-build/d8/d8d4d355609b5751c50a0eede1ac3d8ed962e10c812e8f453efc29f5838247c1-d
+packagefile runtime/internal/syscall=/home/lee/.cache/go-build/97/97675356a5a3d64b1262f99d599437575bd252a8bdeabf89c1d12db7ca2e90fd-d
+packagefile internal/reflectlite=/home/lee/.cache/go-build/05/05ca7d1a520ab6a22a03e782cbfad878ea40b0f28401ec42624f6525d525b2fe-d
+packagefile math/bits=/home/lee/.cache/go-build/f5/f5f874c24fe9c2e67cc4abbd09967f7f186033a826fb397ee5303ee98897b8ab-d
+packagefile internal/itoa=/home/lee/.cache/go-build/b1/b18fe2e4d037bfc6fa1b5ea85047fcdb41f9e92bbc39fd5d0159f3a2aec709ba-d
+packagefile internal/poll=/home/lee/.cache/go-build/71/71e8224c9a715225ce9e69c9c5ffbe7610c9af7b99d0413476e46c86563947a5-d
+packagefile internal/safefilepath=/home/lee/.cache/go-build/7c/7cb13ba2139893dd2d7be18dc33de37d82b684440adccf3f98015739e1b7724d-d
+packagefile internal/syscall/execenv=/home/lee/.cache/go-build/26/26a4350637748f9a89a8522f70423fa91701944a8183c0feb5140be54f411495-d
+packagefile internal/syscall/unix=/home/lee/.cache/go-build/27/27943238e6847386c9b148da98b9db32a7dd555e84a21c5394fdaf2ae8b9a557-d
+packagefile internal/testlog=/home/lee/.cache/go-build/6c/6c40925db9be3313cfa034039882a62bd742ec4f0c700c8abfae0ce5a993596e-d
+packagefile io/fs=/home/lee/.cache/go-build/87/87fe9fd6dd1354d985e01900b3dc9ae8739ff0960d09a72bae2d74cc2257f44b-d
+packagefile sync/atomic=/home/lee/.cache/go-build/14/1452a945412223032b1841e454501cd9b01911a91bf93cd7bce4c458ae0a3e9d-d
+packagefile syscall=/home/lee/.cache/go-build/a3/a3ce111455a5aae6defae83094f17000efc7a35d720303f060e04e8e4b715856-d
+packagefile time=/home/lee/.cache/go-build/a0/a05298afd68d7e7f3bba4512fb1e85c3e5a1dd8f273693f005fe1db5d7304036-d
+packagefile internal/unsafeheader=/home/lee/.cache/go-build/57/57a0b4abb1ebb05ef6dbfafdf0e89c6ff0f72725db89b14fa7a8f8f7d488f32c-d
+packagefile unicode=/home/lee/.cache/go-build/f1/f18beb9b2bc4d7d109b3e89c39f705c77d6023e36e82469bec28824666c3d697-d
+packagefile internal/race=/home/lee/.cache/go-build/40/40c46222af829e6d0fe176989f4af974796b774bb8cd9263b87d3d89df0275f0-d
+packagefile internal/oserror=/home/lee/.cache/go-build/ba/ba978f17257739e8cf0ea9e9aaa1982501dc47201858299c492a5f824a125cb3-d
+packagefile path=/home/lee/.cache/go-build/77/77a41592bb9a2e198b6430aa46e64d8582d8fbe4a6d960b5cb08517237541a67-d
+modinfo "0w\xaf\f\x92t\b\x02A\xe1\xc1\a\xe6\xd6\x18\xe6path\tcommand-line-arguments\nbuild\t-buildmode=exe\nbuild\t-compiler=gc\nbuild\tCGO_ENABLED=1\nbuild\tCGO_CFLAGS=\nbuild\tCGO_CPPFLAGS=\nbuild\tCGO_CXXFLAGS=\nbuild\tCGO_LDFLAGS=\nbuild\tGOARCH=amd64\nbuild\tGOOS=linux\nbuild\tGOAMD64=v1\n\xf92C1\x86\x18 r\x00\x82B\x10A\x16\xd8\xf2"
+EOF
+mkdir -p $WORK/b001/exe/
+cd .
+/snap/go/current/pkg/tool/linux_amd64/link -o $WORK/b001/exe/a.out -importcfg $WORK/b001/importcfg.link -buildmode=exe -buildid=K6v5lwnCEnZhuGivzxit/KhdRzT3E2hKxdLkNM00w/KhdRzT3E2hKxdLkNM00w/K6v5lwnCEnZhuGivzxit -extld=gcc $WORK/b001/_pkg_.a
+/snap/go/current/pkg/tool/linux_amd64/buildid -w $WORK/b001/exe/a.out # internal
+mv $WORK/b001/exe/a.out main
