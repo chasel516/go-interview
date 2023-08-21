@@ -54,12 +54,12 @@ type g struct {
 	//这有助于检测堆栈溢出、错误的调用帧和其他潜在的问题。
 	stktopsp uintptr // expected sp at top of stack, to check in traceback
 
-	// param字段是一个unsafe.Pointer类型的指针，用于传递参数。它是一个通用的字段，可以由用户自定义使用。
-	//param字段的目的是为了在Goroutine的生命周期中传递任意类型的参数。
-	//在创建Goroutine时，可以将需要传递的参数存储到param字段中，然后在Goroutine内部通过类型转换来获取参数的具体值。
-	//由于param字段的类型是unsafe.Pointer，它可以指向任意类型的指针，包括指针类型和非指针类型。
-	//这使得它具有很高的灵活性，可以适应各种参数类型的传递需求。
-	//具体用法见：https://gitee.com/phper95/go-interview/blob/master/demo/7-10/gmp-struct/main.go
+	// param 是一个通用指针参数字段，用于传递 参数的其他存储空间将很难找到的情况下传递值。
+	//目前有三种使用方式
+	// 参数字段：
+	// 1. 当一个通道操作唤醒一个被阻塞的 goroutine 时，它会将 param 设置为指向已完成阻塞操作的 sudog。
+	//2. 通过 gcAssistAlloc1 向其调用者发出信号，表明该 goroutine 已完成GC 循环。以任何其他方式都是不安全的，因为 goroutine 的堆栈可能会在GC期间发生了移动；
+	//3. 通过 debugCallWrap 向新的 goroutine 传递参数，因为在运行时分配闭包是被禁止的。
 	param unsafe.Pointer
 
 	//Goroutine的原子状态，用于表示Goroutine的状态，比如运行状态、等待状态、休眠状态等。
