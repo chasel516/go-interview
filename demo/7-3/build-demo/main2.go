@@ -17,7 +17,7 @@ func main() {
 	var s scanner.Scanner
 
 	// 打开源文件
-	file, err := os.Open("main.go")
+	file, err := os.Open("main_test.go")
 	if err != nil {
 		panic(err)
 	}
@@ -28,7 +28,7 @@ func main() {
 	}
 	fileInfo, _ := file.Stat()
 	// 初始化扫描器
-	s.Init(fset.AddFile("main.go", fset.Base(), int(fileInfo.Size())), content, nil, scanner.ScanComments)
+	s.Init(fset.AddFile("main_test.go", fset.Base(), int(fileInfo.Size())), content, nil, scanner.ScanComments)
 
 	// 遍历每个token
 	log.Println("Token sequence:")

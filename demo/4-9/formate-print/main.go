@@ -110,7 +110,7 @@ func main() {
 	////text, _ := reader.ReadString(' ') // 读到换行
 	//fmt.Println(text)
 
-	//go run -ldflags "-X 'main.appName=test' -X 'main.version=1'" main.go
-	//go build -ldflags "-X 'main.appName=test' -X 'main.version=1'" main.go
+	//go run -ldflags "-X 'main.appName=test' -X 'main.version=1'" main_test.go
+	//go build -ldflags "-X 'main.appName=test' -X 'main.version=1'" main_test.go
 	fmt.Printf("appName:%s version:%s \n", appName, version)
 }
