@@ -42,3 +42,13 @@ func f4(param *[]int) {
 	*param = append(*param, 4)
 	log.Printf("f4 重新赋值后: s:%p", *param)
 }
+
+const N = 128
+
+var x = []int{N - 1: 789}
+
+func f5(param *[]int) {
+
+	y := make([]int, N)
+	*(*[N]int)(y) = *(*[N]int)(x)
+}
