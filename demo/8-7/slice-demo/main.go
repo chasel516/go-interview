@@ -43,3 +43,13 @@ func f3(param []int) {
 	param = s3
 	log.Printf("f3 param:%p", param)
 }
+
+const N = 128
+
+var x = []int{N - 1: 789}
+
+func f5(param *[]int) {
+
+	y := make([]int, N)
+	*(*[N]int)(y) = *(*[N]int)(x)
+}
