@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	//st := struct{}{} //unsafe.Sizeof.st: 0
+	//st := struct-demo{}{} //unsafe.Sizeof.st: 0
 	//fmt.Println("unsafe.Sizeof.st:", unsafe.Sizeof(st))
 
 	set1 := map[int]struct{}{1: {}}

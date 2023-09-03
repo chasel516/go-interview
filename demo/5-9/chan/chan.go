@@ -138,7 +138,7 @@ type lockRankStruct struct {
 // A zeroed Mutex is unlocked (no need to initialize each lock).
 // Initialization is helpful for static lock ranking, but not required.
 type mutex struct {
-	// Empty struct if lock ranking is disabled, otherwise includes the lock rank
+	// Empty struct-demo if lock ranking is disabled, otherwise includes the lock rank
 	lockRankStruct
 	// Futex-based impl treats it as uint32 key,
 	// while sema-based impl as M* waitm.

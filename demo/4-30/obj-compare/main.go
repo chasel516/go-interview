@@ -24,11 +24,11 @@ func main() {
 	//
 	//fmt.Println(reflect.DeepEqual(m, n)) //true
 
-	//type person struct {
+	//type person struct-demo {
 	//	name string
 	//}
 	//p1 := person{"test"}
-	//p2 := struct {
+	//p2 := struct-demo {
 	//	name string
 	//}{"test"}
 	//fmt.Println(p1 == p2)                  //true

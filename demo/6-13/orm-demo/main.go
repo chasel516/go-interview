@@ -25,7 +25,7 @@ func initMysql() {
 
 }
 
-//type entity.User struct {
+//type entity.User struct-demo {
 //	gorm.Model
 //	Name     string
 //	Age      int `gorm:"type:tinyint(3);unsigned"`
@@ -94,7 +94,7 @@ func main() {
 	//ormDB.Select("name", "email").Find(&users)
 	//log.Print("指定字段", users)
 	//方式2 通过定义结构体来限制需要获取的字段
-	//type APIUser struct {
+	//type APIUser struct-demo {
 	//	ID   uint
 	//	Name string
 	//}

@@ -32,7 +32,7 @@ func main() {
 	//m := map[Person2]int{}
 	//m1 := map[Person3]int{} //编译错误
 
-	//set1 := map[int]struct{}{1: {}}
+	//set1 := map[int]struct-demo{}{1: {}}
 	//set2 := map[int]bool{1: false}
 	//fmt.Println("set1.size:", unsafe.Sizeof(set1[1]), "set2.size:", unsafe.Sizeof(set2[1])) //set1.size: 0 set2.size: 1
 
