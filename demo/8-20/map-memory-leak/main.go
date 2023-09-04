@@ -20,14 +20,29 @@ func main() {
 	}
 	runtime.GC()
 	log.Println(getMemStats())
+	//模拟大量，map删除的场景
 	for k, _ := range m {
-		delete(m, k)
-	}
+		if k != 1 {
+			delete(m, k)
+		}
 
+	}
 	runtime.GC()
 	log.Println(getMemStats())
+
+	//将原map的值拷贝到新map
+	tmp := make(map[int]int, len(m))
+	for k, v := range m {
+		tmp[k] = v
+	}
+	//将新map置空
 	m = nil
+	//将临时map赋值给新map
+	m = tmp
+	//将临时map置空
+	tmp = nil
 	runtime.GC()
+	log.Println(m)
 	log.Println(getMemStats())
 }
 
