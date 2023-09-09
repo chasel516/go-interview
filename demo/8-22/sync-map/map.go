@@ -4,66 +4,22 @@ import (
 	"sync/atomic"
 )
 
-//Map 类型是专用的。大多数代码应该使用普通的 Go map、
-// 单独锁定或协调，以获得更好的类型安全性，并使其 // 更容易维护其他不变性。
-// 更容易在维护映射内容的同时维护其他不变式。
-
-// Map is like a Go map[interface{}]interface{} but is safe for concurrent use
-// by multiple goroutines without additional locking or coordination.
-// Loads, stores, and deletes run in amortized constant time.
-//
-// The Map type is specialized. Most code should use a plain Go map instead,
-// with separate locking or coordination, for better type safety and to make it
-// easier to maintain other invariants along with the map content.
-//
-// The Map type is optimized for two common use cases: (1) when the entry for a given
-// key is only ever written once but read many times, as in caches that only grow,
-// or (2) when multiple goroutines read, write, and overwrite entries for disjoint
-// sets of keys. In these two cases, use of a Map may significantly reduce lock
-// contention compared to a Go map paired with a separate Mutex or RWMutex.
-//
-// The zero Map is empty and ready for use. A Map must not be copied after first use.
-//
-// In the terminology of the Go memory model, Map arranges that a write operation
-// “synchronizes before” any read operation that observes the effect of the write, where
-// read and write operations are defined as follows.
-// Load, LoadAndDelete, LoadOrStore, Swap, CompareAndSwap, and CompareAndDelete
-// are read operations; Delete, LoadAndDelete, Store, and Swap are write operations;
-// LoadOrStore is a write operation when it returns loaded set to false;
-// CompareAndSwap is a write operation when it returns swapped set to true;
-// and CompareAndDelete is a write operation when it returns deleted set to true.
 type Map struct {
+
+	//加锁，用于保护dirty字段
 	mu Mutex
 
-	// read contains the portion of the map's contents that are safe for
-	// concurrent access (with or without mu held).
-	//
-	// The read field itself is always safe to load, but must only be stored with
-	// mu held.
-	//
-	// Entries stored in read may be updated concurrently without mu, but updating
-	// a previously-expunged entry requires that the entry be copied to the dirty
-	// map and unexpunged with mu held.
+	// 存储只读数据，并发安全
+	// read包含并发安全的map部分，访问它（的entries）永远不用加锁
+	// 当entry需要从read删除时，并不直接删除该entry的指针e， 而是将e.p置为nil。
 	read atomic.Pointer[readOnly]
 
-	// dirty contains the portion of the map's contents that require mu to be
-	// held. To ensure that the dirty map can be promoted to the read map quickly,
-	// it also includes all of the non-expunged entries in the read map.
-	//
-	// Expunged entries are not stored in the dirty map. An expunged entry in the
-	// clean map must be unexpunged and added to the dirty map before a new value
-	// can be stored to it.
-	//
-	// If the dirty map is nil, the next write to the map will initialize it by
-	// making a shallow copy of the clean map, omitting stale entries.
+	// 存储最新写入的数据，通过加锁确保并发安全
+	//dirty包括map中需要加锁读写的部分。
 	dirty map[any]*entry
 
-	// misses counts the number of loads since the read map was last updated that
-	// needed to lock mu to determine whether the key was present.
-	//
-	// Once enough misses have occurred to cover the cost of copying the dirty
-	// map, the dirty map will be promoted to the read map (in the unamended
-	// state) and the next store to the map will make a new dirty copy.
+	//计数器，从read中读失败则+1
+	//当misses数量超过dirty长度时，将dirty赋值给read
 	misses int
 }
 
@@ -73,31 +29,20 @@ type readOnly struct {
 	amended bool // true if the dirty map contains some key not in m.
 }
 
-// expunged is an arbitrary pointer that marks entries which have been deleted
-// from the dirty map.
+// 用于标记数据项已被删除（主要保证数据冗余时的并发安全）
+// 上述Map结构中说到有一个将read数据拷贝冗余至dirty的过程，
+// 因为删除数据项是将*entry置nil, 为了避免冗余过程中因并发问题导致*entry改变而影响到拷贝后的dirty正确性，
+// 所以sync.Map使用expunged来标记entry是否被删除
 var expunged = new(any)
 
-// An entry is a slot in the map corresponding to a particular key.
+// nil: 表示为被删除，调用Delete()可以将read map中的元素置为nil
+// expunged: 也是表示被删除，但是该键只在read而没有在dirty中，
+// 这种情况出现在将read复制到dirty中，即复制的过程会先将nil标记为expunged，然后不将其复制到dirty
+// 其他: 表示存着真正的数据
 type entry struct {
-	// p points to the interface{} value stored for the entry.
-	//
-	// If p == nil, the entry has been deleted, and either m.dirty == nil or
-	// m.dirty[key] is e.
-	//
-	// If p == expunged, the entry has been deleted, m.dirty != nil, and the entry
-	// is missing from m.dirty.
-	//
-	// Otherwise, the entry is valid and recorded in m.read.m[key] and, if m.dirty
-	// != nil, in m.dirty[key].
-	//
-	// An entry can be deleted by atomic replacement with nil: when m.dirty is
-	// next created, it will atomically replace nil with expunged and leave
-	// m.dirty[key] unset.
-	//
-	// An entry's associated value can be updated by atomic replacement, provided
-	// p != expunged. If p == expunged, an entry's associated value can be updated
-	// only after first setting m.dirty[key] = e so that lookups using the dirty
-	// map find the entry.
+	//e.p==nil：entry已经被标记删除，不过此时还未经过read=>dirty重塑，此时可能仍然属于dirty（如果dirty非nil）
+	//e.p==expunged：entry已经被标记删除，经过read=>dirty重塑，不属于dirty，仅仅属于read，下一次dirty=>read升级，会被彻底清理（因为升级的操作是直接覆盖，read中的expunged会被自动释放回收）
+	//e.p==普通指针：此时entry是一个普通的存在状态，属于read，如果dirty非nil，也属于dirty。对应架构图中的normal状态。
 	p atomic.Pointer[any]
 }
 
@@ -155,12 +100,11 @@ func (m *Map) Store(key, value any) {
 	_, _ = m.Swap(key, value)
 }
 
-// tryCompareAndSwap compare the entry with the given old value and swaps
-// it with a new value if the entry is equal to the old value, and the entry
-// has not been expunged.
-//
-// If the entry is expunged, tryCompareAndSwap returns false and leaves
-// the entry unchanged.
+// CompareAndSwap（CAS） 使用的是乐观锁技术，当多个线程尝试使用CAS同时更新同一个变量时，
+// 只有其中一个线程能更新变量的值，而其它线程都失败，
+// 失败的线程并不会被挂起，而是被告知这次竞争中失败，并可以再次尝试。
+// CAS（比较并交换）是CPU指令级的操作，只有一步原子操作，所以非常快。
+// 而且CAS避免了请求操作系统来裁定锁的问题，不用麻烦操作系统， 直接在CPU内部就搞定了
 func (e *entry) tryCompareAndSwap(old, new any) bool {
 	p := e.p.Load()
 	if p == nil || p == expunged || *p != old {
