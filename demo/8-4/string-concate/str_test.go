@@ -98,7 +98,7 @@ func BenchmarkStringsBuilderWithGrow(b *testing.B) {
 
 // 使用 []byte 拼接字符串
 func BenchmarkStringByte(b *testing.B) {
-	bt := make([]byte, 0, 0)
+	bt := make([]byte, 0, b.N*len("Hello, World!"))
 	for i := 0; i < b.N; i++ {
 		bt = append(bt, "Hello, World!"...)
 	}
@@ -120,6 +120,7 @@ func BenchmarkStringByteWithPreAndZeroCopy(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		bt = append(bt, "Hello, World!"...)
 	}
+	//string(bt)
 	result := *(*string)(unsafe.Pointer(&bt))
 	_ = result
 }

@@ -10,13 +10,13 @@ func main() {
 	//1.连接符 +
 	s1 := "ab"
 	s2 := "cd"
-	fmt.Println("连接符 +:", s1+s2)
-
-	//2.字符串格式化函数fmt.Sprintf
-	s := fmt.Sprintf("%s%s", s1, s2)
-	fmt.Println("fmt.Sprintf:", s)
-
-	//3.预分配bytes.Buffer
+	//fmt.Println("连接符 +:", s1+s2)
+	//
+	////2.字符串格式化函数fmt.Sprintf
+	//s := fmt.Sprintf("%s%s", s1, s2)
+	//fmt.Println("fmt.Sprintf:", s)
+	//
+	////3.预分配bytes.Buffer
 	var buf bytes.Buffer
 	buf.Grow(len(s1) + len(s2))
 	buf.WriteString(s1)
@@ -31,7 +31,7 @@ func main() {
 	bu.WriteString(s2)
 	fmt.Println("strings.Buffer:", bu.String())
 	BuilderCapResize()
-
+	//
 	//5.预分配[]byte
 	bt := make([]byte, 0, len(s1)+len(s2))
 	bt = append(bt, s1...)
@@ -46,6 +46,7 @@ func main() {
 func BufferCapResize() {
 	var str = "abcd"
 	var buf bytes.Buffer
+	buf.Grow(4 * 10000)
 	cap := 0
 	for i := 0; i < 10000; i++ {
 		if buf.Cap() != cap {

@@ -14,15 +14,15 @@ func main() {
 	//字符串字节数组的的地址
 	fmt.Println("s pointer:", unsafe.Pointer(ptr.Data))
 
-	Assign()
-	AssignPointer()
-	StringSlice()
-	Repeat()
+	//Assign()
+	//AssignPointer()
+	//StringSlice()
+	//Repeat()
 	StringSlice1(s)
 	StringSlice2(s)
-	StringSliceUseBuilder(s)
-	f1(s)
-	f2(&s)
+	//StringSliceUseBuilder(s)
+	//f1(s)
+	//f2(&s)
 }
 
 func Assign() {
@@ -32,13 +32,13 @@ func Assign() {
 	fmt.Println("Assign:", unsafe.Pointer(ptr.Data))
 
 	//将原始字符串置空
-	//s := "" //字符串s的底层指向改变
-	//ptr = (*reflect.StringHeader)(unsafe.Pointer(&s))
-	//fmt.Println("s pointer:", unsafe.Pointer(ptr.Data))
+	s := "" //字符串s的底层指向改变
+	ptr = (*reflect.StringHeader)(unsafe.Pointer(&s))
+	fmt.Println("s pointer:", unsafe.Pointer(ptr.Data))
 
-	//ptr = (*reflect.StringHeader)(unsafe.Pointer(&s2))
+	ptr = (*reflect.StringHeader)(unsafe.Pointer(&s2))
 	//字符串字节数组的的地址
-	//fmt.Println("Assign:", unsafe.Pointer(ptr.Data))
+	fmt.Println("Assign:", unsafe.Pointer(ptr.Data))
 	_ = s2
 }
 
@@ -63,8 +63,8 @@ func StringSlice() {
 
 func Repeat() {
 
-	s2 := strings.Repeat(s, 1)
-	//s2 := strings.Repeat(s, 2)
+	//s2 := strings.Repeat(s, 1)
+	s2 := strings.Repeat(s, 2)
 	ptr := (*reflect.StringHeader)(unsafe.Pointer(&s2))
 	//字符串字节数组的的地址
 	fmt.Println("Repeat", unsafe.Pointer(ptr.Data))
