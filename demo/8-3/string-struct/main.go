@@ -28,7 +28,6 @@ func main() {
 	//	fmt.Printf("i:%d;c:%c", i, c)
 	//}
 
-	//return
 	ptr := (*reflect.StringHeader)(unsafe.Pointer(&s1))
 	fmt.Println(ptr)
 	//字符串Data的地址
