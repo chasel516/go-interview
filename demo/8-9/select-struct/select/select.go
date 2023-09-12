@@ -6,12 +6,59 @@ import (
 
 const debugSelect = false
 
-// Select case descriptor.
-// Known to compiler.
-// Changes here must also be made in src/cmd/compile/internal/walk/select.go's scasetype.
 type scase struct {
 	c    *hchan         // chan
 	elem unsafe.Pointer // data element
+}
+
+type scase struct {
+	c    *hchan         // chan的结构体类型指针
+	elem unsafe.Pointer // //读或者写的缓冲区地址
+}
+
+// 源码位置：$GOPATH/src/runtime/chan.go
+type hchan struct {
+	//当前队列中元素的个数。当我们向channel发送数据时，qcount会增加1；当我们从channel接收数据时，qcount会减少1
+	qcount uint
+
+	//如果我们在创建channel时指定了缓冲区的大小，那么dataqsiz就等于指定的大小；否则，dataqsiz为0，表示该channel没有缓冲区。
+	dataqsiz uint
+
+	//buf字段是一个unsafe.Pointer类型的指针，指向缓冲区的起始地址。如果该channel没有缓冲区，则buf为nil。
+	buf unsafe.Pointer
+
+	//表示缓冲区中每个元素的大小。当我们创建channel时，Golang会根据元素的类型计算出elemsize的值。
+	elemsize uint16
+
+	// channel 是否已经关闭,当我们通过close函数关闭一个channel时，Golang会将closed字段设置为true。
+	closed uint32
+
+	//表示下一次接收元素的位置.当我们从channel接收数据时，Golang会从缓冲区中recvx索引的位置读取数据，并将recvx加1
+	recvx uint
+
+	//表示下一次发送元素的位置。在channel的发送操作中，如果缓冲区未满，则会将数据写入到sendx指向的位置，并将sendx加1。
+	//如果缓冲区已满，则发送操作会被阻塞，直到有足够的空间可用。
+	sendx uint
+
+	// 等待接收数据的 goroutine 队列，用于存储等待从channel中读取数据的goroutine。
+	//当channel中没有数据可读时，接收者goroutine会进入recvq等待队列中等待数据的到来。
+	//当发送者goroutine写入数据后，会将recvq等待队列中的接收者goroutine唤醒，并进行读取操作。
+	//在进行读取操作时，会先检查recvq等待队列是否为空，如果不为空，则会将队列中的第一个goroutine唤醒进行读取操作。
+	//同时，由于recvq等待队列是一个FIFO队列，因此等待时间最长的goroutine会排在队列的最前面，最先被唤醒进行读取操作。
+	recvq waitq
+
+	// 等待发送数据的 goroutine 队列。sendq 字段是一个指向 waitq 结构体的指针，waitq 是一个用于等待队列的结构体。
+	//waitq 中包含了一个指向等待队列中第一个协程的指针和一个指向等待队列中最后一个协程的指针。
+	//当一个协程向一个 channel 中发送数据时，如果该 channel 中没有足够的缓冲区来存储数据，那么发送操作将会被阻塞，
+	//直到有另一个协程来接收数据或者 channel 中有足够的缓冲区来存储数据。当一个协程被阻塞在发送操作时，
+	//它将会被加入到 sendq 队列中，等待另一个协程来接收数据或者 channel 中有足够的缓冲区来存储数据。
+	sendq waitq
+
+	//channel的读写锁，确保多个gorutine同时访问时的并发安全，保证读写操作的原子性和互斥性。
+	//当一个goroutine想要对channel进行读写操作时，首先需要获取lock锁。如果当前lock锁已经被其他goroutine占用，
+	//则该goroutine会被阻塞，直到lock锁被释放。一旦该goroutine获取到lock锁，就可以进行读写操作，并且在操作完成后释放lock锁，
+	//以便其他goroutine可以访问channel底层数据结构。
+	lock mutex
 }
 
 //selectgo函数实现了Go语言中的select语句。
