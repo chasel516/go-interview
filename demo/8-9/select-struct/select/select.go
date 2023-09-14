@@ -4,15 +4,12 @@ import (
 	"unsafe"
 )
 
+// 源码位置：$GOROOT/src/runtime/select.go
 const debugSelect = false
 
+// 所有的case语句一起组成scase的结构数组
 type scase struct {
-	c    *hchan         // chan
-	elem unsafe.Pointer // data element
-}
-
-type scase struct {
-	c    *hchan         // chan的结构体类型指针
+	c    *hchan         // chan的结构体类型指针，如果是 default 分支则为 nil
 	elem unsafe.Pointer // //读或者写的缓冲区地址
 }
 
@@ -61,13 +58,12 @@ type hchan struct {
 	lock mutex
 }
 
-//selectgo函数实现了Go语言中的select语句。
+// selectgo函数实现了Go语言中的select语句。
+//遍历所有的case语句，如果所有的case都未就绪，则走default，如果没有default，则会阻塞。
+//如果有就绪channel，则直接跳出循环进行管道操作并返回
 
-//cas0指向一个类型为[ncases]scase的数组，order0指向一个类型为[2*ncases]uint16的数组，其中ncases必须小于等于65536。这两个数组都存储在协程的堆栈上（不论selectgo是否逃逸）。
-
-//对于race detector构建，pc0指向一个类型为[ncases]uintptr的数组（也在堆栈上）；对于其他构建，pc0被设置为nil。
-
-// selectgo函数返回选择的scase的索引，该索引与其相应的select{recv,send,default}调用的顺序位置相匹配。此外，如果选择的scase是一个接收操作，它还报告是否接收到了一个值。
+// 第一个返回值返回的是被选择的scase的索引，这个索引就是需要执行的case分支；
+// 第一个返回值标记这个case语句是否接收到了一个值。
 func selectgo(cas0 *scase, order0 *uint16, pc0 *uintptr, nsends, nrecvs int, block bool) (int, bool) {
 	if debugSelect {
 		print("select: cas0=", cas0, "\n")

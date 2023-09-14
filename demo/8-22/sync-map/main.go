@@ -30,10 +30,10 @@ func main() {
 	//遍历
 	m.Range(func(key, value any) bool {
 		fmt.Println("key:", key, "value:", value)
-		//if key == 3 {
-		//	// 终止遍历
-		//	return false
-		//}
+		if key == 3 {
+			// 终止遍历
+			return false
+		}
 		return true
 	})
 
