@@ -27,6 +27,8 @@ func main() {
 		}
 
 	}
+
+    //注意，这里只是为了演示而手动触发GC，线上环境不推荐这样做
 	runtime.GC()
 	log.Println(getMemStats())
 
