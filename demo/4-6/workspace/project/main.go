@@ -1,10 +1,10 @@
 package main
 
 import (
-	"fmt"
 	"gitee.com/phper95/pkg1"
+	"github.com/astaxie/beego/logs"
 )
 
 func main() {
-	fmt.Println(pkg1.Pkg1)
+	logs.Debug(pkg1.Pkg1)
 }
