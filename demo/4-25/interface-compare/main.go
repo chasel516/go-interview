@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"reflect"
+)
 
 type ReadErr struct {
 	error
@@ -29,17 +32,20 @@ func main() {
 	ii = x
 	fmt.Println(ii)
 
-	//err := read()
-	//fmt.Println(err) //<nil>
+	err := read()
+	fmt.Println(err) //<nil>
 	//var e error
 	//println(err) //(0xe4298,0x0)
 	//println(e)            //(0x0,0x0)
 	//fmt.Println(e == err) //false
-	//if err != nil {
-	//	fmt.Println("has error") //has error
-	//} else {
-	//	fmt.Println("no error")
-	//}
+	if err != nil {
+		fmt.Println("has error") //has error
+	} else {
+		fmt.Println("no error")
+	}
+
+	//判断指向底层数据的值是否为nil（实际开发中常用）
+	fmt.Println(IsNil(err))
 
 	//var a int
 	//var b interface{} = a
@@ -54,6 +60,11 @@ func main() {
 	println("emptyI = nil:", emptyI == nil) //emptyI = nil: true
 	println("e :", e, "emptyI", emptyI)     //e : (0x0,0x0) emptyI (0x0,0x0)
 	println("e==emptyI", e == emptyI)       //e==emptyI true
+
+	var s []string
+	fmt.Println("s==nil", s == nil)
+	NilParamToInterface(s)
+
 }
 
 func read() error {
@@ -75,3 +86,16 @@ func read() error {
 //	Interface2
 //	f3()
 //}
+
+func IsNil(i interface{}) bool {
+	if i == nil {
+		return true
+	}
+	vi := reflect.ValueOf(i)
+	return vi.IsNil()
+}
+
+func NilParamToInterface(i interface{}) {
+	fmt.Println("NilParamToInterface", i == nil)
+	fmt.Println("NilParamToInterface IsNil", IsNil(i))
+}
