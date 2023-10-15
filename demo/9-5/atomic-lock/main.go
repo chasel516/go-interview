@@ -1,75 +1,41 @@
 package main
 
 import (
-	"context"
 	"log"
 	"sync"
 	"time"
-
-	"golang.org/x/sync/semaphore"
 )
 
 func init() {
-	log.SetFlags(log.Ltime)
+	log.SetFlags(log.LstdFlags)
 }
+
 func main() {
-	//waitGroup()
-	//semaphoreWait()
-	rateLimit()
-
-}
-
-func waitGroup() {
-	wg := sync.WaitGroup{}
-	for i := 0; i < 3; i++ {
-		x := i
-		wg.Add(1)
-		go func() {
-			defer func() {
-				wg.Done()
-			}()
-			time.Sleep(time.Second)
-			log.Println(x)
-		}()
-	}
-	wg.Wait()
-}
-
-func semaphoreWait() {
-	sema := semaphore.NewWeighted(3)
-	ctx := context.Background()
-	for i := 0; i < 3; i++ {
-		x := i
-		sema.Acquire(ctx, 1)
-		go func() {
-			defer func() {
-				sema.Release(1)
-			}()
-			time.Sleep(time.Second)
-			log.Println(x)
-		}()
-	}
-
-	//获取全部资源，获取不到阻塞
-	sema.Acquire(ctx, 3)
-}
-
-func rateLimit() {
-	sema := semaphore.NewWeighted(3)
-	wg := sync.WaitGroup{}
-	ctx := context.Background()
-	for i := 0; i < 100; i++ {
-		x := i
-		sema.Acquire(ctx, 1)
-		wg.Add(1)
-		go func() {
-			defer func() {
-				sema.Release(1)
-				wg.Done()
-			}()
-			time.Sleep(time.Second)
-			log.Println(x)
-		}()
-	}
-	wg.Wait()
+	var mu sync.Mutex
+	var cond = sync.NewCond(&mu)
+	go func() {
+		//Wait()方法的调用必须加锁
+		cond.L.Lock()
+		log.Println("Wait1 start")
+		//开始等待，需要调用Signal()或者Broadcast()方法唤醒
+		cond.Wait()
+		log.Println("Wait1 end")
+		cond.L.Unlock()
+	}()
+	go func() {
+		//cond.L.Lock()  //cond.L跟mu是同一个锁
+		mu.Lock()
+		log.Println("Wait2 start")
+		cond.Wait()
+		log.Println("Wait2 end")
+		mu.Unlock()
+		//cond.L.Unlock()
+	}()
+	time.Sleep(time.Second * 2)
+	//调用Signal方法只能让上面第一个Wait()得到释放
+	//cond.Signal()
+	//调用Broadcast()方法能释放全部Wait()
+	cond.Broadcast()
+	log.Println("Signal end")
+	time.Sleep(time.Second * 10)
 }
