@@ -2,123 +2,90 @@ package main
 
 import (
 	"log"
+	"strconv"
 	"sync"
 )
 
-type operation int
+const ShardCount = 32
 
-const (
-	opGet operation = iota
-	opSet
-	opDelete
-	opRange
-)
+// 将map分成SHARD_COUNT个分片，每个分片作为切片的一个元素
+type ConcurrentShardMap []*ConcurrentMapShared
 
-// 将所有对map的操作丢到channel中，利用channel的并发安全来避免map的并发操作
-type request struct {
-	op    operation
-	key   any
-	value any
-	resp  chan any
+// 对每个分片上map进行加锁
+type ConcurrentMapShared struct {
+	items        map[string]interface{}
+	sync.RWMutex // Read Write mutex, guards access to internal map.
 }
 
-type ConcurrentMap struct {
-	m        map[any]any
-	requests chan request
-}
-
-func NewConcurrentMap() *ConcurrentMap {
-	cm := &ConcurrentMap{
-		m:        make(map[any]any),
-		requests: make(chan request),
+// 创建map
+func NewConcurrentShardMap() ConcurrentShardMap {
+	m := make(ConcurrentShardMap, ShardCount)
+	for i := 0; i < ShardCount; i++ {
+		m[i] = &ConcurrentMapShared{items: make(map[string]interface{})}
 	}
-	go cm.run()
-	return cm
+	return m
 }
 
-func (cm *ConcurrentMap) run() {
-	for req := range cm.requests {
-		switch req.op {
-		case opGet:
-			value, ok := cm.m[req.key]
-			if ok {
-				req.resp <- value
-			} else {
-				req.resp <- nil
-			}
-		case opSet:
-			cm.m[req.key] = req.value
-			req.resp <- nil
-		case opDelete:
-			delete(cm.m, req.key)
-			req.resp <- nil
+// 根据key计算分片索引
+func (m ConcurrentShardMap) GetShard(key string) *ConcurrentMapShared {
+	return m[uint(fnv(key))%uint(ShardCount)]
+}
 
-		case opRange:
-			f := (req.value).(func(key, value any) bool)
-			for k, v := range cm.m {
-				if !f(k, v) {
-					break
-				}
+// FNV-1a算法是一种简单且快速的哈希算法，特别适合对字符串进行哈希计算
+// 这里的目的是将字符串映射成整数
+func fnv(key string) uint64 {
+	var h uint64 = 14695981039346656037 // offset
+	for i := 0; i < len(key); i++ {
+		h = h ^ uint64(key[i])
+		h = h * 1099511628211 // prime
+	}
+	return h
+}
+
+func (m ConcurrentShardMap) Set(key string, value interface{}) {
+	// 根据key计算出对应的分片
+	shard := m.GetShard(key)
+	shard.Lock() //对这个分片加锁，执行业务操作
+	shard.items[key] = value
+	shard.Unlock()
+}
+
+func (m ConcurrentShardMap) Get(key string) (interface{}, bool) {
+	// 根据key计算出对应的分片
+	shard := m.GetShard(key)
+	shard.RLock()
+	// 从这个分片读取key的值
+	val, ok := shard.items[key]
+	shard.RUnlock()
+	return val, ok
+}
+
+// 使用回调函数作为迭代器，以更低的代价获取全部元素
+func (m ConcurrentShardMap) Range(f func(key, value any) bool) {
+	for index, _ := range m {
+		shard := m[index]
+		shard.RLock()
+		for key, value := range shard.items {
+			if !f(key, value) {
+				break
 			}
-			req.resp <- nil
 		}
+		shard.RUnlock()
 	}
-}
-
-func (cm *ConcurrentMap) Get(key any) any {
-	resp := make(chan interface{})
-	cm.requests <- request{
-		op:   opGet,
-		key:  key,
-		resp: resp,
-	}
-	return <-resp
-}
-
-func (cm *ConcurrentMap) Set(key, value any) {
-	resp := make(chan interface{})
-	cm.requests <- request{
-		op:    opSet,
-		key:   key,
-		value: value,
-		resp:  resp,
-	}
-	<-resp
-}
-
-func (cm *ConcurrentMap) Delete(key any) {
-	resp := make(chan interface{})
-	cm.requests <- request{
-		op:   opDelete,
-		key:  key,
-		resp: resp,
-	}
-	<-resp
-}
-
-// 使用匿名函数的入参接收迭代后的值
-func (cm *ConcurrentMap) Range(value func(key, value any) bool) {
-	resp := make(chan interface{})
-	cm.requests <- request{
-		op:    opRange,
-		value: value,
-		resp:  resp,
-	}
-	<-resp
 }
 
 func main() {
-	cm := NewConcurrentMap()
+	m := NewConcurrentShardMap()
 	wg := sync.WaitGroup{}
 	for i := 0; i < 100; i++ {
 		wg.Add(1)
 		go func(index int) {
-			cm.Set(index, index)
+			m.Set(strconv.Itoa(index), index)
 			wg.Done()
 		}(i)
 	}
 	wg.Wait()
-	cm.Range(func(key, value any) bool {
+	m.Range(func(key, value any) bool {
 		log.Println(key, value)
 		return true
 	})
