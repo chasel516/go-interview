@@ -43,6 +43,12 @@ func (sm *SafeMap) Set(key, value any) {
 	sm.m[key] = value
 }
 
+func (sm *SafeMap) Del(key any) {
+	sm.mu.Lock()
+	defer sm.mu.Unlock()
+	delete(sm.m, key)
+}
+
 func (sm *SafeMap) Range(f func(key, value any) bool) {
 	sm.mu.Lock()
 	defer sm.mu.Unlock()
