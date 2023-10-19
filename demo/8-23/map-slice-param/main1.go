@@ -13,7 +13,8 @@ func main() {
 	m[1] = 1
 	m[2] = 2
 	log.Printf("s:%p", m)
-	assignMap(m)
+	//assignMap(m)
+	//log.Println("s:%v", m)
 	chageMapItem(m)
 	log.Println("m:", m)
 	appendMapItem(m)

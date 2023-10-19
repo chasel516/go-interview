@@ -13,6 +13,11 @@ func init() {
 func main() {
 	var mu sync.Mutex
 	var cond = sync.NewCond(&mu)
+	//cond.L.Lock()
+	//cond.Wait()
+	//cond.L.Unlock()
+	//cond.Signal()
+	//return
 	go func() {
 		//Wait()方法的调用必须加锁
 		cond.L.Lock()
@@ -34,8 +39,9 @@ func main() {
 	time.Sleep(time.Second * 2)
 	//调用Signal方法只能让上面第一个Wait()得到释放
 	//cond.Signal()
+	//cond.Signal()
 	//调用Broadcast()方法能释放全部Wait()
-	cond.Broadcast()
+	//cond.Broadcast()
 	log.Println("Signal end")
 	time.Sleep(time.Second * 10)
 }

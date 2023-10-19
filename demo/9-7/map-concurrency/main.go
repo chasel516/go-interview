@@ -50,8 +50,8 @@ func (sm *SafeMap) Del(key any) {
 }
 
 func (sm *SafeMap) Range(f func(key, value any) bool) {
-	sm.mu.Lock()
-	defer sm.mu.Unlock()
+	sm.mu.RLock()
+	defer sm.mu.RUnlock()
 	for k, v := range sm.m {
 		if !f(k, v) {
 			break

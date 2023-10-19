@@ -38,9 +38,10 @@ func counter2() {
 			lock.Lock()
 			defer func() {
 				lock.Unlock()
+				wg.Done()
 			}()
 			cnt++
-			wg.Done()
+
 		}()
 	}
 	wg.Wait()

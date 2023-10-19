@@ -17,9 +17,9 @@ func main() {
 	}
 
 	for _, user := range users {
-		go func() {
-			writeDB(user)
-		}()
+		go func(u User) {
+			writeDB(u)
+		}(user)
 	}
 
 	time.Sleep(time.Second)

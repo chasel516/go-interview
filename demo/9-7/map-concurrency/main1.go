@@ -67,7 +67,8 @@ func (m ConcurrentShardMap) Range(f func(key, value any) bool) {
 		shard.RLock()
 		for key, value := range shard.items {
 			if !f(key, value) {
-				break
+				shard.RUnlock()
+				return
 			}
 		}
 		shard.RUnlock()

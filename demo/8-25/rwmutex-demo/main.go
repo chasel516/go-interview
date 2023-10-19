@@ -22,11 +22,11 @@ func main() {
 	//BlockWhenWriteLock1()
 	//BlockWhenReadLock()
 
-	//ControlGoroutineOrder()
+	ControlGoroutineOrder()
 	//ControlGoroutineOrder1()
 	//ControlGoroutineOrder2()
 
-	UnlockCausePanic()
+	//UnlockCausePanic()
 
 }
 

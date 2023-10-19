@@ -10,7 +10,7 @@ import (
 
 var limit = rate.Every(time.Second)
 
-var limiter = rate.NewLimiter(limit, 1)
+var limiter = rate.NewLimiter(limit, 3)
 
 // 参数r  每秒可以向 Token 桶中产生多少 token
 // 参数b Token 桶的容量大小
