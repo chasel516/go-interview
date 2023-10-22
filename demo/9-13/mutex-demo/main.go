@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"sync"
 )
 
 func main() {
@@ -10,8 +11,8 @@ func main() {
 			fmt.Println(e)
 		}
 	}()
-	//lock := sync.Mutex{}
-	//lock.Lock()
-	//lock.Lock()
-	panic(1)
+	lock := sync.Mutex{}
+	lock.Lock()
+	lock.Lock()
+	//panic(1)
 }
