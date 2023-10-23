@@ -1,36 +1,38 @@
 package main
 
 import (
-	"context"
-	"fmt"
-	"golang.org/x/sync/semaphore"
 	"log"
-	"runtime"
-	"sync/atomic"
+	"sync"
 	"time"
 )
 
-var weight = runtime.GOMAXPROCS(-1)
-var sema = semaphore.NewWeighted(int64(weight)) //信号量
+// channel实现计数信号量
+const jobNum = 9
+
+var active = make(chan struct{}, 3)
+var jobs = make(chan int, jobNum)
 
 func main() {
-	ctx := context.Background()
-	counter := int32(0)
-	for i := 0; i < 1000; i++ {
-		// 如果没有信号量可用，会阻塞在这里，直到某个task被释放
-		if err := sema.Acquire(ctx, 1); err != nil {
-			break
-		}
-		// 启动 goroutine
-		go func(i int) {
-			defer sema.Release(1)
-			time.Sleep(100 * time.Millisecond) // 模拟一个耗时操作
-			atomic.AddInt32(&counter, 1)
-		}(i)
+	go func() {
+		produceJobs(jobNum)
+	}()
+	var wg sync.WaitGroup
+	for j := range jobs {
+		wg.Add(1)
+		go func(j int) {
+			active <- struct{}{}
+			log.Printf("handle job: %d\n", j)
+			time.Sleep(2 * time.Second)
+			<-active
+			wg.Done()
+		}(j)
 	}
-	// 获取所有的信号量(获取不到阻塞)，确保所有的goroutine执行完成
-	if err := sema.Acquire(ctx, int64(weight)); err != nil {
-		log.Printf("获取所有的worker失败: %v", err)
+	wg.Wait()
+}
+
+func produceJobs(n int) {
+	for i := 0; i < n; i++ {
+		jobs <- (i + 1)
 	}
-	fmt.Println(counter)
+	close(jobs)
 }
