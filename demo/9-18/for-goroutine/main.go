@@ -12,6 +12,9 @@ func main() {
 	select {}
 }
 
+//1. 并发访问共享资源：在使用goroutine和闭包时，需要注意并发访问共享资源，例如map、切片等。在并发场景下，需要使用互斥锁（sync.Mutex）或者原子操作（sync/atomic）来保护共享资源。
+//2. 同步与顺序问题：在使用goroutine和闭包时，需要注意同步问题。如果需要等待所有的goroutine执行完毕，可以使用sync.WaitGroup来实现同步。同时，如果需要顺序执行goroutine，可以使用通道（channel）来实现。
+
 // 通过go关键词启动
 func nativeGo() {
 	for i := 0; i < 10; i++ {
