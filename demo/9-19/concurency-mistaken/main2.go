@@ -1,16 +1,18 @@
 package main
 
+import (
+	"fmt"
+	"sync/atomic"
+	"time"
+)
+
 func main() {
-	ch := make(chan int)
-	//<-ch
-	//go fmt.Println(<-ch)
-
-	//go func() {
-	//	fmt.Println(<-ch)
-	//}()
-	//ch <- 1
-
-	close(ch)
-	ch <- 1
-	//time.Sleep(time.Second)
+	cnt := int32(0)
+	for i := 0; i < 100; i++ {
+		go func() {
+			atomic.AddInt32(&cnt, 1)
+		}()
+	}
+	fmt.Println(cnt)
+	time.Sleep(time.Minute)
 }
