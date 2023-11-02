@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
+	"time"
 )
 
 func init() {
@@ -11,6 +12,7 @@ func init() {
 func main() {
 	ch := make(chan int)
 	go func() {
+		time.Sleep(3 * time.Second)
 		ch <- 1
 		//close(ch)
 	}()
