@@ -1,40 +1,40 @@
 package main
 
-import "sync"
-
-type Channel2 struct {
-	C      chan any
-	closed bool
-	lock   sync.Mutex
-}
-
-func NewChannel2() *Channel2 {
-	return &Channel2{
-		C:      make(chan any),
-		closed: false,
-		lock:   sync.Mutex{},
-	}
-}
-func (c *Channel2) close() {
-	if c.closed {
-		return
-	}
-	c.lock.Lock()
-	defer c.lock.Unlock()
-	if !c.closed {
-		close(c.C)
-		c.closed = true
-	}
-}
-
-func (c *Channel2) iSClose() bool {
-	c.lock.Lock()
-	defer c.lock.Unlock()
-	return c.closed
-}
+import (
+	"fmt"
+	"sync"
+	"time"
+)
 
 func main() {
-	ch := NewChannel2()
-	ch.close()
-	ch.close()
+
+	ch := make(chan int)
+	wg := sync.WaitGroup{}
+	go send(ch)
+	for i := 0; i < 5; i++ {
+		wg.Add(1)
+		go receive(ch, &wg, i)
+	}
+	wg.Wait()
+
+}
+
+// 一个发送者对多个接收者时，由发送者关闭通道
+func send(ch chan int) {
+	for i := 0; i < 20; i++ {
+		time.Sleep(time.Millisecond * 500)
+		ch <- i
+	}
+	close(ch)
+	fmt.Println("close")
+}
+
+func receive(ch chan int, wg *sync.WaitGroup, index int) {
+	defer wg.Done()
+
+	//直到ch的缓冲队列为空且已关闭才会退出循环
+	for v := range ch {
+		fmt.Printf("receive-%d:v=%d\n", index, v)
+	}
+	fmt.Println("退出receive-", index)
 }

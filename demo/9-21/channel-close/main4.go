@@ -1,40 +1,56 @@
 package main
 
 import (
+	"channel-close/channel"
 	"fmt"
+	"math/rand"
 	"sync"
 	"time"
 )
 
 func main() {
-
-	ch := make(chan int)
+	ch := channel.NewChannel()
+	stop := make(chan struct{})
 	wg := sync.WaitGroup{}
-	go send(ch)
+	go receive1(ch, stop)
 	for i := 0; i < 5; i++ {
 		wg.Add(1)
-		go receive(ch, &wg, i)
+		go send1(ch, stop, &wg, i)
 	}
 	wg.Wait()
 
+	time.Sleep(time.Second)
+
 }
 
-// 一个发送者对多个接收者时，由发送者关闭通道
-func send(ch chan int) {
-	for i := 0; i < 20; i++ {
-		time.Sleep(time.Millisecond * 500)
-		ch <- i
-	}
-	close(ch)
-	fmt.Println("close")
-}
-
-func receive(ch chan int, wg *sync.WaitGroup, index int) {
+// 多个发送者对一个接收者时，由接收者关闭一个额外通道来通知发送者停止发送数据
+func send1(ch *channel.Channel, stop chan struct{}, wg *sync.WaitGroup, index int) {
 	defer wg.Done()
-
-	//直到ch的缓冲队列为空且已关闭才会退出循环
-	for v := range ch {
-		fmt.Printf("receive-%d:v=%d\n", index, v)
+	for {
+		select {
+		case <-stop:
+			fmt.Println("退出send", index)
+			//关闭发送数据的channel,由于这里存在并发调用,需要确保close操作的并发安全
+			ch.Close()
+			return
+		case ch.C <- rand.Intn(10):
+		}
 	}
-	fmt.Println("退出receive-", index)
+
+}
+
+func receive1(ch *channel.Channel, stop chan struct{}) {
+	i := 0
+	//直到ch的缓冲队列为空且已关闭才会退出循环
+	for v := range ch.C {
+		if i == 10 {
+			close(stop)
+			fmt.Println("close")
+		}
+		fmt.Println("receive v=", v)
+		i++
+
+	}
+
+	fmt.Println("退出receive")
 }
