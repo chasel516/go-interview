@@ -8,6 +8,7 @@ func main() {
 	close1(ch)
 }
 
+// 暴力关闭
 func close1(ch chan int) (closed bool) {
 	defer func() {
 		if recover() != nil {
