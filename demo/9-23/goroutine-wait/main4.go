@@ -2,10 +2,9 @@ package main
 
 import (
 	"context"
+	"golang.org/x/sync/semaphore"
 	"log"
 	"time"
-
-	"golang.org/x/sync/semaphore"
 )
 
 func init() {
