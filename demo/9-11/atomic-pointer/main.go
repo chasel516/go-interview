@@ -20,13 +20,15 @@ func main() {
 
 	// 存储一个指针
 	user1 := &User{Name: "test1", Age: 30}
+	log.Printf("user1.ptr:%p ; ptr.ptr:%v", user1, ptr)
 	atomic.StorePointer(&ptr, unsafe.Pointer(user1))
 
 	//ptr本身的就是指针，不需要使用%p进行格式化输出
 	log.Printf("user1.ptr:%p ; ptr.ptr:%v", user1, ptr)
+
 	// 加载指针并转换为对应类型
 	user2 := (*User)(atomic.LoadPointer(&ptr))
-	log.Println(user2)
+	log.Printf("%+v", *user2)
 	//读取出来的user2的地址跟ptr一致
 	log.Printf("user2.ptr:%p ; ptr.ptr:%v", user2, ptr)
 

@@ -14,6 +14,7 @@ var weight = runtime.GOMAXPROCS(-1)
 var sema = semaphore.NewWeighted(int64(weight)) //信号量
 
 func main() {
+	fmt.Println("weight:", weight)
 	ctx := context.Background()
 	counter := int32(0)
 	for i := 0; i < 1000; i++ {
