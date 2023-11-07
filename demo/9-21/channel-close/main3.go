@@ -7,7 +7,8 @@ import (
 )
 
 func main() {
-
+	//1. 如何确保通道关闭后不再向通道中发送数据？
+	//2. 如何确保通道关闭时，通道中的数据全部处理完了？
 	ch := make(chan int)
 	wg := sync.WaitGroup{}
 	go send(ch)

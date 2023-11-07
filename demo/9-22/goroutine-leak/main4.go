@@ -19,11 +19,13 @@ func main() {
 				return
 			default:
 				// do something
+				fmt.Println(1)
+				time.Sleep(time.Second)
 			}
 		}
 	}(ctx)
 
 	// 当你不再需要这个goroutine时
 	cancel()
-	time.Sleep(3 * time.Second)
+	select {}
 }

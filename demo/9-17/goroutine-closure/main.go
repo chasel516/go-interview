@@ -30,14 +30,15 @@ func init() {
 }
 
 func main() {
-	fn1()
+	//fn1()
 	//fn2()
 	//f1()
 	//f2()
 	//f3()
 	//f4()
 	//f5()
-	//f7()
+	//f6()
+	f7()
 	//f8()
 
 }
@@ -50,7 +51,7 @@ func fn1() {
 		//使用下标进行追加
 		s = append(s, &user)
 	}
-	log.Println(s)
+	log.Println(*s[0], *s[1])
 }
 
 func fn2() {
@@ -59,7 +60,8 @@ func fn2() {
 		log.Printf("user.p:%p", &user)
 		s = append(s, user)
 	}
-	log.Println(s)
+	//log.Println(s)
+	log.Println(*s[0], *s[1])
 }
 
 // 闭包延迟绑定问题
@@ -131,6 +133,7 @@ func f6() {
 	wg := sync.WaitGroup{}
 	for i := 0; i < 10; i++ {
 		wg.Add(1)
+
 		go print(i, &wg)
 		//这样能确保上面的go语句执行完成？
 
@@ -154,9 +157,9 @@ func f7() {
 
 		//goroutine中的变量可能被外部代码修改
 		go func() {
-			//time.Sleep(time.Millisecond)
 			messages <- msg
 		}()
+		//time.Sleep(time.Millisecond * 100)
 		doSomething(&msg)
 	}
 

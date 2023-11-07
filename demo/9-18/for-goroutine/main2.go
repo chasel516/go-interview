@@ -27,7 +27,7 @@ func init() {
 	log.Println("init.users:", users)
 }
 
-func (u User) PrintName() {
+func (u *User) PrintName() {
 	fmt.Println(u.Name)
 }
 

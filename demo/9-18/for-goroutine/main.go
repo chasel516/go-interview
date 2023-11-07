@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
+	"time"
 )
 
 const Num = 10
@@ -18,8 +19,8 @@ func init() {
 	log.SetFlags(log.Lshortfile)
 }
 func main() {
-	f8()
-	//f9()
+	//f8()
+	f9()
 }
 func f8() {
 	messages := make(chan User, Num)
@@ -33,7 +34,7 @@ func f8() {
 			//time.Sleep(time.Millisecond)
 			messages <- user
 		}(msg)
-		doSomething(&msg)
+		go doSomething(&msg)
 	}
 
 	for i := 1; i <= Num; i++ {
@@ -41,6 +42,7 @@ func f8() {
 	}
 
 	close(messages)
+	time.Sleep(time.Second)
 }
 
 // 将变量的引用类型作为参数传递给闭包：

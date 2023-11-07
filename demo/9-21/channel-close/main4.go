@@ -18,6 +18,7 @@ func main() {
 		go send1(ch, stop, &wg, i)
 	}
 	wg.Wait()
+	ch.Close()
 
 	time.Sleep(time.Second)
 
@@ -30,8 +31,6 @@ func send1(ch *channel.Channel, stop chan struct{}, wg *sync.WaitGroup, index in
 		select {
 		case <-stop:
 			fmt.Println("退出send", index)
-			//关闭发送数据的channel,由于这里存在并发调用,需要确保close操作的并发安全
-			ch.Close()
 			return
 		case ch.C <- rand.Intn(10):
 		}
@@ -41,6 +40,7 @@ func send1(ch *channel.Channel, stop chan struct{}, wg *sync.WaitGroup, index in
 
 func receive1(ch *channel.Channel, stop chan struct{}) {
 	i := 0
+	//close(ch.C)
 	//直到ch的缓冲队列为空且已关闭才会退出循环
 	for v := range ch.C {
 		if i == 10 {

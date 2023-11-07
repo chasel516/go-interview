@@ -22,12 +22,12 @@ func test1(l *sync.Mutex) {
 	wg.Wait()
 }
 func test2(l *sync.Mutex) {
+	defer l.Unlock()
 	r := rand.Intn(10)
 	if r%2 == 0 {
 		return
 	}
 	doSth(l)
-	l.Unlock()
 }
 
 func doSth(l *sync.Mutex) {

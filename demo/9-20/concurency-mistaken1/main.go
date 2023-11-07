@@ -10,13 +10,13 @@ type Counter struct {
 	num int
 }
 
-func (c Counter) incr(delt int) {
+func (c *Counter) incr(delt int) {
 	c.Lock()
 	defer c.Unlock()
 	c.num += delt
 }
 
-func (c Counter) get() int {
+func (c *Counter) get() int {
 	c.Lock()
 	defer c.Unlock()
 	return c.num

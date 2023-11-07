@@ -40,8 +40,8 @@ func f2() {
 			time.Sleep(time.Second)
 		}
 	}()
-	<-ch // 阻塞主协程
-	//ch <- struct{}{} // 阻塞主协程
+	//<-ch // 阻塞主协程
+	ch <- struct{}{} // 阻塞主协程
 }
 
 func f3() {
@@ -56,12 +56,12 @@ func f3() {
 	ch <- struct{}{} // 阻塞主协程
 }
 func f4() {
-	//go func() {
-	//	for {
-	//		fmt.Println("后台协程正在运行...")
-	//		time.Sleep(time.Second)
-	//	}
-	//}()
+	go func() {
+		for {
+			fmt.Println("后台协程正在运行...")
+			time.Sleep(time.Second)
+		}
+	}()
 
 	// 让主协程永久阻塞
 	select {}

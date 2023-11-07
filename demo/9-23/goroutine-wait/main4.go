@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"golang.org/x/sync/semaphore"
 	"log"
 	"time"
@@ -27,4 +28,5 @@ func main() {
 
 	//获取全部资源，获取不到阻塞
 	sema.Acquire(ctx, 3)
+	fmt.Println("All workers done")
 }

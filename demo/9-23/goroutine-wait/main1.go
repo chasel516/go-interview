@@ -15,7 +15,8 @@ func main() {
 		go func() {
 			wg2.Wait() //等待数据准备好(等待广播通知)
 			log.Printf("date[%d]=%d", i, data[i])
-			wg1.Add(-1)
+			//wg1.Add(-1)
+			wg1.Done()
 		}()
 	}
 	for i := 0; i < 10; i++ {
