@@ -1,7 +1,11 @@
 # go-interview
 
 #### 介绍
-Go面试指南课程配套代码
+[Go面试指南]: https://coding.imooc.com/class/666.html
+
+课程配套代码
+
+课程地址：https://coding.imooc.com/class/666.html
 
 #### 软件架构
 软件架构说明

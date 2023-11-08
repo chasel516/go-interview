@@ -1,7 +1,11 @@
 # go-interview
 
 #### Description
-Go面试指南课程配套代码
+[Go面试指南]: https://coding.imooc.com/class/666.html
+
+课程配套代码
+
+课程地址：https://coding.imooc.com/class/666.html
 
 #### Software Architecture
 Software architecture description
