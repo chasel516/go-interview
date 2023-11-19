@@ -1,6 +1,8 @@
 package pkg
 
-import "time"
+import (
+	"time"
+)
 
 func f1() {
 	time.Sleep(time.Millisecond * 10)
