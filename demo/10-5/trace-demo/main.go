@@ -6,7 +6,6 @@ import (
 	"os/signal"
 	"runtime/trace"
 	"syscall"
-	"time"
 )
 
 func main() {
@@ -20,12 +19,17 @@ func main() {
 		panic(err)
 	}
 	defer trace.Stop()
-	for i := 0; i < 1000000; i++ {
-		go func() {
-			time.Sleep(time.Millisecond)
-		}()
+	c := make(chan int)
+	for i := 0; i < 100000000; i++ {
+		go func(index int) {
+			if index%2 == 0 {
+				<-c
+			} else {
+				c <- index
+			}
+		}(i)
 	}
-	c := make(chan os.Signal, 1)
-	signal.Notify(c, syscall.SIGINT, syscall.SIGTERM)
-	fmt.Println(<-c)
+	sig := make(chan os.Signal, 1)
+	signal.Notify(sig, syscall.SIGINT, syscall.SIGTERM)
+	fmt.Println(<-sig)
 }
