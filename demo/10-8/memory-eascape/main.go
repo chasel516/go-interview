@@ -2,22 +2,50 @@ package main
 
 import (
 	"fmt"
+	"reflect"
 )
 
-var globalVar string
+var g1 = 10
+var g2 *int
+var g3 = &g1
+var g4 = "global"
+var g5 = []int{1, 2, 3}
+var g6 = map[int]int{1: 1} //发生了逃逸
+var g7 map[int]int         //只定义则不会发生逃逸
+var g8 = make(chan int)
+var g9 = [3]int{}
 
-func main() {
-	_ = globalVar
+type st struct {
+	Name string
+	Tag  map[int]int
 }
 
-func f1() {
+var g10 = st{
+	Name: "test",
+	Tag:  nil,
+}
+
+func main() {
+	_ = g3
+	_ = g6
+}
+
+func f1() (int, *int, string, []int, map[int]int, chan int, [3]int, st) {
+	g8 <- g1
+	go func() { //func逃逸了，但变量g8没有
+		<-g8
+	}()
+	return g1, g2, g4, g5, g7, g8, g9, g10
+}
+
+func f2() {
 	n1 := 1
 	fmt.Println(n1)
-
 	n2 := 1
 	_ = n2
 }
-func f2() {
+
+func f3() {
 	var i interface{}
 	var n3 int
 	i = n3
@@ -25,17 +53,18 @@ func f2() {
 
 }
 
-func f3() *int {
+func f4() *int {
 	var n4 int
 	n4 = 42
 	return &n4 // x的地址被返回，导致x逃逸到堆上
 }
-func f4() {
+
+func f5() {
 	var x [1024]int // x的大小超过栈的容量，导致x逃逸到堆上
 	x[0] = 42
 }
 
-func f5() {
+func f6() {
 	s1 := make([]byte, 1, 65*1024) // >64k
 	_ = s1
 
@@ -43,7 +72,7 @@ func f5() {
 	_ = s2
 }
 
-func f6() {
+func f7() {
 	//同理，string占8字节，当其容量大于8*1024时也会发生逃逸
 	//golang在1.3版本之后使用了连续栈来取代了分段栈，这样可以提高栈的访问效率，但是也限制了栈的大小。golang在1.4版本中将连续栈的初始大小设为2kb，
 	//如果栈的大小超过了64kb，就会触发栈的扩容，这样会影响性能和内存管理。为了避免频繁的栈扩容，golang采用了一种策略，
@@ -55,61 +84,117 @@ func f6() {
 	_ = s4
 }
 
-func f7() func() int {
-	var z int
-	z = 42
+func f8() func() int {
+
+	z := 7
 	return func() int {
-		return z // z被分配到一个闭包中，导致z逃逸到堆上
+		return z // 函数返回后z还在使用，导致z逃逸到堆上
 	}
 }
-func f8() interface{} {
+
+func f9() {
+	k := 8
+	//由于k被goroutine使用，当函数f10返回后，goroutine依然可能在执行，所以goroutine的闭包函数和其中的变量都会发生逃逸
+	go func() { //go启动的闭包和使用的变量会发生逃逸
+		k += 1
+	}()
+}
+
+func f10() {
+
+	func() {
+		j := 10
+		j += 1
+	}()
+}
+
+func f12() interface{} {
 	var str1 string // str1被分配到一个接口中，导致m逃逸到堆上
 	return str1
 }
 
-func f9() string {
+func f13() string {
 	var str2 string
 	return str2
 }
 
-func f10() {
+func f14() {
 	s5 := []interface{}{1, 2}
 	s5[0] = 0 //对接口类型的切片元素赋值，切片元素会发生逃逸
 }
-func f11() {
+
+func f15() {
 	s6 := []int{1, 2}
 	s6[0] = 0
 }
-func f12() {
+
+func f16() {
 	s7 := make([]interface{}, 2)
 	s7[0] = 1 //对接口类型的切片元素赋值，切片元素会发生逃逸
 }
 
-func f13() {
+func f17() {
 	m1 := make(map[int]interface{}, 2)
-	m1[0] = 1 //对接口类型的切片元素赋值，切片元素会发生逃逸
+	m1[0] = 1 //对接口类型的map元素赋值，元素会发生逃逸
 }
 
-func f14() {
+func f18() {
 	m3 := make([]*int, 2)
 	i := 1
 	m3[0] = &i //切片元素是指针类型时，对切片元素赋值会发生逃逸
 }
 
-func f15() {
+func f19() {
 	m2 := make(map[int]int, 2)
 	m2[0] = 1
 }
 
-func f16() {
+func f20() {
 	m3 := make(map[int][]int, 2)
 	m3[0] = []int{1} //map元素为切片时，元素赋值时会发生逃逸
 }
 
-func f18() {
+// 指针参数
+
+func f21() {
+	n20 := 10
+	fn1(&n20) //不会发生逃逸
+}
+
+func f22() {
+	s22 := []int{1}
+	fn2(s22) //不会发生逃逸
+}
+
+func f23() {
+	s23 := []*int{g3}
+	fn3(s23) //不会发生逃逸
+}
+
+func f24() {
+	reflect.TypeOf(g1)
+	reflect.ValueOf(g1) //反射获取值的时候会发生逃逸
 
 }
 
-func fn1(param any) any {
-	return param
+func f25() {
+	fn(g2)
+	n25 := &g5
+	fn(n25)
+}
+
+func fn1(param1 *int) {
+	_ = param1
+}
+
+func fn2(param2 []int) {
+	_ = param2
+}
+
+func fn3(param3 []*int) {
+	_ = param3
+}
+
+func fn(param2 any) any {
+	return param2
 }
