@@ -64,7 +64,7 @@ func main() {
 	}
 	defer blockf.Close()
 
-	if mp := pprof.Lookup("mutex"); mp != nil {
+	if mp := pprof.Lookup("block"); mp != nil {
 		mp.WriteTo(blockf, 0)
 	}
 
