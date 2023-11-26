@@ -52,3 +52,38 @@ func f4() {
 	//先截取前i个元素，再追加上i+1开始的元素
 	s = append(s[:1], s[2:]...)
 }
+
+// 最小代价实现，不关心切片元素的顺序
+func f5(s []int, start, end int) []int {
+	//如果 len(s)-end 小于 n，说明从 end 到切片末尾的元素数量比从 start 到 end 的数量多。
+	//在这种情况下，可以直接用 copy 将剩余元素往前移动，覆盖要删除的元素。
+	//否则从切片尾部开始取出跟删除元素个数相同的切片覆盖掉要删除的start到end位置，再截取掉后面的元素
+	// 1 2 3 4 5 6 7 8 假设start=1，end=3
+	// n=3-1=2      8-3>2 copy(s[start:end], s[len(s)-n:])
+	//s[len(s)-n:]  7 8
+	//s[start:end] 2 3
+	// 1 7 8  4 5 6 7 8
+	//s[:len(s)-(end-start)] 1 7 8  4 5 6
+	if n := end - start; len(s)-end < n {
+		copy(s[start:end], s[end:])
+	} else {
+		copy(s[start:end], s[len(s)-n:])
+	}
+	//截取掉切片后面的元素
+	return s[:len(s)-(end-start)]
+}
+
+func f6(s []int, start, end int) []int {
+	//copy(s[start:], s[end:])表示用end到之后的元素覆盖从start开始的元素，再截取start+覆盖的个数
+	// 1 2 3 4 5 6 7 8 假设start=1，end=3
+	//s[start:]  2 3 4 5 6 7 8
+	//s[end:]   4 5 6 7 8
+	//copy(s[start:], s[end:])  4 5 6 7 8 7 8 覆盖了5个元素
+	//覆盖后的s=[1 4 5 6 7 8 7 8]
+	//  s[:start+copy(s[start:], s[end:])] = s[:1+5]=[1 4 5 6 7 8]
+	return s[:start+copy(s[start:], s[end:])]
+}
+
+func f7(s []int, start, end int) []int {
+	return append(s[:start], s[end:]...)
+}
