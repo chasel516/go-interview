@@ -4,7 +4,7 @@ import (
 	"testing"
 )
 
-const N = 1000000
+const N = 10000
 
 var s1ForCopy = make([]int, N)
 var s1ForAppend = make([]int, N)
