@@ -8,7 +8,7 @@ import (
 func main() {}
 
 func f5() {
-	var arr [1024]int // arr的大小超过栈的容量，导致x逃逸到堆上
+	var arr [1024]int // arr的大小超过栈的容量，导致arr逃逸到堆上
 	arr[0] = 42
 }
 
