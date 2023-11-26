@@ -45,7 +45,7 @@ func f9() {
 	s9 := make([]string, length) //切片容量不确定时会发生逃逸
 	_ = s9
 
-	m9 := make(map[int]int, length) //map容量不确定时会发生逃逸
+	m9 := make(map[int]int, length) //map容量不确定时没有发生逃逸
 	_ = m9
 
 	c9 := make(chan int, length) //channel是否逃逸跟容量无关
