@@ -20,7 +20,7 @@ func f3() func() int {
 	return func() int {
 		n31 := 1
 		n31 += 1
-		return n3 // 函数返回后z还在使用，导致n3逃逸到堆上
+		return n3 // 函数返回后n3还在使用，导致n3逃逸到堆上
 	}
 }
 
@@ -29,7 +29,7 @@ func f4() {
 	var ch = make(chan int)
 	ch <- 1
 	go func() { //闭包函数func发生逃逸
-		n4 += 1 //n3发生逃逸
+		n4 += 1 //n4 发生逃逸
 		<-ch    //通道类型并没发生逃逸
 		n41 := 1
 		n41 += 1

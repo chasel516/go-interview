@@ -7,6 +7,7 @@ import (
 
 func main() {}
 
+// 函数返回值为接口类型且发生了类型转化会导致返回值发生逃逸
 func f10() interface{} {
 	var str1 string // str1被分配到一个接口中，导致m逃逸到堆上
 	return str1
@@ -31,9 +32,10 @@ func f13() interface{} {
 	return str4
 }
 
+// 容器类型的元素为接口类型时，对接口类型进行赋值会导致容器的元素发生逃逸；
 func f14() {
-	s5 := []interface{}{1, 2} //元素1,2发生逃逸
-	s5[0] = 0                 //对接口类型的切片元素赋值，切片元素会发生逃逸
+	s5 := []interface{}{1, 2}
+	s5[0] = 0 //对接口类型的切片元素赋值，切片元素会发生逃逸
 }
 
 func f15() {
@@ -67,7 +69,7 @@ func f20() {
 	ch <- 1 //接口类型的通道元素发送到通道时也会发生逃逸
 
 	ch1 := make(chan *int)
-	ch1 <- new(int) //指针类型的通道元素则不一定会发生逃逸
+	ch1 <- new(int)
 }
 
 func f21() {
@@ -78,7 +80,6 @@ func f21() {
 
 func f22() {
 	var str5 = "hello" //str5作为标准库函数的入参导致逃逸
-	str5 += " "
 	str6 := fmt.Sprintf("%s world", str5)
 	str6 += " "
 	var str7 = "test" //str5作为标准库函数的入参导致逃逸

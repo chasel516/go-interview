@@ -8,8 +8,8 @@ import (
 func main() {}
 
 func f5() {
-	var arr [1024]int // arr的大小超过栈的容量，导致arr逃逸到堆上
-	arr[0] = 42
+	var arr [1024 * 65]int
+	_ = arr
 }
 
 func f6() {
@@ -42,10 +42,10 @@ func f8() {
 
 func f9() {
 	var length int
-	s9 := make([]string, length) //切片容量不确定时会发生逃逸
+	s9 := make([]string, 0, length) //切片容量不确定时会发生逃逸
 	_ = s9
 
-	m9 := make(map[int]int, length) //map容量不确定时会发生逃逸
+	m9 := make(map[int]int, length)
 	_ = m9
 
 	c9 := make(chan int, length) //channel是否逃逸跟容量无关
