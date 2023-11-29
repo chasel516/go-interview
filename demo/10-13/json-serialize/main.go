@@ -6,6 +6,11 @@ import (
 	"log"
 )
 
+type st struct {
+	Field1 json.RawMessage `json:"field1"`
+	Field2 json.RawMessage `json:"field2"`
+}
+
 func main() {
 	m := map[string]json.RawMessage{}
 	var testBytes = []byte(`
@@ -16,4 +21,10 @@ func main() {
 		log.Println(err)
 	}
 	fmt.Println(m)
+	s := st{}
+	err = json.Unmarshal(testBytes, &s)
+	if err != nil {
+		log.Println(err)
+	}
+	fmt.Println(s)
 }

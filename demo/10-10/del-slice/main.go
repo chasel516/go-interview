@@ -9,9 +9,9 @@ func init() {
 	log.SetFlags(log.Lshortfile)
 }
 func main() {
-	//f1()
-	//f2()
-	f3()
+	fmt.Println(f1())
+	f2()
+	//f3()
 }
 
 func f1() []*int {
@@ -21,6 +21,9 @@ func f1() []*int {
 	return s[1:3:3]
 }
 
+// 1, 2, 3, 4, 5
+// 1, 5, 3, 4, 5
+// 1, 5, 3, 4,
 func f2() {
 	s := []int{1, 2, 3, 4, 5}
 	//删除索引为1的元素
@@ -33,6 +36,13 @@ func f2() {
 	fmt.Println(s)
 }
 
+// 1, 2, 3, 4, 5
+//
+//	3, 4, 5, 5
+//	3, 4, 5
+//
+// 1, 3, 4, 5, 5
+// 1, 3, 4, 5
 func f3() {
 	s := []int{1, 2, 3, 4, 5}
 	// s = s[:i + copy(s[i:], s[i+1:])]
@@ -80,6 +90,7 @@ func f6(s []int, start, end int) []int {
 	//s[end:]   4 5 6 7 8
 	//copy(s[start:], s[end:])  4 5 6 7 8 7 8 覆盖了5个元素
 	//覆盖后的s=[1 4 5 6 7 8 7 8]
+
 	//  s[:start+copy(s[start:], s[end:])] = s[:1+5]=[1 4 5 6 7 8]
 	return s[:start+copy(s[start:], s[end:])]
 }

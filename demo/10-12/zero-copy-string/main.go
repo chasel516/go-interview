@@ -12,7 +12,7 @@ func init() {
 }
 
 func main() {
-	s := strings.Repeat("1", 1024)
+	s := strings.Repeat("字", 10)
 	ptr := (*reflect.StringHeader)(unsafe.Pointer(&s))
 	log.Println("s :", unsafe.Pointer(ptr.Data))
 
@@ -37,6 +37,8 @@ func main() {
 	ptr = (*reflect.StringHeader)(unsafe.Pointer(&b1))
 	//b1和s的地址相同
 	log.Println("b1:", unsafe.Pointer(ptr.Data))
+
+	log.Println("s3:", s3)
 }
 
 func stringToBytes(s string) []byte {
