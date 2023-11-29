@@ -8,11 +8,11 @@ func init() {
 	log.SetFlags(log.Lshortfile)
 }
 func main() {
-	f1()
+	//f1()
 	//f2()
 	//f3()
 	//f4()
-	//f5()
+	f5()
 }
 
 func f1() {
