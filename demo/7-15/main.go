@@ -46,6 +46,7 @@ func testCancelAfter() {
 	go func(ctx context.Context) {
 		defer wg.Done()
 		for {
+			fmt.Println("for执行了")
 			select {
 			case <-ctx.Done():
 				fmt.Println("Cancelled", time.Now())
