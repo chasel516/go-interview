@@ -5,3 +5,8 @@ docs/_build/
 *.pyc
 *.log
 .vscode/
+certs
+esdata01
+esdata02
+esdata03
+kibanadata
