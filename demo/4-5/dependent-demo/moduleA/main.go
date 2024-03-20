@@ -1,5 +1,7 @@
 package main
 
-func main() {
+import "moduleB"
 
+func main() {
+	moduleB.F()
 }

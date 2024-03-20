@@ -1,5 +1,7 @@
-package main
+package moduleB
 
-func main() {
+import "github.com/astaxie/beego/logs"
 
+func F() {
+	logs.Debug("moduleB")
 }
