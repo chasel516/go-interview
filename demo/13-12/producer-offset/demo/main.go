@@ -45,7 +45,6 @@ func main() {
 	signalChan := make(chan os.Signal, 1)
 	signal.Notify(signalChan, os.Interrupt)
 	<-signalChan
-
 	err = consumer.Close()
 	if err != nil {
 		log.Fatal("Error closing consumer: ", err)

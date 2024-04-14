@@ -26,6 +26,7 @@ func main() {
 	if err != nil {
 		log.Fatal("Error creating producer: ", err)
 	}
+
 	if !producer.IsTransactional() {
 		log.Println("producer is not transactional")
 	}

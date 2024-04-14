@@ -23,6 +23,11 @@ func main() {
 	if err != nil {
 		log.Fatal("Error creating producer: ", err)
 	}
+	defer func() {
+		if err := producer.Close(); err != nil {
+			log.Fatal("Error closing producer: ", err)
+		}
+	}()
 
 	user := struct {
 		ID   int    `json:"id"`
