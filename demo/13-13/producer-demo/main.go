@@ -5,14 +5,15 @@ import (
 	"log"
 	"time"
 
-	"github.com/Shopify/sarama"
+	"github.com/IBM/sarama"
 )
 
 func main() {
 	config := sarama.NewConfig()
+	// 等待ISR（In-Sync Replicas）列表中的全部副本同步完成才返回客户端
 	config.Producer.RequiredAcks = sarama.WaitForAll
 	config.Producer.Retry.Max = 5
-	//SDK版本>=1.20
+	//启用幂等生产者（SDK版本>=1.20）
 	config.Producer.Idempotent = true
 
 	brokers := []string{"localhost:9092"}
