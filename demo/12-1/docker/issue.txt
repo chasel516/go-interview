@@ -2,5 +2,12 @@ windows docker无法启动可以尝试执行下面的命令
 wsl -d docker-desktop
 sysctl -w vm.max_map_count=262144
 echo 262144 >> /proc/sys/vm/max_map_count
+
+或者
+docker-machine ssh
+sudo sysctl -w vm.max_map_count=262144
+
+
+然后重启docker
 docker-compose down
 docker-compose up
