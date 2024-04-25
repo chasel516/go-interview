@@ -7,7 +7,7 @@ import (
 
 func main() {
 	parentCtx := context.Background()
-	ctx, cancel := context.WithTimeout(parentCtx, time.Second*5)
+	ctx, cancel := context.WithTimeout(parentCtx, time.Second*1)
 	defer cancel()
 	// 在函数中检查ctx.Done()来判断是否需要取消
 	if err := longRunningFunction(ctx, "param1", 123); err != nil {

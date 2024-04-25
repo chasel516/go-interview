@@ -37,5 +37,5 @@ func main() {
 	str := "go面试"
 	fmt.Println("str.len", len(str)) //unicode编码中，一个中文字符占3个字节
 	fmt.Println("str.runeLen", len([]rune(str)))
-
+	fmt.Println("str.byte", len([]byte(str)))
 }

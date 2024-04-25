@@ -19,33 +19,34 @@ func main() {
 	//数组的零值和切片的零值不同
 	//一个数组的零值是数组的所有元素均为对应数组元素类型的零值
 
-	//arr1 := [10]int{}
-	//fmt.Println("arr1:", arr1)
-	////
-	//var arr2 [10]int
-	//fmt.Println("arr2:", arr2)
+	// arr1 := [10]int{}
+	// fmt.Println("arr1:", arr1)
+	// //
+	// var arr2 [10]int
+	// fmt.Println("arr2:", arr2)
 
 	//有零值
-	//arr3 := new([10]int)
-	//fmt.Println("arr3:", arr3)
-	//var arr4 *[10]int = &[10]int{}
-	//fmt.Println("arr4:", arr4)
+	// arr3 := new([10]int)
+	// fmt.Println("arr3:", arr3)
+	// var arr4 *[10]int = &[10]int{}
+	// fmt.Println("arr4:", arr4)
 
 	//为nil,无零值，直接使用会报错
-	//var arr5 *[10]int
-	//a := [10]int{}
-	//arr5 = &a
-	//fmt.Println("arr5:", arr5)
-	//fmt.Println(arr3 == arr5)
+	// var arr5 *[10]int
+	// a := [10]int{}
+	// arr5 = &a
+	// fmt.Println("arr5:", arr5)
+	// fmt.Println(arr3 == arr5)
 	//arr1[0] = 1
 	//arr2[0] = 1
-	//arr5[0] = 1 //空指针异常
-	//var s1 = []int{}
-	//fmt.Println("s1:", s1)
-	//fmt.Println("s1==nil:", s1 == nil)
-	//var s2 = new([]int)
-	//fmt.Println("s2:", s2) //不为nil
-	//fmt.Println("s2 is nil?:", s2 == nil)
+	// arr5[0] = 1 //空指针异常
+	// fmt.Println("arr5:", arr5)
+	// var s1 = []int{}
+	// fmt.Println("s1:", s1)
+	// fmt.Println("s1==nil:", s1 == nil)
+	// var s2 = new([]int)
+	// fmt.Println("s2:", s2) //不为nil
+	// fmt.Println("s2 is nil?:", s2 == nil)
 	//s1 = append(s1, 1)
 	//*s2 = append(*s2, 1)
 	//fmt.Println("s1:", s1)
@@ -72,25 +73,25 @@ func main() {
 	//3. 指针类型的数组和切片直接用类型声明后是nil，不能直接使用
 
 	//切片的字面量有下面几种表示方式：
-	//s1 := []string{"a", "b", "c"}
-	//fmt.Println("s1:", s1)
-	//s2 := []string{0: "a", 1: "b", 2: "c"}
-	//fmt.Println("s2:", s2)
-	//s3 := []string{2: "c", 1: "b", 0: "a"}
-	//fmt.Println("s3:", s3)
-	//s4 := []string{2: "c", 0: "a", "b"}
-	//fmt.Println("s4:", s4[1])
+	// s1 := []string{"a", "b", "c"}
+	// fmt.Println("s1:", s1)
+	// s2 := []string{0: "a", 1: "b", 2: "c"}
+	// fmt.Println("s2:", s2)
+	// s3 := []string{2: "c", 1: "b", 0: "a"}
+	// fmt.Println("s3:", s3)
+	// s4 := []string{2: "c", 0: "a", "b"}
+	// fmt.Println("s4:", s4[1])
 
 	//数组的字面量有下面几种表示方式：
-	//a1 := [4]string{"a", "b", "c", "d"}
-	//fmt.Println("a1:", a1)
-	////
-	//a2 := [4]string{0: "a", 1: "b", 2: "c", 3: "d"}
-	//fmt.Println("a2:", a2)
-	////
-	//a3 := [4]string{1: "b", "a", "c"}
-	//fmt.Println("a3:", a3)
-	//fmt.Println("a3:","a3[0]:", a3[0], "a3[2]:",a3[2]," a3[3]:", a3[3])
+	// a1 := [4]string{"a", "b", "c", "d"}
+	// fmt.Println("a1:", a1)
+	// //
+	// a2 := [4]string{0: "a", 1: "b", 2: "c", 3: "d"}
+	// fmt.Println("a2:", a2)
+	// //
+	// a3 := [4]string{1: "b", "a", "c"}
+	// fmt.Println("a3:", a3)
+	// fmt.Println("a3:", "a3[0]:", a3[0], "a3[2]:", a3[2], " a3[3]:", a3[3])
 
 	//如果不指定下标，将会从前一个下标开始递增
 	//a4 := [4]string{1: "b", "a", "c", "d"} //编译错误
@@ -116,10 +117,10 @@ func main() {
 	//a9 := []string{0: "a", y: "b", 2: "c"} 	//编译错误
 
 	//数组和切片的传值方式不同
-	//slice1 := []int{1, 2, 3, 4}
-	//slice2 := slice1
-	//slice1和slice2指向了相同的地址
-	//fmt.Printf("slice1 ptr:%p;slice2 ptr:%p\n", slice1, slice2)
+	// slice1 := []int{1, 2, 3, 4}
+	// slice2 := slice1
+	// slice1和slice2指向了相同的地址
+	// fmt.Printf("slice1 ptr:%p;slice2 ptr:%p\n", slice1, slice2)
 
 	//array1 := [4]int{1, 2, 3, 4}
 	//array2 := array1
@@ -141,34 +142,34 @@ func main() {
 	//println(len(s6), len(s7), len(s8), len(s9)) //100 100 100 100
 
 	//数组的比较
-	//a := [2]int{5, 6}
-	//b := [2]int{5, 6}
-	////c := [3]int{5, 6}
-	//
-	////类型相同，值相同
-	//if a == b {
-	//	fmt.Println("equal")
-	//} else {
-	//	fmt.Println("not equal")
-	//}
+	// a := [2]int{5, 6}
+	// b := [2]int{5, 6}
+	// c := [3]int{5, 6}
 
-	//类型相同，值相同，但地址不同
-	//if &a == &b {
-	//	fmt.Println("equal")
-	//} else {
-	//	fmt.Printf("not equal a:%p,b:%p \n", &a, &b)
-	//}
+	// //类型相同，值相同
+	// if a == b {
+	// 	fmt.Println("equal")
+	// } else {
+	// 	fmt.Println("not equal")
+	// }
+
+	// // 类型相同，值相同，但地址不同
+	// if &a == &b {
+	// 	fmt.Println("equal")
+	// } else {
+	// 	fmt.Printf("not equal a:%p,b:%p \n", &a, &b)
+	// }
 
 	//无法比较，编译不过。下标作为数组类型的一部分
-	//if a == c {
-	//	fmt.Println("equal")
-	//} else {
-	//	fmt.Println("not equal")
-	//}
+	// if a == c {
+	// 	fmt.Println("equal")
+	// } else {
+	// 	fmt.Println("not equal")
+	// }
 
-	//var f1 [0]func()
-	//var f2 = [5]func(){}
-	//fmt.Println(f1, f2)
+	// var f1 [0]func()
+	// var f2 = [5]func(){}
+	// fmt.Println(f1, f2)
 	//var f3 [0]func() = nil //编译错误
 	//fmt.Println(f1 == nil) //编译错误
 	//fmt.Println(f2 == nil) //编译错误

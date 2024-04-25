@@ -7,51 +7,51 @@ import (
 )
 
 func main() {
-	//var a int = 1.0
-	//fmt.Println(reflect.TypeOf(a))
-	//
-	//b := 1.0
-	//fmt.Println(reflect.TypeOf(b))
-	//
-	//var c int = 'x'
-	//fmt.Println(c, reflect.TypeOf(c))
+	// var a int = 1.0
+	// fmt.Println(reflect.TypeOf(a))
 
-	//var x = 0.3
-	//var y = 0.6
-	//fmt.Println(x + y)
-	//
-	//var x1 uint64 = math.MaxUint64
-	//var y1 uint64 = 1
-	////无符号整型溢出
-	//addUint(x1, y1)
-	//
-	////有符号整数运算时出现溢出
-	//var x2 int64 = math.MaxInt64
-	//var y2 int64 = 1
-	//addInt(x2, y2)
-	//
-	//x3 := math.MinInt64
-	//y3 := 1
-	//fmt.Println("math.MinInt64", math.MinInt64, " x3-y3:", x3-y3)
+	// b := 1.0
+	// fmt.Println(reflect.TypeOf(b))
 
-	//对于常量值，不允许溢出，在运行时阶段就会被阻止
-	//fmt.Println(math.MinInt64 - 1)
+	// var c int = 'x'
+	// fmt.Println(c, reflect.TypeOf(c))
 
-	////数值类型转换时需要考虑溢出问题
-	//var x4 int32 = math.MaxInt32
-	//y4 := int16(x4)
-	//fmt.Println("y4:", y4)
-	//if (x4 < math.MinInt16) || (x4 > math.MaxInt16) {
-	//	// 错误处理
-	//}
+	// var x = 0.3
+	// var y = 0.6
+	// fmt.Println(x + y)
+
+	// var x1 uint64 = math.MaxUint64
+	// var y1 uint64 = 1
+	// //无符号整型溢出
+	// addUint(x1, y1)
+
+	// //有符号整数运算时出现溢出
+	// var x2 int64 = math.MaxInt64
+	// var y2 int64 = 1
+	// addInt(x2, y2)
+
+	// x3 := math.MinInt64
+	// y3 := 1
+	// fmt.Println("math.MinInt64", math.MinInt64, " x3-y3:", x3-y3)
+
+	// 对于常量值，不允许溢出，在运行时阶段就会被阻止
+	// fmt.Println(math.MinInt64 - 1)
+
+	//数值类型转换时需要考虑溢出问题
+	// var x4 int32 = math.MaxInt32
+	// y4 := int16(x4)
+	// fmt.Println("y4:", y4)
+	// if (x4 < math.MinInt16) || (x4 > math.MaxInt16) {
+	// 	// 错误处理
+	// }
 
 	//整型转换时出现符号丢失
-	//var x5 int32 = math.MinInt32
-	//y5 := uint32(x5)
-	//fmt.Println("x5:", x5, "y5:", y5)
-	//if x5 < 0 {
-	//	// 错误处理
-	//}
+	// var x5 int32 = math.MinInt32
+	// y5 := uint32(x5)
+	// fmt.Println("x5:", x5, "y5:", y5)
+	// if x5 < 0 {
+	// 	// 错误处理
+	// }
 
 	//移位操作的位数不够
 	//shift(65535, 16)
@@ -117,6 +117,8 @@ func shift(x uint16, bits uint8) {
 
 func safeShift(x uint16, bits uint8) {
 	//uint32(1<<bits)
+	fmt.Println(uint32(x))
+	fmt.Println(uint32(1) << bits)
 	if uint32(x) > (uint32(1) << bits) {
 		fmt.Println("shift ok")
 	} else {

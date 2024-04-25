@@ -21,7 +21,7 @@ func main() {
 	var f func() = nil
 	fmt.Println("f.size:", unsafe.Sizeof(f)) //8
 	var si []int = nil
-	var si1 []int = nil
+	// var si1 []int = nil
 	fmt.Println("si.size:", unsafe.Sizeof(si)) //24
 
 	var m map[string]int = nil
@@ -30,7 +30,7 @@ func main() {
 	//var ii1 interface{} = nil
 	fmt.Println("ii.size:", unsafe.Sizeof(ii)) //16
 
-	fmt.Println(i == si)   //编译不通过
-	fmt.Println(i == ii)   //fasle
-	fmt.Println(si == si1) //编译不通过
+	// fmt.Println(i == si)   //编译不通过
+	// fmt.Println(i == ii)   //fasle
+	// fmt.Println(si == si1) //编译不通过
 }

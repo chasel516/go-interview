@@ -91,8 +91,15 @@ func IsNil(i interface{}) bool {
 	if i == nil {
 		return true
 	}
-	vi := reflect.ValueOf(i)
-	return vi.IsNil()
+	// vi := reflect.ValueOf(i)
+	// return vi.IsNil()
+
+	elem := reflect.ValueOf(i)
+	return elem.IsNil()
+
+	// var v s
+	// elem := reflect.ValueOf(&v).Elem()  //XXXX
+	// println(elem.IsNil())
 }
 
 func NilParamToInterface(i interface{}) {

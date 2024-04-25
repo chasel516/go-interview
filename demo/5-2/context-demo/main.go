@@ -3,9 +3,10 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/google/uuid"
 	"net/http"
 	"time"
+
+	"github.com/google/uuid"
 )
 
 // 模拟一个耗时的操作，比如数据库查询或者网络请求
@@ -30,7 +31,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	ctr := context.WithValue(r.Context(), "request_id", requestID)
 
 	// 从请求中获取 context，并设置一个 1 秒钟的超时时间
-	ctx, cancel := context.WithTimeout(ctr, 1*time.Second)
+	ctx, cancel := context.WithTimeout(ctr, 4*time.Second)
 
 	//另一种超时设置方式
 	//deadline := time.Now().Add(1 * time.Second)

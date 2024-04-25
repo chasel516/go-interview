@@ -7,8 +7,8 @@ func main() {
 	//var slice1 = make([]int, 10)
 	//fmt.Println(slice1, len(slice1), cap(slice1)) //10 10
 
-	//var slice2 = new([]int)
-	//fmt.Println(slice2, len(*slice2), cap(*slice2))
+	// var slice2 = new([]int)
+	// fmt.Println(slice2, len(*slice2), cap(*slice2)) //&[] 0 0
 
 	//s1 := make([]int, 0)
 	//fmt.Println("s1", len(s1), cap(s1))

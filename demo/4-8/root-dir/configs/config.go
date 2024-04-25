@@ -3,6 +3,7 @@ package configs
 import (
 	"fmt"
 	"os"
+	"os/exec"
 	"path"
 	"path/filepath"
 	"runtime"
@@ -17,10 +18,12 @@ func GetWorkPathByArg() {
 	//os.Args[0] 是当前程序名。如果我们在项目根目录执行程序 bin/cwd，以上程序返回的 binary 结果是bin/cwd
 	fmt.Println("os.Args:", os.Args[0])
 	//exec.LookPath的作用是从相对路径或环境变量PATH中递归找可执行文件，可以用来校验可执行文件是否存在
-	//filePath,err := exec.LookPath(os.Args[0])
-	//fmt.Println("filePath:", filePath)
-	//absFilePath, _ := filepath.Abs(filePath)
-	//fmt.Println("absFilePath:", absFilePath)
+	filePath, err := exec.LookPath(os.Args[0])
+	fmt.Println("filePath:", filePath)
+	fmt.Println("filePath:", err)
+	absFilePath, _ := filepath.Abs(filePath)
+	fmt.Println("absFilePath:", absFilePath)
+	fmt.Println("path.Dir(os.Args[0]):", path.Dir(os.Args[0]))
 	rootDir, _ := filepath.Abs(path.Dir(os.Args[0]))
 	fmt.Println("rootDir:", rootDir)
 }
@@ -28,6 +31,7 @@ func GetWorkPathByArg() {
 func GetWorkPathByCaller() {
 	_, callPath, _, _ := runtime.Caller(0)
 	fmt.Println("callPath:", callPath)
+	// fmt.Println("path.Dir(callPath):", path.Dir(callPath))
 	rootPath := path.Dir(path.Dir(callPath))
 	fmt.Println("rootPath:", rootPath)
 }

@@ -10,14 +10,14 @@ func main() {
 	//f(s...)
 	f1("imooc")
 	//
-	//a := [5]int{}
-	//const A = f2() //编译不通过
-	//const B = len(a)
-	//
-	//f3()
-	//f4()
-	//var f func()
-	//f()
+	a := [5]int{}
+	// const A = f2() //编译不通过
+	const B = len(a)
+
+	// f3()
+	// f4()
+	var f func()
+	f()
 }
 
 func f(params ...interface{}) {

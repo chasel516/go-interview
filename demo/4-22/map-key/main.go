@@ -2,34 +2,36 @@ package main
 
 import (
 	"fmt"
+	"math"
 )
 
 func main() {
-	//a1 := [3]int{}
-	//a2 := [3]int{}
-	//fmt.Println(a1 == a2) //true
+	// a1 := [3]int{}
+	// a2 := [3]int{}
+	// fmt.Println(a1 == a2) //true
 	//
-	//a3 := [3][]int{}
-	//a4 := [3][]int{}
-	//fmt.Println(a3 == a4) //编译不通过
+	// a3 := [3][]int{}
+	// a4 := [3][]int{}
+	// fmt.Println(a3 == a4) //编译不通过
 	////
-	//m := map[float64]int{}
-	//m[1.1] = 1
-	//m[1.2] = 2
-	//m[0.3] = 5
-	//m[0.30000000000000001] = 6
-	//fmt.Printf("m:%+v\n", m)
+	m := map[float64]int{}
+	// m[1.1] = 1
+	// m[1.2] = 2
+	// m[0.3] = 5
+	// m[0.30000000000000001] = 6
+	// fmt.Printf("m:%+v\n", m)
 	////
-	//fmt.Println(math.Float64bits(0.3))
-	//fmt.Println(math.Float64bits(0.30000000000000001))
+	// fmt.Println(math.Float64bits(0.3))
+	// fmt.Println(math.Float64bits(0.30000000000000001))
+	// fmt.Println(math.NaN())
 	//
-	//m[math.NaN()] = 3
-	//m[math.NaN()] = 4
-	//fmt.Println("m[math.NaN]=", m[math.NaN()])
-	//fmt.Println("math.NaN() == math.NaN()?", math.NaN() == math.NaN())
-	//for k, v := range m {
-	//	fmt.Println("k:", k, "v:", v)
-	//}
+	m[math.NaN()] = 3
+	m[math.NaN()] = 4
+	fmt.Println("m[math.NaN]=", m[math.NaN()])
+	fmt.Println("math.NaN() == math.NaN()?", math.NaN() == math.NaN())
+	for k, v := range m {
+		fmt.Println("k:", k, "v:", v)
+	}
 	p1 := new(int)
 	p2 := new(int)
 	fmt.Println(p1, p2)

@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"reflect"
 )
 
 type person struct {
@@ -14,55 +15,55 @@ type persons struct {
 }
 
 func main() {
-	//s1 := make([]int, 4, 10)
-	//for i, _ := range s1 {
-	//	s1[i] = i
-	//}
-	//s2 := s1
-	//fmt.Println("s1=", s1, "s2=", s2)                   //	s1= [0 1 2 3] s2= [0 1 2 3]
-	//fmt.Println("s1.cap=", cap(s1), "s2.cap=", cap(s2)) //s1.cap= 10 s2.cap= 10
-	//reflect.ValueOf(&s1).Elem().SetCap(5)
-	//fmt.Println("s1.cap=", cap(s1), "s2.cap=", cap(s2)) //	s1.cap= 5 s2.cap= 10
-	//fmt.Printf("s1.pointer=%p;s2.pointer=%p\n", s1, s2) //	s1.pointer=0xc00001a280;s2.pointer=0xc00001a280
-	//s := []string{"a", "b", "c"}
-	//fmt.Println("s1:origin", s)
-	//fmt.Printf("s.pointer:%p\n", s)
-	//changes1(s)
-	//fmt.Println("s:f1", s)
+	s1 := make([]int, 4, 10)
+	for i, _ := range s1 {
+		s1[i] = i
+	}
+	s2 := s1
+	fmt.Println("s1=", s1, "s2=", s2)                   //	s1= [0 1 2 3] s2= [0 1 2 3]
+	fmt.Println("s1.cap=", cap(s1), "s2.cap=", cap(s2)) //s1.cap= 10 s2.cap= 10
+	reflect.ValueOf(&s1).Elem().SetCap(5)
+	fmt.Println("s1.cap=", cap(s1), "s2.cap=", cap(s2)) //	s1.cap= 5 s2.cap= 10
+	fmt.Printf("s1.pointer=%p;s2.pointer=%p\n", s1, s2) //	s1.pointer=0xc00001a280;s2.pointer=0xc00001a280
+	// s := []string{"a", "b", "c"}
+	// fmt.Println("s1:origin", s)
+	// fmt.Printf("s.pointer:%p\n", s)
+	// changes1(s)
+	// fmt.Println("s:f1", s)
 
-	//changes2(s)
-	//fmt.Println("s:f2", s)
-	////
-	//changes3(s)
-	//fmt.Println("s:f3", s)
+	// changes2(s)
+	// fmt.Println("s:f2", s)
+	// //
+	// changes3(s)
+	// fmt.Println("s:f3", s)
 
-	//str := "abc"
-	//fmt.Printf("str.pointer=%p\n", &str) //str.pointer=0xc000048050
-	//changeStr(str)
-	//fmt.Println("str:", str) //str: abc
+	str := "abc"
+	fmt.Printf("str.pointer=%p\n", &str) //str.pointer=0xc000048050
+	changeStr(str)
+	fmt.Println("str:", str) //str: abc
 	//
-	//m := map[string]int{"a": 1}
-	//fmt.Printf("m.pointer=%p\n", m) //m.pointer=0xc0000261b0
-	//changeMap(m)
-	//fmt.Println("m:", m) //m: map[a:2]
+	m := map[string]int{"a": 1}
+	fmt.Printf("m.pointer=%p\n", m) //m.pointer=0xc0000261b0
+	changeMap(m)
+	fmt.Println("m:", m) //m: map[a:2]
 
-	//var c = make(chan int)
-	//fmt.Printf("c.pointer=%p\n", c) //c.pointer=0xc000022180
-	//go func() {
-	//	c <- 1
-	//	addChannel(c)
-	//	close(c)
-	//}()
-	//
-	//for item := range c {
-	//	//item: 1
-	//	//item: 2
-	//	fmt.Println("item:", item)
-	//}
+	var c = make(chan int)
+	fmt.Printf("c.pointer=%p\n", c) //c.pointer=0xc000022180
+	go func() {
+		c <- 1
+		addChannel(c)
+		close(c)
+	}()
 
-	//var f func() = func() {}
-	//fmt.Printf("f.pointer=%p\n", f) //f.pointer=0x142af60
-	//changeFun(f)
+	for item := range c {
+		//item: 1
+		//item: 2
+		fmt.Println("item:", item)
+	}
+
+	var f func() = func() {}
+	fmt.Printf("f.pointer=%p\n", f) //f.pointer=0x142af60
+	changeFun(f)
 
 	p1 := person{
 		name: "go",
@@ -77,11 +78,11 @@ func main() {
 	fmt.Printf("p2.names.pointer:%p \n", p2.names) //p2.names.pointer:0xc0000261b0
 	//
 	changeStruct2(p2)
-	fmt.Println("p2:=", p2) //p2:= {[a b c]}
-	//
-	//changeStruct3(p2)
-	//p3 := p2
-	//fmt.Printf("p2.names.pointer:%p;p3.names.pointer:%p \n", p2.names, p3.names) //p2.names.pointer:0xc0000261b0;p3.names.pointer:0xc0000261b0
+	fmt.Println("p2:=", p2) //p2:= {[a b c]} p2:= {[a b d]}
+
+	changeStruct3(p2)
+	p3 := p2
+	fmt.Printf("p2.names.pointer:%p;p3.names.pointer:%p \n", p2.names, p3.names) //p2.names.pointer:0xc0000261b0;p3.names.pointer:0xc0000261b0
 
 }
 
